@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" id="accounts">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Orbitron|Roboto+Condensed:400,700" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="./style/header.css">
+
+    <link rel="stylesheet" href="./style/prueba.css">
+    <link rel="stylesheet" href="./style/custom.css">
+</head>
+
+<body>
+
+
+
+    <main id="app">
+        <div class="loader active">
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_t6deqxek.json" background="transparent"
+                speed="1" style="width: 300px; height: 300px;" class="astronauta" loop autoplay></lottie-player>
+        </div>
+
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
+                <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class='bx bx-menu text-white'
+                            style="margin-top: .7rem;"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator" v-if="notificaciones.length > 0"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    <div class="notification-list">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active"
+                                                v-for="userNoti in notificaciones">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                            alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="#" class="connection-item active"><i class='bx bx-group bx-md'></i>
+                                                <span>Accounts</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./create-cards.html" class="connection-item "
+                                                v-if="cards.length == 0"><i class='bx bx-credit-card bx-md'></i>
+                                                <span>Cards</span></a>
+                                            <a href="./cards.html" class="connection-item " v-else><i
+                                                    class='bx bx-credit-card bx-md'></i>
+                                                <span>Cards</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="#" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                                <span>Transfers</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./loans.html" class="connection-item"><i
+                                                    class='bx bx-money-withdraw bx-md'></i>
+                                                <span>Loans</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bxl-bitcoin bx-md'></i></i>
+                                                <span>Cryptos</span></a>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="conntection-footer"><span>Menu</span></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img alt=""
+                                    class="user-avatar-md rounded-circle" :src=dataBase.avatar v-cloak></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                                aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">{{dataBase.userName}}</h5>
+                                    <span class="status"></span><span class="ml-2">{{dataBase.email}}</span>
+                                </div>
+                                <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
+                                </a>
+                                <a class="dropdown-item" @click="signOut"><i
+                                        class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="contenedorS"></div>
+        <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
+
+            <section class="col-12 py-2 mt-5 " style=" background-color: #111315;">
+                <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
+            </section>
+
+            <!-- <img src="./assets/doxy/DoxyHappy.gif" class="doxy" v-if="accountsArray.length == 0" v-cloak> -->
+            <h5 class="d-flex flex-column textAccount col-4" v-if="accountsArray.length == 0" v-cloak> Wow... it looks
+                like you don't have an account
+                <span style="color: #e85b1a;">You can try to create your first account!</span>
+            </h5>
+            <div class="row d-flex justify-content-center gap-3 diseñoDesktop">
+
+                <div class="mt-3 ms-5 text-white col-11">
+                    <h2 class="mx-4 w-100">Hello <span class="type-animation animating"
+                            style="color: #FC5404;">{{dataBase.userName}}</span></h2>
+                </div>
+
+                <div class="col-7 mb-4 div-izq">
+                    <section class="text-white seccionCuentas mb-3">
+                        <div v-if="accountsArray" class="listadoCuentas" v-cloak
+                            :class="{addSolo: 2 > accountsArray.length }">
+                            <div v-for="(account, i) in accountsArray" class="fondoMasClaro cuentasSecundaria sombra"
+                                v-bind:class="{ accountSFocus: 0 === i}">
+                                <div class=" p-2 fw-bold">
+                                    <div class="secondaryAccountTop">
+                                        <div class="d-flex ">
+                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                            <i class='bx bxs-wallet bx-sm'></i>
+                                        </div>
+                                        <p class="mb-0">{{account.number}}</p>
+                                    </div>
+                                    <div class=" secondaryAccountBottom">
+                                        <p class="balanceAccounts">${{account.balance}}</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div v-if="3 > accountsArray.length" class="fondoMasClaro  cuentasSecundaria sombra"
+                                v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
+                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                    <i class='bx bx-plus-circle bx-lg'></i>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="padreSeparador d-flex ">
+                        <div class="separadorExpenses fondoMasClaro">
+                            <h3 class="text-white">Category Expenses</h3>
+                        </div>
+                        <div class="separadorGraph fondoMasClaro d-none d-lg-flex">
+                            <h3 class="text-white">Summary Expenses</h3>
+                        </div>
+                    </section>
+                    <div class=" div-estadisticas pb-3">
+                        <div id="chartdiv" class="fondoMasClaro "> </div>
+
+                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
+                            <p v-if="listadoComprasCortado.length > 0">${{gastoTotal}}</p>
+                            <p v-else>$0</p>
+                        </div>
+                    </div>
+
+                    <div class="fondoMasClaro d-flex flex-column align-items-center div-compras sombra"
+                        style=" border-radius: .5rem; ">
+                        <div class="estadisticasCompras mt-2 d-flex justify-content-between">
+                            <h3 style="color:#FC5404">Lastest transactions</h3>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle btn-select" type="button" id="dropdownMenuDark"
+                                    data-bs-toggle="dropdown" aria-expanded="false" v-cloak>
+                                    {{typeCompraInput}}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuDark">
+                                    <li v-for="type in listadoTypes" class="itemsSelect">
+                                        <a class="dropdown-item" @click="modificarListadoTransAll(type)">{{type}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3 v-if="listadoComprasFiltrado.length == 0" v-cloak class="mt-5" style="color: #e85b1a;">No
+                            transactions found</h3>
+                        <table class="estadisticasCompras listaDesktop ">
+                            <tbody class="text-white tbody" v-if="listadoComprasFiltrado.length > 0" v-cloak>
+                                <tr v-for="(compra, index) in listadoComprasFiltrado" class="text-start">
+                                    <td class="d-flex justify-content-start align-items-center">
+                                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
+                                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
+                                        <i class='bx bx-restaurant iconoCompra'
+                                            v-if="compra.description === 'Food'"></i>
+                                        <i class='bx bxs-t-shirt iconoCompra'
+                                            v-if="compra.description === 'Outfit'"></i>
+                                        <i class='bx bxs-shopping-bag iconoCompra'
+                                            v-if="compra.description === 'Others'"></i>
+                                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
+                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
+                                    </td>
+                                    <td>{{getDateCreate(compra.date)}}</td>
+                                    <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
+                                            class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
+                                    </td>
+                                    <td class="fw-bolder"
+                                        :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">
+                                        {{compra.type === "DEBIT"? "- " + "$" + compra.amount : "+ " +"$" +
+                                        compra.amount}}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <div class="col-4 div-der">
+
+
+                    <div class="fondoMasClaro divCards sombra">
+                        <div class="wrapper">
+                            <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
+                                <div class=" my-3">
+                                    <p class="h8">Cards Resume</p>
+                                    <p class="text-muted ">Here you can see your associated available cards</p>
+                                </div>
+
+                                <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
+                                    <div class="d-flex flex-column h-100">
+                                        <label class="d-block">
+                                            <div class="d-flex flex-column position-relative">
+                                                <div class="d-flex gap-3 justify-content-center align-items-center">
+                                                    <i class='bx bxl-visa bx-lg text-white'
+                                                        v-if="card.cardType === 'CREDIT'"></i>
+                                                    <i class='bx bxl-mastercard bx-lg text-white'
+                                                        v-if="card.cardType === 'DEBIT'"></i>
+                                                    <p class=" text-white fw-bold">
+                                                        {{(card.number.slice(0,4))}}-XXXX-XXXX-{{(card.number.slice(-4))}}
+                                                    </p>
+                                                    <p class="text-white fw-bold">{{getDateCard(card.thruDate)}}</p>
+                                                </div>
+                                                <div id="progressbar" class="mt-2" v-if="card.cardType === 'CREDIT'">
+                                                    <div></div>
+                                                </div>
+
+                                            </div>
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="debit-card mb-3 addaccount" @click="redireccionarCard('create-cards.html')"
+                                    v-cloak>
+                                    <div class="d-flex flex-column h-100">
+                                        <label class="d-block">
+                                            <div class="d-flex position-relative">
+                                                <div class="d-flex gap-3 justify-content-center align-items-center">
+                                                    <p class=" text-white fw-bold">ADD NEW CARD</p>
+                                                </div>
+
+                                            </div>
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
+                                <img src="./assets/card.svg" alt=""
+                                    :class="{cardMissing : cardsCortado.length == 0, 'd-none': cardsCortado.length > 0 }">
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                    <div class="fondoMasClaro divPromo sombra">
+                        <div class="containerPromo"></div>
+                        <img src="./assets/jetPromo.png" alt="jetPromo" class="imgPromo">
+                        <section class="promoFondo">
+
+                        </section>
+                        <section class="promoCuerpo">
+                            <p>Get</p>
+                            <h3 class="fw-bold">35% OFF</h3>
+                            <p>on</p>
+                            <p>Your Next Flight with us</p>
+                            <p>coupon valid for One Month</p>
+                        </section>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row d-flex justify-content-center gap-3 diseñoMobile">
+
+                <div class="mt-3 text-white col-11">
+                    <h2 class=" ">Hello <span class="type-animation animating"
+                            style="color: #FC5404;">{{dataBase.userName}}!</span></h2>
+                </div>
+
+                <div class="col-12 mb-4 div-izq">
+                    <section class="text-white seccionCuentas mb-3">
+                        <div v-if="accountsArray" class="listadoCuentas" v-cloak
+                            :class="{addSolo: 2 > accountsArray.length }">
+                            <div v-for="(account, i) in accountsArray" class="fondoMasClaro cuentasSecundaria"
+                                v-bind:class="{ accountSFocus: 0 === i}">
+                                <div class=" p-2 fw-bold">
+                                    <div class="secondaryAccountTop">
+                                        <div class="d-flex ">
+                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                        </div>
+                                        <p class="mb-0">{{account.number}}</p>
+                                    </div>
+                                    <div class=" secondaryAccountBottom">
+                                        <p class="balanceAccounts">${{account.balance}}</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div v-if="3 > accountsArray.length" class="fondoMasClaro cuentasSecundaria"
+                                v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
+                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                    <i class='bx bx-plus-circle bx-lg'></i>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="text-white seccionCuentasResponsive mb-3">
+                        <div v-if="accountsArray" class="listadoCuentas" v-dragscroll.y="true" v-cloak
+                            :class="{addSolo: 2 > accountsArray.length }">
+                            <div v-for="(account, i) in accountsArray" class="fondoMasClaro cuentasSecundaria"
+                                v-bind:class="{ accountSFocus: 0 === i}">
+                                <div class=" p-2 fw-bold">
+                                    <div class="secondaryAccountTop">
+                                        <div class="d-flex ">
+                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                            <!-- <i class='bx bxs-wallet bx-sm'></i> -->
+                                        </div>
+                                        <p class="mb-0">{{account.number}}</p>
+                                    </div>
+                                    <div class=" secondaryAccountBottom">
+                                        <p v-if="listadoComprasCortado.length > 0">${{gastoTotal}}</p>
+                                        <p v-else>$0</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div v-if="3 > accountsArray.length" class="fondoMasClaro cuentasSecundaria"
+                                v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
+                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                    <i class='bx bx-plus-circle bx-lg'></i>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="padreSeparador d-flex">
+                        <div class="separadorExpenses fondoMasClaro">
+                            <h3 class="text-white">Category Expenses</h3>
+                        </div>
+                        <div class="separadorGraph fondoMasClaro d-none d-lg-flex">
+                            <h3 class="text-white">Summary Expenses</h3>
+                        </div>
+                    </section>
+                    <div class=" div-estadisticas pb-3">
+                        <div id="chartdiv3" class="fondoMasClaro "></div>
+                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
+                            <p>${{gastoTotal}}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="fondoMasClaro d-flex flex-column align-items-center div-compras"
+                        style=" border-radius: .5rem; ">
+                        <div class="estadisticasCompras mt-2 d-flex justify-content-between">
+                            <h3 style="color:#FC5404">Lastest transactions</h3>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle btn-select" type="button" id="dropdownMenuDark"
+                                    data-bs-toggle="dropdown" aria-expanded="false" v-cloak>
+                                    {{typeCompraInput}}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuDark">
+                                    <li v-for="type in listadoTypes" class="itemsSelect">
+                                        <a class="dropdown-item" @click="modificarListadoTransAll(type)">{{type}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3 v-if="listadoComprasFiltrado.length == 0" v-cloak class="mt-5" style="color: #e85b1a;">No
+                            transactions found</h3>
+                        <table class="estadisticasCompras listaDesktop">
+                            <tbody class="text-white tbody" v-if="listadoComprasFiltrado.length > 0" v-cloak>
+                                <tr v-for="(compra, index) in listadoComprasFiltrado" class="text-start">
+                                    <td class="d-flex justify-content-start align-items-center">
+                                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
+                                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
+                                        <i class='bx bx-restaurant iconoCompra'
+                                            v-if="compra.description === 'Food'"></i>
+                                        <i class='bx bxs-t-shirt iconoCompra'
+                                            v-if="compra.description === 'Outfit'"></i>
+                                        <i class='bx bxs-shopping-bag iconoCompra'
+                                            v-if="compra.description === 'Others'"></i>
+                                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
+                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
+                                    </td>
+                                    <td>{{getDateCreate(compra.date)}}</td>
+                                    <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
+                                            class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
+                                    </td>
+                                    <td class="fw-bolder"
+                                        :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">
+                                        {{compra.type === "DEBIT"? "- " + "$" + compra.amount : "+ " +"$" +
+                                        compra.amount}}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <div class=" gap-5 mx-3 listaMobile">
+                            <ul class="w-100 listadoCompras" v-dragscroll.y="true">
+                                <li v-for="(compra, index) in listadoComprasFiltrado"
+                                    class="liCompra d-flex gap-3 mb-3 justify-content-between w-100 text-white">
+
+                                    <div class="d-flex gap-0 text-start">
+                                        <div class="me-3">
+                                            <i class='bx bxs-bank iconoCompra'
+                                                v-if="compra.description === 'Transfer'"></i>
+                                            <i class='bx bx-joystick iconoCompra'
+                                                v-if="compra.description === 'Games'"></i>
+                                            <i class='bx bx-restaurant iconoCompra'
+                                                v-if="compra.description === 'Food'"></i>
+                                            <i class='bx bxs-t-shirt iconoCompra'
+                                                v-if="compra.description === 'Outfit'"></i>
+                                            <i class='bx bxs-shopping-bag iconoCompra'
+                                                v-if="compra.description === 'Others'"></i>
+                                            <i class='bx bx-store iconoCompra'
+                                                v-if="compra.description === 'Services'"></i>
+                                        </div>
+                                        <div class="d-flex gap-0 flex-column ">
+
+
+                                            <span class="d-flex justify-content-center"
+                                                @click="linkearAccount(compra.accountNumber)"><i
+                                                    class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
+                                                <!-- <span class="d-flex justify-content-center"><i
+                                                    class='bx bxs-credit-card-alt ms-1 bx-md'></i> -->
+                                                <!-- <span class="h-100 d-flex align-items-center">1234</span></span> -->
+                                                <span class="descriptionList">{{compra.description}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column gap-0 text-end me-3">
+                                        <span class="fw-bolder"
+                                            :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">$
+                                            {{compra.amount}}</span>
+
+                                        <span>{{getDateCreate(compra.date)}}</span>
+
+
+                                    </div>
+                                </li>
+
+                                <li class="mb-3" v-if="listadoComprasFiltrado.length > 0"> <a href="./cards.html"
+                                        class="text-center viewMore">View all movements</a></li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-12 div-der">
+
+
+                    <div class="fondoMasClaro divCards">
+                        <div class="wrapper">
+                            <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
+                                <div class=" my-3">
+                                    <p class="h8">Cards Resume</p>
+                                    <p class="text-muted ">Here you can see your associated available cards</p>
+                                </div>
+
+                                <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
+                                    <div class="d-flex flex-column h-100">
+                                        <label class="d-block">
+                                            <div class="d-flex flex-column position-relative">
+                                                <div class="d-flex gap-3 justify-content-center align-items-center">
+                                                    <i class='bx bxl-visa bx-lg text-white'
+                                                        v-if="card.cardType === 'CREDIT'"></i>
+                                                    <i class='bx bxl-mastercard bx-lg text-white'
+                                                        v-if="card.cardType === 'DEBIT'"></i>
+                                                    <p class=" text-white fw-bold">
+                                                        {{(card.number.slice(0,4))}}-XXXX-XXXX-{{(card.number.slice(-4))}}
+                                                    </p>
+                                                    <p class="text-white fw-bold">{{getDateCard(card.thruDate)}}</p>
+                                                </div>
+                                                <div id="progressbar" class="mt-2" v-if="card.cardType === 'CREDIT'">
+                                                    <div></div>
+                                                </div>
+
+                                            </div>
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="debit-card mb-3" @click="redireccionarCard('cards.html')" v-cloak>
+                                    <div class="d-flex flex-column h-100">
+                                        <label class="d-block">
+                                            <div class="d-flex position-relative">
+                                                <div class="d-flex gap-3 justify-content-center align-items-center">
+                                                    <p class=" text-white fw-bold">ADD NEW CARD</p>
+                                                </div>
+
+                                            </div>
+                                        </label>
+
+                                    </div>
+
+
+                                </div>
+                                <img src="./assets/card.svg" alt=""
+                                    :class="{cardMissing : cardsCortado.length == 0, 'd-none': cardsCortado.length > 0 }">
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="fondoMasClaro divPromo">
+                        <div class="containerPromo"></div>
+                        <img src="./assets/jetPromo.png" alt="jetPromo" class="imgPromo">
+                        <section class="promoFondo">
+
+                        </section>
+                        <section class="promoCuerpo">
+                            <p>Get</p>
+                            <h3 class="fw-bold">35% OFF</h3>
+                            <p>on</p>
+                            <p>Your Next Flight with us</p>
+                            <p>coupon valid for One Month</p>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <footer class="footer-section">
+                <div class="container">
+                    <div class="footer-cta pt-5 pb-5">
+                        <div class="row">
+                            <div class="col-xl-4 col-md-4 mb-30">
+                                <div class="single-cta">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="cta-text">
+                                        <h4>Find us</h4>
+                                        <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
+                                            Terrace</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-30">
+                                <div class="single-cta">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="cta-text">
+                                        <h4>Call us</h4>
+                                        <a href="tel:+9876543210 0" target="_blank">9876543210 0</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-30">
+                                <div class="single-cta">
+                                    <i class="far fa-envelope-open"></i>
+                                    <div class="cta-text">
+                                        <h4>Mail us</h4>
+                                        <a href="mailto:bankrdo.Admin@gmail.com"
+                                            target="_blank">bankrdo.Admin@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-content pt-5 pb-5">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 mb-50">
+                                <div class="footer-widget">
+                                    <div class="footer-logo">
+                                        <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
+                                                class="img-fluid" alt="logo"></a>
+                                    </div>
+                                    <div class="footer-text">
+                                        <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod
+                                            tempor
+                                            incididuntut consec tetur adipisicing
+                                            elit,Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                    <div class="footer-social-icon">
+                                        <span>Follow us</span>
+                                        <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
+                                                class="fab fa-instagram facebook-bg"></i></a>
+                                        <a href="https://twitter.com/9zE7KE" target="_blank"><i
+                                                class="fab fa-twitter twitter-bg"></i></a>
+                                        <a href="https://github.com/EzequielPriotto" target="_blank"><i
+                                                class="fab fa-github google-bg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                                <div class="footer-widget">
+                                    <div class="footer-widget-heading">
+                                        <h3>Useful Links</h3>
+                                    </div>
+                                    <ul>
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">about</a></li>
+                                        <li><a href="#">services</a></li>
+                                        <li><a href="#">portfolio</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">About us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                                <div class="footer-widget">
+                                    <div class="footer-widget-heading">
+                                        <h3>Subscribe</h3>
+                                    </div>
+                                    <div class="footer-text mb-25">
+                                        <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                                    </div>
+                                    <div class="subscribe-form">
+                                        <form @submit.prevent="enviarMail">
+                                            <input type="email" placeholder="Email Address" v-model="mailFooterInput"
+                                                required>
+                                            <button><i class="fab fa-telegram-plane"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 text-center">
+                                <div class="copyright-text">
+                                    <p>Copyright &copy; 2022, All Right Reserved <a
+                                            href="https://github.com/EzequielPriotto" target="_blank">Ezequiel
+                                            Priotto</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    </main>
+    <div id="fold" class="flex-column">
+        <h1 class="text-danger">COMPRATE UN CELU RATON</h1>
+        <img src="./assets/astutaLaRata.webp" alt="">
+    </div>
+
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-dragscroll"></script>
+
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./script/accounts.js"></script>
+</body>
+
+</html>

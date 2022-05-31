@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Orbitron|Roboto+Condensed:400,700" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+
+
+    <link rel="stylesheet" href="./style/cards.css">
+    <link rel="stylesheet" href="./style/header.css">
+    <link rel="stylesheet" href="./style/custom.css">
+</head>
+
+<body>
+
+    <main id="app">
+
+        <div class="loader">
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_t6deqxek.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" class="astronauta"  loop  autoplay></lottie-player>
+        </div>
+
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
+                <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" ><i class='bx bx-menu text-white' style="margin-top: .7rem;"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator" v-if="notificaciones.length > 0"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    <div class="notification-list">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active"
+                                                v-for="userNoti in notificaciones">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                            alt="" class="user-avatar-md rounded-circle"></div>
+                                                    <div class="notification-list-user-block"><span
+                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                <li class="connection-list">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./accounts.html" class="connection-item "><i class='bx bx-group bx-md'></i>
+                                                <span>Accounts</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="#" class="connection-item active"><i
+                                                    class='bx bx-credit-card bx-md'></i>
+                                                <span>Cards</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="#" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                                <span>Transfers</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./loans.html" class="connection-item"><i
+                                                    class='bx bx-money-withdraw bx-md'></i>
+                                                <span>Loans</span></a>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="conntection-footer"><span>Menu</span></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                     alt="" class="user-avatar-md rounded-circle" :src=dataBase.avatar v-cloak></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                                aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">{{dataBase.userName}}</h5>
+                                    <span class="status"></span><span class="ml-2">AccountX Number
+                                        {{dataBase.id}}</span>
+                                </div>
+                                <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
+                                </a>
+                                <a class="dropdown-item" @click="signOut"><i
+                                        class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="contenedorS"></div>
+
+        <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
+            <section class="col-12 py-2 mt-5" style=" background-color: #111315;">
+                <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
+            </section>
+
+            <section class="col-12 title">
+                <h2 class="text-white text-center">YOUR <span style="color: #FC5404;">CARDS</span> </h2>
+            </section>
+
+
+
+            <section class="col-12 d-flex gap-5 mt-4 position-relative" :class="{'justify-content-evenly': cards.length > 0, 'justify-content-center' : cards.length == 0}">
+                <img src="./assets/space.svg" alt="" :class="{'d-none': cards.length > 0,  'formularioSolo' : cards.length == 0}">
+                <img src="./assets/space2.svg" alt="" :class="{'d-none': cards.length > 0,  'formularioSolo2' : cards.length == 0}">
+               
+               
+              
+                <section class="d-flex justify-content-evenly seccionTarjetas flex-column" v-if="cards.length > 0">
+                   <div>
+                       <h2 class="text-center text-white text-prueba">TYPE OF CARD: <label style="cursor: pointer;">{{creditOrDebit? "CREDIT" : "DEBIT"}}<input type="checkbox" class="d-none" v-model="creditOrDebit" id="change"></label></h2>
+                       <!-- {{typeCard}} -->
+                       {{changeListCard}}
+                   </div>
+                    <div class="crediCardContainer" v-dragscroll.y="true">
+                        <div v-if="cardsFocus.length == 0">
+                            <h4>Oh.. no...</h4>
+                        </div>
+                        <div class="cardBody" v-for="card in cardsFocus">
+                            
+                            <div class="cardFront">
+                                <img src="./assets/world.svg" class="patronCard">
+                                <div class="bodyCardFront">
+                                    
+                                    <div class="titleCard"> <h5 >Bankrdo<span>X</span></h5> </div>
+                                    <i class='bx bx-wifi-2  wifiCard bx-rotate-270'></i>
+                                    <img src="./assets/chipCard.png" class="imgChip">
+                                    <h4 class='numberCard'>{{card.number}}</h4>
+                                    <h5 class='nombreCard'>{{card.cardHolder.toUpperCase()}}</h5>
+                                    <i class='bx  bx-lg typeCardIcon' :class="{ 'bxl-visa': card.cardType === 'CREDIT' , 'bxl-mastercard': card.cardType === 'DEBIT' }"></i>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.1 -0.1 16.2 10.2" class="cardBankFront">
+                                    <defs>
+                                        <linearGradient id="MyGradient" gradientTransform="rotate(20)">
+                                          <stop offset="45%" stop-color="#ff7020" /> 
+                                          <stop offset="70%" stop-color="#faad45" />
+                                          <stop offset="90%" stop-color="#fa9520" />
+                                        </linearGradient>
+                                      </defs>
+                                      <path d="M 0 9 L 0 2 C 0 1 0.6667 1 1 1 C 11.6667 1 13.3333 1 15 1 C 16 1 16 1.6667 16 3 L 16 9 C 16 10 15.3333 10 15 10 H 1 C 0 10 0 9 0 9" />
+                                
+                                </svg>
+                                
+                            </div>
+
+                            
+                            <div class="cardBack">
+                                <div class="barraNegra"></div>
+                                <div class="barraFirma-CVV"></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.1 -0.1 16.2 10.2" class="cardBankBack">
+                                    <defs>
+                                        <linearGradient id="MyGradient" gradientTransform="rotate(20)">
+                                          <stop offset="45%" stop-color="#ff7020" /> 
+                                          <stop offset="70%" stop-color="#faad45" />
+                                          <stop offset="90%" stop-color="#fa9520" />
+                                        </linearGradient>
+                                      </defs>
+                                      <path d="M 0 9 L 0 2 C 0 1 0.6667 1 1 1 C 11.6667 1 13.3333 1 15 1 C 16 1 16 1.6667 16 3 L 16 9 C 16 10 15.3333 10 15 10 H 1 C 0 10 0 9 0 9" fill="#000000" />
+                                
+                                </svg>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </section>
+            </section>
+           
+
+            <section>
+            </section>
+
+        </div>
+
+        <footer class="footer-section" style="z-index: 3;">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
+                                        Terrace</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <a href="tel:+9876543210 0" target="_blank">9876543210 0</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <a href="mailto:bankrdo.Admin@gmail.com" target="_blank">bankrdo.Admin@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
+                                            class="img-fluid" alt="logo"></a>
+                                </div>
+                                <div class="footer-text">
+                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.</p>
+                                </div>
+                                <div class="footer-social-icon">
+                                    <span>Follow us</span>
+                                    <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
+                                            class="fab fa-instagram facebook-bg"></i></a>
+                                    <a href="https://twitter.com/9zE7KE" target="_blank"><i
+                                            class="fab fa-twitter twitter-bg"></i></a>
+                                    <a href="https://github.com/EzequielPriotto" target="_blank"><i
+                                            class="fab fa-github google-bg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="./accounts.html">Home</a></li>
+                                    <li><a href="#">about</a></li>
+                                    <li><a href="#">services</a></li>
+                                    <li><a href="#">portfolio</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">About us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form @submit.prevent="enviarMail">
+                                        <input type="email" placeholder="Email Address" v-model="mailFooterInput"
+                                            required>
+                                        <button><i class="fab fa-telegram-plane"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 text-center">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2022, All Right Reserved <a
+                                        href="https://github.com/EzequielPriotto" target="_blank">Ezequiel Priotto</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-dragscroll"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+   
+    <script src="./script/cardsForm.js"></script>
+    <script src="./script/cards.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Client Manager </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   
+</head>
+
+<body>
+
+
+<div id="app" class="row g-0 ">
+
+
+    <h1 class="col-12">Client Manager</h1>
+    <div class="col-12 col-lg-7  ">
+        <section>
+            <form class="mb-3">
+                <div class="mb-2">
+                    <label for="firstname" class="form-label">Name:</label>
+                    <input type="text" v-model="firstname" name="firstname" id="firstname" placeholder="David"
+                        class="form-control " required>
+                </div>
+                <div class="mb-2">
+                    <label for="lastname" class="form-label">Las Name:</label>
+                    <input type="text" v-model="lastname" name="lastname" id="lastname" placeholder="Doe"
+                        class="form-control " required>
+
+                </div>
+                <div class="mb-2">
+
+                    <label for="email" class="form-label">Email address:</label>
+                    <input type="email" v-model="email" name="email" id="email" placeholder="david@aol.com"
+                        class="form-control " required>
+
+                </div>
+                <button type="submit" class="btn btn-success mt-1" @click="addClient">Add Client</button>
+            </form>
+        </section>
+        <section>
+            <h3>Client list</h3>
+            <table class="table table-hover text-center">
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Cuentas</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </thead>
+                <tbody >
+                    <tr v-for="user in dataBase">
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.email}}</td>
+                        <td><button class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#accountModalLabel" @click="openModalAccount(user)"><i
+                                    class="fa-solid fa-list"></i></button></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" @click="changeClient(user)">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                        <td><button class="btn btn-danger" @click="deletedClient(user)"><i
+                                    class="fa-solid fa-trash"></i></button></td>
+                    
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal fade" id="accountModalLabel" tabindex="-1" aria-labelledby="accountModalLabel"
+                aria-hidden="true" data-bs-focus="false">
+                <div class="modal-dialog modal-dialog-centered  modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cliente {{clientAux.firstName}}
+                                {{clientAux.lastName}} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="mb-3" >
+                                <div class="row mb-3">
+                                  <label for="inputEmail3" class="col-sm-2 col-form-label">Number Account</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputEmail3" v-model="numberInput" disabled>
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label for="inputPassword3" class="col-sm-2 col-form-label">Balance</label>
+                                  <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inputPassword3"  v-model="balanceInput" disabled>
+                                  </div>
+                                </div>
+                              
+                               
+                                <button type="btn" class="btn btn-primary" @click="" disabled>Crear cuenta</button>
+                              </form>
+
+                            <table class="table table-active text-center">
+                                <thead>
+                                    <th>Numero de cuenta</th>
+                                    <th>Balance de cuenta</th>
+                                    <th>Fecha de creacion</th>
+                                    <th>Eliminar cuenta</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="cuenta in clientAux.accounts">
+                                        <td> {{cuenta.number}}</td>
+                                        <td> {{cuenta.balance}} <span> <button type="button" class="btn btn-primary ms-1 btn-edit" @click="editBalanceAccount(cuenta)">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button> </span> </td>
+                                        <td> {{cuenta.creationDate}} </td>
+                                        <td><button class="btn btn-danger" @click="deletedAccount(cuenta)"><i class="fa-solid fa-trash"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-12 col-lg-4 ">
+        <h3>Client REST response</h3>
+        <pre>{{dataBase}}</pre>
+
+    </div>
+</div>
+   
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+
+    <script src="./manager.js"></script>
+    
+</body>
+
+</html>
