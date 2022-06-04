@@ -37,7 +37,13 @@ public class Transaction {
         this.account = account;
         this.type = type;
     }
-
+    public Transaction(double amount, String description, Account account, TransactionType type) {
+        this.amount = amount;
+        this.description = description;
+        this.date = LocalDateTime.now();
+        this.account = account;
+        this.type = type;
+    }
 
 
 

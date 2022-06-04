@@ -1,4 +1,5 @@
 
+
 Vue.createApp({
   data() {
       return {
@@ -26,24 +27,45 @@ Vue.createApp({
       .then(response =>window.location.href =  response.request.responseURL)
       .catch(error => {
         this.error = error.response.status == 900 ? "Incorrect Email or Password": ""
-        console.log()
+        console.log(error.response)
         this.isError = true;
       })
      },
      singUp(){
+      const loader = document.querySelector(".loader");
+      const astro = document.querySelector(".astronauta");
+      const mail = document.querySelector(".mailSend");
+      const error = document.querySelector(".error");
+      loader.classList.add("active")
+      astro.classList.add("active")
       axios.post('/api/clients',
-      `firstName=${this.registerFirstName}&lastName=${this.registerLastName}&email=${this.registerEmail}&password=${this.registerPassword}&userName=${this.registerUserName}`,
-      {headers:{'content-type':'application/x-www-form-urlencoded'}})
-      .then(response => {
-        axios.post('/api/login',`email=${this.registerEmail}&password=${this.registerPassword}`,{
-          headers:{'content-type':'application/x-www-form-urlencoded'}})
-          .then(response => window.location.href = "http://localhost:8080/web/accounts.html")
-      })
-      .catch(error=>{
-        console.log(error)
-        let mensaje = error.response.data;
-        alert(mensaje)
-      })
+     `firstName=${this.registerFirstName}&lastName=${this.registerLastName}&email=${this.registerEmail}&password=${this.registerPassword}&userName=${this.registerUserName}`,
+     {headers:{'content-type':'application/x-www-form-urlencoded'}})
+     .then(response => {
+          astro.classList.remove("active")
+          mail.classList.add("active")
+     })
+     .catch(errorC=>{
+      astro.classList.remove("active")
+      error.classList.add("active")
+     })
+     },
+     login(){
+      axios.post('/api/login',`email=${this.registerEmail}&password=${this.registerPassword}`,{
+        headers:{'content-type':'application/x-www-form-urlencoded'}})
+        .then(response =>window.location.href =  response.request.responseURL)
+        .catch(error => {
+          this.error = error.response.status == 900 ? "Incorrect Email or Password": ""
+          console.log(error.response)
+          this.isError = true;
+        })
+     },
+     tryAgain(){
+      const loader2 = document.querySelector(".loader");
+      const error2 = document.querySelector(".error");
+
+      loader2.classList.remove("active")
+      error2.classList.remove("active")
      }
   },
 }).mount('#app')

@@ -10,6 +10,8 @@
     src: url("../assets/fonts/aachenn.ttf");
   }
 
+
+
 html {
     max-width: 100vw;
 
@@ -62,8 +64,60 @@ body {
     left: 26vw;
     width: 30%;
 }
+.contenedorS {
+    background-color: #1212128f;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -3;
+    transition: .5s;
+    opacity: 0;
+    
+}
+.contenedorS.active{
+    opacity: 100;
+    z-index: 9999;
+    transition: .5s;
+}
+.contenedorCreate{
+    position: absolute;
+    top: -70%;
+    width: 50vw;
+    height: 55vh;
+    content: "";
+    left: 28%;
+    transition: 1s;
+    background: rgba( 0, 0, 0, 0.25 );
+    box-shadow: 0 8px 32px 0 rgb(20 21 32 / 37%);
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border-radius: 10px;
+}
+.contenedorCreate.active{
+    top: 23%;
+}
 
-
+.contenedorCreate img{
+    width: 63%;
+    position: fixed;
+    top: 15%;
+    left: 37%;
+}
+.contenedorCreate form{
+    display: flex;
+    flex-direction: column;
+}
+.contenedorCreate form h3{
+    color: white;
+}
+.contenedorCreate form  select, .contenedorCreate form button{
+  
+    width: 25%;
+    margin-top: 1rem;
+}
+.contenedorCreate form button{
+background: chocolate;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -603,6 +657,7 @@ td {
 
 [v-cloak] {
     opacity: 0;
+color: #ac540b;
 }
 
 
@@ -1186,6 +1241,14 @@ h2 {
 
 }
 
+
+.dropdown-menu {
+    min-width: 15rem !important;
+}
+
+
+
+
 @media (max-width: 1140px) {
 
     .doxy {
@@ -1423,6 +1486,12 @@ h2 {
 
     .indicator {
         right: 95%;
+    }
+    .contenedorCreate{
+        width: 91vw;
+        height: 55vh;
+        content: "";
+        left: 5%;
     }
 }
 

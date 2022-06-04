@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,7 @@ public class CardController {
     @Autowired
     private ClientRepository clientRepository;
 
+
     @RequestMapping("/cards/")
     public List<CardDTO> getCards() {
         return cardRepository.findAll().stream().map(card -> new CardDTO(card)).collect(toList());
@@ -42,6 +44,9 @@ public class CardController {
     @RequestMapping("/clients/current/cards/")
     public List<CardDTO> getCurrentCards(Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
+
+
+
         return client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
     }
 

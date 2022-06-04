@@ -1,13 +1,18 @@
 package com.mindhub.homebanking.Utils;
 import com.mindhub.homebanking.models.CardType;
+import net.bytebuddy.utility.RandomString;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.mindhub.homebanking.models.CardType.CREDIT;
 
 public class Utils {
 
     private static List<String> numbersCreated = new ArrayList<>();
     private static List<String> numbersCardsCreated = new ArrayList<>();
+    private static List<String> tokensCardsCreated = new ArrayList<>();
 
 
     public static String GenerateRandomNumber(int max, int min){
@@ -74,4 +79,18 @@ public class Utils {
 
     }
 
-}
+    public static String GenerateToken(int tokenL){
+        String token = "";
+        do {
+            token = RandomString.make(tokenL);
+        }while (tokensCardsCreated.contains(token));
+        tokensCardsCreated.add(token);
+
+        return token;
+    }
+
+    public static void DeleteToken(String tokenD) {
+        tokensCardsCreated =  tokensCardsCreated.stream().filter(token -> token != tokenD).collect(Collectors.toList());
+    }
+
+    }

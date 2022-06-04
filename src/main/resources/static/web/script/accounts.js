@@ -402,9 +402,26 @@ Vue.createApp({
         addAccount() {
             axios.post("http://localhost:8080/api/clients/current/accounts/")
                 .then(
+                    window.location.reload()
                 )
                 .catch(error => alert(error.request.message))
         },
+        openOff(){
+            let contenedor = document.querySelector(".contenedorS");
+            let bodyOff = document.querySelector(".contenedorCreate");
+            let html = document.querySelector("html");
+            contenedor.classList.add("active");
+            setTimeout(()=>  bodyOff.classList.add("active"), 500)
+            html.classList.add("load")
+        },
+        closeOff(){
+            let contenedor = document.querySelector(".contenedorS");
+            let bodyOff = document.querySelector(".contenedorCreate");
+            let html = document.querySelector("html");
+            bodyOff.classList.remove("active")
+            setTimeout(()=> contenedor.classList.remove("active") , 500)
+            html.classList.remove("load")
+        }
 
 
     },

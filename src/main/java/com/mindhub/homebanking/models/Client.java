@@ -33,7 +33,10 @@ public class Client {
     private String password, userName;
     private String avatar = "./assets/avatares/avatar1.png";
 
-    
+    private String token;
+    private boolean enabled;
+
+
 
     public Client(){}
 
@@ -140,5 +143,27 @@ public class Client {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String verificationCode) {
+        this.token = verificationCode;
+    }
+
+    public void deleteToken() {
+        this.token = "";
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
 }
 

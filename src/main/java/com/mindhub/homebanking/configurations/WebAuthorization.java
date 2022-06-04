@@ -6,11 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 
 @EnableWebSecurity
@@ -21,8 +18,8 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .antMatchers("/web/index.html", "/web/login.html","/web/401.html","/web/403.html", "/web/style/**", "/web/script/**", "/web/img/**", "/web/assets/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients","/api/activateAccount/**").permitAll()
+                .antMatchers("/web/index.html", "/web/login.html","/web/401.html","/web/403.html", "/web/style/**", "/web/script/**", "/web/img/**", "/web/assets/**", "/web/activateClient.html").permitAll()
                 .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
                 .antMatchers("/rest/**", "/h2-console", "/api/**", "/web/cryptos.html").hasAuthority("ADMIN")
                 .antMatchers("/**").hasAnyAuthority("CLIENT", "ADMIN");
@@ -32,7 +29,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .loginPage("/api/login")
                 .defaultSuccessUrl("/web/accounts.html",true)
-                .failureHandler((request, response, exception) -> response.setStatus(-200));
+                .failureHandler((request, response, exception) -> {
+                    response.setStatus(900);
+                });
 
         http.logout()
                 .logoutUrl("/api/logout")
@@ -43,7 +42,6 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                                 .authenticationEntryPoint(((request, response, authException) ->                {
                                     if(request.getRequestURI().contains("/web") && !request.getRequestURI().contains("login")){
-                                            System.out.println(request.getRequestURI());
                                             response.sendRedirect("/web/401.html");
                                     }}))
                                 .accessDeniedHandler(accessDeniedHandler());

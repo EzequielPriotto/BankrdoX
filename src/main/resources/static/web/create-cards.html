@@ -86,12 +86,12 @@
                                                 <span>Accounts</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="#" class="connection-item active"><i
+                                            <a href="./cards.html" class="connection-item"><i
                                                     class='bx bx-credit-card bx-md'></i>
                                                 <span>Cards</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="#" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                            <a href="./transfers.html" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
                                                 <span>Transfers</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -150,21 +150,7 @@
                
                 <section class="form-box pt-0 ">
                     <div class="container">
-                        <svg style="width: 0;height: 0;">
-                            <defs>
-                                <linearGradient id="MyGradientForm" gradientTransform="rotate(20)" v-if="formulario.levelCard == 'SILVER'">
-                                    <stop offset="45%" stop-color="#cfd2cd"></stop>
-                                    <stop offset="70%" stop-color="#fbfbf2"></stop>
-                                    <stop offset="90%" stop-color="#cfd2cd"></stop>
-                                </linearGradient>
-                                <linearGradient id="MyGradientForm" gradientTransform="rotate(20)" v-else>
-                                  <stop offset="45%" stop-color="#ff7020" /> 
-                                  <stop offset="70%" stop-color="#faad45" />
-                                  <stop offset="90%" stop-color="#fa9520" />
-                                </linearGradient>
-                               
-                              </defs>
-                        </svg>
+                     
                         <div class="row">
                             <div
                                 class="form-wizard">
@@ -312,46 +298,13 @@
                                             <canvas></canvas>
                                             <p class="fw-bold" @click="borrarFirma">borrarFirma</p>
                                            </div>
-                                            <div class="cardBody  noAnimate">
-                            
-                                                <div class="cardFront ">
-                                                    <img src="./assets/world.svg" class="patronCard">
-                                                    <div class="bodyCardFront">
-                                                        
-                                                        <div class="titleCard"> <h5 >Bankrdo<span>X</span></h5> </div>
-                                                        <i class='bx bx-wifi-2  wifiCard bx-rotate-270'></i>
-                                                        <img src="./assets/chipCard.png" class="imgChip">
-                                                        <h4 class='numberCard text-dark'>XXXX XXXX XXXX XXXX </h4>
-                                                        <h5 class='nombreCard text-dark'>{{formulario.nombre.toUpperCase()}} {{formulario.apellido.toUpperCase()}}</h5>
-                                                        <i class='bx  bx-lg typeCardIcon text-dark' :class="{ 'bxl-visa': formulario.typeCard === 'CREDIT' , 'bxl-mastercard': formulario.typeCard === 'DEBIT' }"></i>
-                                                    </div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.1 -0.1 16.2 10.2" class="cardBankFront">
-                                                        <defs>
-                                                            <linearGradient id="MyGradientForm" gradientTransform="rotate(20)" v-if="formulario.levelCard == 'SILVER'">
-                                                                <stop offset="45%" stop-color="#cfd2cd"></stop>
-                                                                <stop offset="70%" stop-color="#fbfbf2"></stop>
-                                                                <stop offset="90%" stop-color="#cfd2cd"></stop>
-                                                            </linearGradient>
-                                                            <linearGradient id="MyGradientForm" gradientTransform="rotate(20)" v-else>
-                                                              <stop offset="45%" stop-color="#ff7020" /> 
-                                                              <stop offset="70%" stop-color="#faad45" />
-                                                              <stop offset="90%" stop-color="#fa9520" />
-                                                            </linearGradient>
-                                                           
-                                                          </defs>
-                                                          <path d="M 0 9 L 0 2 C 0 1 0.6667 1 1 1 C 11.6667 1 13.3333 1 15 1 C 16 1 16 1.6667 16 3 L 16 9 C 16 10 15.3333 10 15 10 H 1 C 0 10 0 9 0 9" fill="#000000" />
-                                                    
-                                                    </svg>
-                                                    
-                                                </div>
-                                            </div>
                                             </div>
                                              
                                        
                                         </div>
                                         <div class="form-wizard-buttons">
                                             <button type="button" class="btn btn-previous mx-1">Previous</button>
-                                            <button type="button" class="btn btn-submit" @click="guardarFirma">Submit</button>
+                                            <button type="button" class="btn btn-submit" @click="createCard">Submit</button>
                                         </div>
                                     </fieldset>
                                     <!-- Form Step 4 -->

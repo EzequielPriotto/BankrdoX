@@ -38,7 +38,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-                <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
+                <h1 class="text-center text-white ml-3 mx-md-5">Bankrdo<span style="color:#FC5404">X</span></h1>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -96,7 +96,8 @@
                                                 <span>Cards</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="#" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                            <a href="./transfers.html" class="connection-item"><i
+                                                    class='bx bx-spreadsheet bx-md'></i>
                                                 <span>Transfers</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -140,7 +141,23 @@
         </div>
 
 
-        <div class="contenedorS"></div>
+        <div class="contenedorS" >
+            <div class="contenedorCreate">
+
+                <div class="w-100 d-flex justify-content-end"><button class="btn text-white mx-3 " @click="closeOff">X</button></div>
+                <img src="./assets/spaceAccount.svg">
+                <form class="ms-3" @submit.prevent="addAccount">
+                    <h3>Please select the account type you want</h3>
+                    <select>
+                        <option value="DOLARS">Dolars Account</option>
+                        <option value="CRYPTO" disabled>Crypto Account</option>
+                    </select>
+
+                    <button class="btn" type="submit">Create account</button>
+
+                </form>
+            </div>
+        </div>
         <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
 
             <section class="col-12 py-2 mt-5 " style=" background-color: #111315;">
@@ -152,6 +169,7 @@
                 like you don't have an account
                 <span style="color: #e85b1a;">You can try to create your first account!</span>
             </h5>
+
             <div class="row d-flex justify-content-center gap-3 diseñoDesktop">
 
                 <div class="mt-3 ms-5 text-white col-11">
@@ -182,7 +200,7 @@
                             </div>
                             <div v-if="3 > accountsArray.length" class="fondoMasClaro  cuentasSecundaria sombra"
                                 v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
-                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                <div class=" p-2 fw-bold accountAdd" @click="openOff" style="cursor: pointer;">
                                     <i class='bx bx-plus-circle bx-lg'></i>
 
                                 </div>
@@ -265,8 +283,8 @@
                         <div class="wrapper">
                             <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
                                 <div class=" my-3">
-                                    <p class="h8">Cards Resume</p>
-                                    <p class="text-muted ">Here you can see your associated available cards</p>
+                                    <p class="h8 ms-2">Cards Resume</p>
+                                    <p class="text-muted  ms-2">Here you can see your associated available cards</p>
                                 </div>
 
                                 <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
@@ -372,7 +390,7 @@
                             </div>
                             <div v-if="3 > accountsArray.length" class="fondoMasClaro cuentasSecundaria"
                                 v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
-                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                <div class=" p-2 fw-bold accountAdd" @click="openOff" style="cursor: pointer;">
                                     <i class='bx bx-plus-circle bx-lg'></i>
 
                                 </div>
@@ -404,7 +422,7 @@
                             </div>
                             <div v-if="3 > accountsArray.length" class="fondoMasClaro cuentasSecundaria"
                                 v-bind:class="{accountSFocusAdd: accountsArray.length == 0}">
-                                <div class=" p-2 fw-bold accountAdd" @click="addAccount">
+                                <div class=" p-2 fw-bold accountAdd" @click="openOff" style="cursor: pointer;">
                                     <i class='bx bx-plus-circle bx-lg'></i>
 
                                 </div>
@@ -536,8 +554,8 @@
                         <div class="wrapper">
                             <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
                                 <div class=" my-3">
-                                    <p class="h8">Cards Resume</p>
-                                    <p class="text-muted ">Here you can see your associated available cards</p>
+                                    <p class="h8 ms-1">Cards Resume</p>
+                                    <p class="text-muted  ms-1">Here you can see your associated available cards</p>
                                 </div>
 
                                 <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
@@ -610,120 +628,118 @@
                 </div>
 
             </div>
+        </div>
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
+                                        Terrace</a>
 
-
-            <footer class="footer-section">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <a href="tel:+9876543210 0" target="_blank">9876543210 0</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <a href="mailto:bankrdo.Admin@gmail.com" target="_blank">bankrdo.Admin@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
+                                            class="img-fluid" alt="logo"></a>
+                                </div>
+                                <div class="footer-text">
+                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod
+                                        tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.</p>
+                                </div>
+                                <div class="footer-social-icon">
+                                    <span>Follow us</span>
+                                    <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
+                                            class="fab fa-instagram facebook-bg"></i></a>
+                                    <a href="https://twitter.com/9zE7KE" target="_blank"><i
+                                            class="fab fa-twitter twitter-bg"></i></a>
+                                    <a href="https://github.com/EzequielPriotto" target="_blank"><i
+                                            class="fab fa-github google-bg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">about</a></li>
+                                    <li><a href="#">services</a></li>
+                                    <li><a href="#">portfolio</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">About us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form @submit.prevent="enviarMail">
+                                        <input type="email" placeholder="Email Address" v-model="mailFooterInput"
+                                            required>
+                                        <button><i class="fab fa-telegram-plane"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
                 <div class="container">
-                    <div class="footer-cta pt-5 pb-5">
-                        <div class="row">
-                            <div class="col-xl-4 col-md-4 mb-30">
-                                <div class="single-cta">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div class="cta-text">
-                                        <h4>Find us</h4>
-                                        <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
-                                            Terrace</a>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 text-center">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2022, All Right Reserved <a
+                                        href="https://github.com/EzequielPriotto" target="_blank">Ezequiel
+                                        Priotto</a>
+                                </p>
+                            </div>
+                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-4 mb-30">
-                                <div class="single-cta">
-                                    <i class="fas fa-phone"></i>
-                                    <div class="cta-text">
-                                        <h4>Call us</h4>
-                                        <a href="tel:+9876543210 0" target="_blank">9876543210 0</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-4 mb-30">
-                                <div class="single-cta">
-                                    <i class="far fa-envelope-open"></i>
-                                    <div class="cta-text">
-                                        <h4>Mail us</h4>
-                                        <a href="mailto:bankrdo.Admin@gmail.com"
-                                            target="_blank">bankrdo.Admin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-content pt-5 pb-5">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 mb-50">
-                                <div class="footer-widget">
-                                    <div class="footer-logo">
-                                        <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
-                                                class="img-fluid" alt="logo"></a>
-                                    </div>
-                                    <div class="footer-text">
-                                        <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod
-                                            tempor
-                                            incididuntut consec tetur adipisicing
-                                            elit,Lorem ipsum dolor sit amet.</p>
-                                    </div>
-                                    <div class="footer-social-icon">
-                                        <span>Follow us</span>
-                                        <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
-                                                class="fab fa-instagram facebook-bg"></i></a>
-                                        <a href="https://twitter.com/9zE7KE" target="_blank"><i
-                                                class="fab fa-twitter twitter-bg"></i></a>
-                                        <a href="https://github.com/EzequielPriotto" target="_blank"><i
-                                                class="fab fa-github google-bg"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
-                                <div class="footer-widget">
-                                    <div class="footer-widget-heading">
-                                        <h3>Useful Links</h3>
-                                    </div>
-                                    <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">about</a></li>
-                                        <li><a href="#">services</a></li>
-                                        <li><a href="#">portfolio</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                        <li><a href="#">About us</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
-                                <div class="footer-widget">
-                                    <div class="footer-widget-heading">
-                                        <h3>Subscribe</h3>
-                                    </div>
-                                    <div class="footer-text mb-25">
-                                        <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
-                                    </div>
-                                    <div class="subscribe-form">
-                                        <form @submit.prevent="enviarMail">
-                                            <input type="email" placeholder="Email Address" v-model="mailFooterInput"
-                                                required>
-                                            <button><i class="fab fa-telegram-plane"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <div class="copyright-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 text-center">
-                                <div class="copyright-text">
-                                    <p>Copyright &copy; 2022, All Right Reserved <a
-                                            href="https://github.com/EzequielPriotto" target="_blank">Ezequiel
-                                            Priotto</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            </div>
+        </footer>
     </main>
     <div id="fold" class="flex-column">
         <h1 class="text-danger">COMPRATE UN CELU RATON</h1>

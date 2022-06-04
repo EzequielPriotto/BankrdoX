@@ -8,6 +8,8 @@ Vue.createApp({
             notificaciones: [],
             creditArray: [],
             debitArray: [],
+            isCredit: true,
+
 
         }
     },
@@ -43,10 +45,6 @@ Vue.createApp({
             return months + "/" + year
         },
 
-        signOut() {
-            axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
-        },
         separarNombre(texto, parte) {
             let newText = texto.split(" ");
             return newText[parte];
@@ -173,38 +171,151 @@ Vue.createApp({
 
                     break;
             }
-        }
+        },
+
+        changeFocus2(id) {
+
+            let firstCardF = document.querySelector("#id010").firstChild;
+            let firstCardB = document.querySelector("#id010").lastChild;
+
+
+            let secondCardF = document.querySelector("#id110");
+            let secondCardB = document.querySelector("#id110");
+            if (secondCardF != null) {
+                secondCardF = document.querySelector("#id110").firstChild;
+                secondCardB = document.querySelector("#id110").lastChild;
+            }
+
+            let thirdCardF = document.querySelector("#id210");
+            let thirdCardB = document.querySelector("#id210");
+
+            if (thirdCardF != null) {
+                thirdCardF = document.querySelector("#id210").firstChild;
+                thirdCardB = document.querySelector("#id210").lastChild;
+            }
+
+            switch (id) {
+                case "id010":
+
+                    if (firstCardF.style.left == "0.9%") {
+
+                        firstCardF.style.animationPlayState = "paused";
+                        firstCardB.style.animationPlayState = "paused";
+
+                        firstCardF.style.left = "45%";
+                        firstCardB.style.left = "46%";
+                        setTimeout(() => firstCardB.style.left = "61.2%", 1100)
+                    }
+                    else {
+                        firstCardF.style.left = "0.9%";
+                        firstCardB.style.left = "1.5%";
+
+                        setTimeout(() => {
+                            firstCardF.style.animationPlayState = "running";
+                            firstCardB.style.animationPlayState = "running";
+                        }, 1100)
+
+                    }
+
+                    if (secondCardF != null) {
+                        secondCardF.style.left = "12.9%";
+                        secondCardB.style.left = "13.5%";
+                        secondCardF.style.animationPlayState = "running";
+                        secondCardB.style.animationPlayState = "running";
+
+                    }
+                    if (thirdCardF != null) {
+                        thirdCardF.style.left = "19.9%";
+                        thirdCardB.style.left = "20.5%";
+                        thirdCardF.style.animationPlayState = "running";
+                        thirdCardB.style.animationPlayState = "running";
+                    }
+
+                    break;
+                case "id110":
+                    firstCardF.style.left = "0.9%";
+                    firstCardB.style.left = "1.5%";
+                    firstCardF.style.animationPlayState = "running";
+                    firstCardB.style.animationPlayState = "running";
+
+
+                    if (secondCardF.style.left == "12.9%") {
+                        secondCardF.style.animationPlayState = "paused";
+                        secondCardB.style.animationPlayState = "paused";
+                        secondCardF.style.left = "45%";
+                        secondCardB.style.left = "46%";
+                        setTimeout(() => secondCardB.style.left = "61.2%", 1100)
+                    }
+                    else {
+                        secondCardF.style.left = "12.9%";
+                        secondCardB.style.left = "13.5%";
+                        setTimeout(() => {
+                            secondCardF.style.animationPlayState = "running";
+                            secondCardB.style.animationPlayState = "running";
+                        }, 1100)
+                    }
+
+                    if (thirdCardB != null) {
+
+                        thirdCardF.style.left = "19.9%";
+                        thirdCardB.style.left = "20.5%";
+                        thirdCardF.style.animationPlayState = "running";
+                        thirdCardB.style.animationPlayState = "running";
+                    }
+
+                    break;
+                case "id210":
+
+                    firstCardF.style.left = "0.9%";
+                    firstCardB.style.left = "1.5%";
+                    firstCardF.style.animationPlayState = "running";
+                    firstCardB.style.animationPlayState = "running";
+
+                    secondCardF.style.left = "12.9%";
+                    secondCardB.style.left = "13.5%";
+                    secondCardF.style.animationPlayState = "running";
+                    secondCardB.style.animationPlayState = "running";
+
+                    
+                    if (thirdCardF.style.left == "19.9%") {
+                        thirdCardF.style.animationPlayState = "paused";
+                        thirdCardB.style.animationPlayState = "paused";
+                        thirdCardF.style.left = "45%";
+                        thirdCardB.style.left = "46%";
+                        setTimeout(() => thirdCardB.style.left = "61.2%", 1100)
+                    }
+                    else {
+                        thirdCardF.style.left = "19.9%";
+                        thirdCardB.style.left = "20.5%";
+                        setTimeout(() => {
+                            thirdCardF.style.animationPlayState = "running";
+                            thirdCardB.style.animationPlayState = "running";
+                        }, 1100)
+                    }
+
+                    break;
+            }
+        },
+        
+        signOut() {
+            axios.post('/api/logout')
+                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+        },
 
     },
     computed: {
-
+       
     }
-
-
-
-
-
 
 
 })
     .mount('#app')
-
-$('.card__container').click(function () {
-    var id = $(this).attr("id")
-    console.log(id)
-    // $('.card__back').toggleClass("active");
-    // $('.card__front').toggleClass("active");
-    // $('.card__back').toggleClass("desactive");
-    $('.card__front').toggleClass("desactive");
-
-});
 
 
 function desableLoad() {
     $('.loader').toggleClass('active');
 
 }
-
 
 // =====SLIDEBAR LOGICA====
 

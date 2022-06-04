@@ -248,11 +248,28 @@
 }
 
 
+.containerC, .containerD{
+  position: absolute;
+  top: 20%;
+  transition: 1s;
+  left: 0%;
+}
+
+.containerC.disable, .containerD.disable{
+  left: -50%;
+}
 
 
-
-
-
+[src="./assets/aliensCard.svg"]{
+  position: absolute;
+  width: 26rem;
+  top: 56%;
+  left: 62%;
+  z-index: -2;
+  transform: scaleX(-1);
+  transition: 1s;
+  display: flex;
+}
 
 
 
@@ -782,6 +799,9 @@ canvas {
   .formularioSolo2 {
     left: 55rem;
   }
+  [src="./assets/aliensCard.svg"] {
+    left: 64%;
+  }
 }
 
 @media (max-width: 1153px) {
@@ -795,13 +815,18 @@ canvas {
   .formularioSolo2 {
     left: 36rem;
   }
+  [src="./assets/aliensCard.svg"] {
+    left: 53%;
+  }
 }
 
 @media (max-width: 903px) {
   .formularioSolo2 {
     left: 23rem;
   }
-
+  [src="./assets/aliensCard.svg"] {
+    left: 25%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -814,13 +839,17 @@ canvas {
     margin-top: 3rem;
   }
 
- 
+  [src="./assets/aliensCard.svg"] {
+    left: 40%;
+  }
 }
 
 @media (min-width: 555px) and (max-width:903px) {
   .formularioSolo2 {
     left: 12rem;
   }
+ 
+
 
 }
 
@@ -828,12 +857,27 @@ canvas {
   .formularioSolo2 {
     display: none;
   }
-
+  
   .formularioSolo {
     width: 31rem;
     position: absolute;
     left: -15rem;
     top: -12%;
+  }
+  [src="./assets/aliensCard.svg"] {
+    display: none;
+  }
+}
+@media (min-height: 680px) {
+  [src="./assets/aliensCard.svg"] {
+   top: 69%;
+  }
+
+}
+
+@media (min-height: 970px) {
+  [src="./assets/aliensCard.svg"] {
+   top: 73%;
   }
 
 }

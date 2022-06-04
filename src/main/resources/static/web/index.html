@@ -1,17 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./style/index.css">
 </head>
-<body>
-    <h1> <a href="./login.html"> LOGIN</a></h1>
-    
 
+<body>
+    <main id="app">
+        <header>
+            <nav class="d-flex justify-content-between">
+                <h1>BankrdoX</h1>
+                <div class="links">
+                    <a href="#a"> Home </a>
+                    <a href="#b"> Service </a>
+                    <a href="#c"> About </a>
+                    <a href="#d"> Feactures </a>
+                </div>
+                <button class="btn btn-secondary">Login</button>
+            </nav>
+        </header>
+
+
+        <section class="space" id="a"></section>
+
+        <section id="home">
+            <div class="d-flex h-100">
+                <div class="d-flex flex-column mainText ">
+                    <div>
+                        <h3 class="d-flex flex-column">
+                            <span> Smart Banking To </span>
+                            <span> Manage Your Money </span>
+                            <span> & Transactions </span>
+                        </h3>
+                        <p>We will help you manage your money and transactions easily,</p>
+                        <p>follow the instructions you can manage your money here.</p>
+                    </div>
+
+                    <div>
+                        <button class="btn"> Get Started</button>
+                    </div>
+
+                </div>
+                <div class="containerBanner">
+                    <img src="./assets/hero2.svg" alt="">
+                </div>
+            </div>
+
+
+        </section>
+
+        <section class="space" id="b"></section>
+
+        <section id="service">
+
+            <article class="text mb-3">
+                <h2 class="mb-3"> We Provide Quality <span>Service</span></h2>
+                <p class="d-flex flex-column">
+                    <span>We will provide the best service to you so that you understand how to</span>
+                    <span>use and get to know the feactures that we provide</span>
+                </p>
+            </article>
+
+
+            <article class="cards mt-3">
+
+                <div class="card">
+                    <i class='bx bxs-check-shield'></i>
+                    <div>
+                        <p class="fw-bold">Protect Payment</p>
+                        <p class="">We will provide protection so that your transaction is safe.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <i class='bx bxs-user-voice'></i>
+                    <div>
+                        <p class="fw-bold">Easy To Use</p>
+                        <p class="">We will make it easier for you to use the existing features</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <i class='bx bx-lock'></i>
+                    <div>
+                        <p class="fw-bold">Security First</p>
+                        <p class="">The main thing is your safety. we will use high security for you</p>
+                    </div>
+                </div>
+
+
+            </article>
+
+        </section>
+
+        <section class="space" id="c"></section>
+
+        <section class="info">
+            <div class="div-izq w-50">
+                <img src="./assets/background.svg" alt="">
+            </div>
+
+            <div class="div-der">
+                <h3>
+                    <span>What You Can Get From</span>
+                    <span>BankrdoX Feactures</span>
+                </h3>
+
+                <p>We will provide many features for you. you can use all the <span>existing functions at no additional
+                        cost.</span></p>
+
+                <div class="divFeactures">
+
+                    <div class="feactures">
+                        <i class='bx bxs-check-shield'></i>
+                        <div>
+                            <p>Easy Manage Your Money</p>
+                            <p>You can manage your money with us easily, reliably and <span>safely</span></p>
+                        </div>
+                    </div>
+
+                    <div class="feactures">
+                        <i class='bx bxs-check-shield'></i>
+                        <div>
+                            <p>Easy Payment</p>
+                            <p>You can easily at the time of payment and only one swipe</p>
+                        </div>
+                    </div>
+
+                    <div class="feactures">
+                        <i class='bx bxs-check-shield'></i>
+                        <div>
+                            <p>Monitor Financial Transactions</p>
+                            <p>You can monitor you transactions easily</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="space" id="d"></section>
+
+        <section class="suscribe">
+
+        </section>
+
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text">
+                                    <h4>Find us</h4>
+                                    <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
+                                        Terrace</a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="fas fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <a href="tel:+9876543210 0" target="_blank">9876543210 0</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <a href="mailto:bankrdo.Admin@gmail.com" target="_blank">bankrdo.Admin@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content pt-5 pb-5">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                    <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
+                                            class="img-fluid" alt="logo"></a>
+                                </div>
+                                <div class="footer-text">
+                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod
+                                        tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.</p>
+                                </div>
+                                <div class="footer-social-icon">
+                                    <span>Follow us</span>
+                                    <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
+                                            class="fab fa-instagram facebook-bg"></i></a>
+                                    <a href="https://twitter.com/9zE7KE" target="_blank"><i
+                                            class="fab fa-twitter twitter-bg"></i></a>
+                                    <a href="https://github.com/EzequielPriotto" target="_blank"><i
+                                            class="fab fa-github google-bg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="footer-text mb-25">
+                                    <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                                </div>
+                                <div class="subscribe-form">
+                                    <form @submit.prevent="enviarMail">
+                                        <input type="email" placeholder="Email Address" v-model="mailFooterInput"
+                                            required>
+                                        <button><i class="fab fa-telegram-plane"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 text-center">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2022, All Right Reserved <a
+                                        href="https://github.com/EzequielPriotto" target="_blank">Ezequiel
+                                        Priotto</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3"></script>
 </body>
+
 </html>

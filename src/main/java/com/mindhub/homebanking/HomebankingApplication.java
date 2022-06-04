@@ -42,6 +42,10 @@ public class HomebankingApplication {
 			Client cliente2 = new Client("Edu", "Mendoza", "eduMendo@mindhub.com",passwordEnconder.encode("robert123"),"El edu");
 			Client clienteAdmin = new Client("Ezequiel", "Priotto", "Eze_admin@bank.com",passwordEnconder.encode("admin123"), "Zeke");
 
+			cliente1.setEnabled(true);
+			cliente2.setEnabled(true);
+			clienteAdmin.setEnabled(true);
+
 			clientRepository.save(cliente1);
 			clientRepository.save(cliente2);
 			clientRepository.save(clienteAdmin);

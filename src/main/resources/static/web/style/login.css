@@ -5,6 +5,67 @@ body,
 input {
   font-family: "Source Code Pro", monospace;
 }
+
+
+.loader {
+  width: 99vw;
+  height: 100vh;
+  z-index: -5;
+  opacity: 0;
+  transition: .5s;
+  background-color: #17191b;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.loader.active {
+  z-index: 99999;
+  opacity: 100;
+  transition: .5s;
+}
+.loader .astronauta, .loader .error, .loader .mailSend{
+  opacity: 0;
+  z-index: -5;
+  position: fixed;
+  transition: .5s;
+}
+.loader .astronauta.active {
+  transform: scale(1.5);
+  opacity: 100;
+  display: flex;
+  transition: .5s;
+  z-index: 99999;
+
+}
+ .loader .error.active, .loader .mailSend.active{
+  opacity: 100;
+  display: flex;
+  transition: .5s;
+  z-index: 99999;
+
+ }
+.div-img-mail{
+  width: 58%;
+}
+  .div-img-mail img{
+
+  width: 100%;
+  margin-top: 11%;
+}
+[href="https://mail.google.com/mail/u/0/"]{
+  text-decoration: none;
+  letter-spacing: -.1rem;
+  color: white;
+}
+
+[href="https://mail.google.com/mail/u/0/"]:hover{
+color: chocolate;
+
+}
+
 .input-field{
   height: 3rem !important;
 }
