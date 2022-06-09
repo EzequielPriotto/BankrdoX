@@ -46,7 +46,14 @@ public class TransactionsController {
     ) {
 
         Account accountS = accountRepository.findByNumber(accountSNumber);
-        Account accountR = accountRepository.findByNumber(accountRNumber);
+        Account accountR;
+        if(accountRNumber.contains("VIN")){
+             accountR = accountRepository.findByNumber(accountRNumber);
+        }
+        else{
+             accountR = accountRepository.findByCvu(accountRNumber);
+        }
+
         Client client = clientRepository.findByEmail(authentication.getName());
 
         if (amount == 0 || description.isEmpty() || accountSNumber.isEmpty() || accountRNumber.isEmpty()) {
@@ -70,8 +77,12 @@ public class TransactionsController {
         if (amount < 0){
             return new ResponseEntity<>("Incorrect value", HttpStatus.FORBIDDEN);
         }
+        if (accountR.getAccountType() != accountS.getAccountType()){
+            return new ResponseEntity<>("Incompatible accountType", HttpStatus.FORBIDDEN);
 
-        Transaction transactionDebit = new Transaction(amount * -1,description,accountS, TransactionType.DEBIT);
+        }
+
+        Transaction transactionDebit = new Transaction(amount ,description,accountS, TransactionType.DEBIT);
         Transaction transactionCredit = new Transaction(amount,description,accountR, TransactionType.CREDIT);
 
         accountS.restBalance(amount);
@@ -87,5 +98,14 @@ public class TransactionsController {
     }
 
 
+
+    @Transactional
+    @PostMapping("clients/current/transactions/verify")
+    public ResponseEntity<Object> verifyTransactions(@RequestParam String accountRNumber,Authentication authentication) {
+
+
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     }

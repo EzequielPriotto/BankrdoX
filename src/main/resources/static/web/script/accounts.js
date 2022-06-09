@@ -48,7 +48,10 @@ Vue.createApp({
             ],
             gastoTotal: 0,
             cards: [],
-            cardsCortado: []
+            cardsCortado: [],
+            accountFocusCVU: {},
+            accountTypeCreate: "DOLAR",
+            
 
         }
     },
@@ -388,7 +391,20 @@ Vue.createApp({
                 .then(response => window.location.href = "http://localhost:8080/web/login.html")
         },
         redireccionarCard(lugar) {
-            window.location.href = `./${lugar}`;
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be redirected to another tab!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, I am sure!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `./${lugar}`;
+                }
+              })
+            
         },
         linkearAccount(accountNumber) {
             console.log(accountNumber)
@@ -400,7 +416,7 @@ Vue.createApp({
             })
         },
         addAccount() {
-            axios.post("http://localhost:8080/api/clients/current/accounts/")
+            axios.post("http://localhost:8080/api/clients/current/accounts/", `accountType=${this.accountTypeCreate}`)
                 .then(
                     window.location.reload()
                 )
@@ -421,7 +437,25 @@ Vue.createApp({
             bodyOff.classList.remove("active")
             setTimeout(()=> contenedor.classList.remove("active") , 500)
             html.classList.remove("load")
-        }
+        },
+        openOffCVU(account){
+            let contenedor = document.querySelector(".contenedorSCVU");
+            let bodyOff = document.querySelector(".contenedorCreateCVU");
+            let html = document.querySelector("html");
+            contenedor.classList.add("active");
+            setTimeout(()=>  bodyOff.classList.add("active"), 500)
+            html.classList.add("load")
+            this.accountFocusCVU = account
+        },
+        closeOffCVU(){
+            let contenedor = document.querySelector(".contenedorSCVU");
+            let bodyOff = document.querySelector(".contenedorCreateCVU");
+            let html = document.querySelector("html");
+            bodyOff.classList.remove("active")
+            setTimeout(()=> contenedor.classList.remove("active") , 500)
+            html.classList.remove("load")
+        },
+       
 
 
     },

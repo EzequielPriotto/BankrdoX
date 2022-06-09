@@ -4,6 +4,7 @@ import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
 
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -65,6 +66,11 @@ public class ClientController {
 
         }
 
+        if (userName.contains(" ")){
+            return new ResponseEntity<>("Character invalid", HttpStatus.FORBIDDEN);
+
+        }
+
         if (clientRepository.findByEmail(email) != null ) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
@@ -80,7 +86,7 @@ public class ClientController {
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), userName);
-        Account account = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now(),0);
+        Account account = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now(),0, GenerateRandomNumberCVU(), AccountType.DOLAR);
 
         client.addAccount(account);
         String randomCode = GenerateToken(64);
@@ -155,6 +161,9 @@ public class ClientController {
 
         if (avatar.isEmpty() || userName.isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        }
+        if (userName.contains(" ")) {
+            return new ResponseEntity<>("Character invalid", HttpStatus.FORBIDDEN);
         }
         if(!avatar.contains(".png")){
             return new ResponseEntity<>("File not supported", HttpStatus.FORBIDDEN);

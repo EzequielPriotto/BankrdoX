@@ -14,6 +14,7 @@ public class Utils {
     private static List<String> numbersCardsCreated = new ArrayList<>();
     private static List<String> tokensCardsCreated = new ArrayList<>();
 
+    private static List<String> numbersCVUCreated = new ArrayList<>();
 
     public static String GenerateRandomNumber(int max, int min){
             int number;
@@ -77,6 +78,41 @@ public class Utils {
             numbersCardsCreated.add(numberCard);
             return numberCard;
 
+    }
+
+    public static String GenerateRandomNumberCVU(){
+        int number;
+        String numberCVU;
+        do {
+            numberCVU = "";
+            for (int i = 0; i < 22; i++) {
+                number = (int) ((Math.random() * (9 - 0)) + 0);
+                if(i < 5){
+                    numberCVU += "0" ;
+                }
+                else {
+                    numberCVU += number ;
+                }
+            }
+
+        }
+        while (numbersCVUCreated.contains(numberCVU));
+        numbersCVUCreated.add(numberCVU);
+        return numberCVU;
+    }
+
+    public static String GenerateRandomNumberAddress(){
+        String number;
+        String numberCVU;
+        do {
+            numberCVU = "0x";
+            number = RandomString.make(20);
+            numberCVU += number;
+//        0x1553603181e87240549707cf4ad92f78e42c70fb
+        }
+        while (numbersCVUCreated.contains(numberCVU));
+        numbersCVUCreated.add(numberCVU);
+        return numberCVU;
     }
 
     public static String GenerateToken(int tokenL){

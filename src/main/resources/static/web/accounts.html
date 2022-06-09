@@ -148,13 +148,28 @@
                 <img src="./assets/spaceAccount.svg">
                 <form class="ms-3" @submit.prevent="addAccount">
                     <h3>Please select the account type you want</h3>
-                    <select>
-                        <option value="DOLARS">Dolars Account</option>
-                        <option value="CRYPTO" disabled>Crypto Account</option>
+                    <select v-model="accountTypeCreate">
+                        <option value="DOLAR">Dolars Account</option>
+                        <option value="CRYPTO" >Crypto Account</option>
                     </select>
 
                     <button class="btn" type="submit">Create account</button>
 
+                </form>
+            </div>
+        </div>
+        <div class="contenedorSCVU" >
+            <div class="contenedorCreateCVU">
+
+                <div class="w-100 d-flex justify-content-start"><button class="btn text-white mx-3 " @click="closeOffCVU">X</button></div>
+                <img src="./assets/cvuSVG.svg">
+                <form class="ms-3 text-white" v-if="accountFocusCVU">
+                    <h3>More info of <span class="naranja">{{accountFocusCVU.number}}</span></h3>
+                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">CVU: <span class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
+                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">ADDRESS: <span class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
+                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">BALANCE: <span class="naranja">{{accountFocusCVU.balance}}usd</span> </h4>
+                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">BALANCE: <span class="naranja">{{accountFocusCVU.balance}} btc</span> </h4>
+                    <p @click="linkearAccount(accountFocusCVU.number)">View account movements </p>
                 </form>
             </div>
         </div>
@@ -164,7 +179,6 @@
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
 
-            <!-- <img src="./assets/doxy/DoxyHappy.gif" class="doxy" v-if="accountsArray.length == 0" v-cloak> -->
             <h5 class="d-flex flex-column textAccount col-4" v-if="accountsArray.length == 0" v-cloak> Wow... it looks
                 like you don't have an account
                 <span style="color: #e85b1a;">You can try to create your first account!</span>
@@ -187,12 +201,14 @@
                                     <div class="secondaryAccountTop">
                                         <div class="d-flex ">
                                             <p>Account<span style="color:#FC5404">X</span></p>
-                                            <i class='bx bxs-wallet bx-sm'></i>
+                                            <i class='bx bx-dollar bx-sm' @click="openOffCVU(account)" v-if="account.accountType == 'DOLAR'"></i>
+                                            <i class='bx bx-bitcoin bx-sm' @click="openOffCVU(account)" v-else-if="account.accountType == 'CRYPTO'"></i>
                                         </div>
                                         <p class="mb-0">{{account.number}}</p>
                                     </div>
                                     <div class=" secondaryAccountBottom">
-                                        <p class="balanceAccounts">${{account.balance}}</p>
+                                        <p class="balanceAccounts"  v-if="account.accountType == 'DOLAR'">${{account.balance}}</p>
+                                        <p class="balanceAccounts" v-else-if="account.accountType == 'CRYPTO'">{{account.balance}} <span>btc</span></p>
                                     </div>
 
                                 </div>
@@ -222,14 +238,14 @@
 
                         <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
                             <p v-if="listadoComprasCortado.length > 0">${{gastoTotal}}</p>
-                            <p v-else>$0</p>
+                            <p :class="{cero: gastoTotal == 0}" v-else>$0</p>
                         </div>
                     </div>
 
                     <div class="fondoMasClaro d-flex flex-column align-items-center div-compras sombra"
                         style=" border-radius: .5rem; ">
                         <div class="estadisticasCompras mt-2 d-flex justify-content-between">
-                            <h3 style="color:#FC5404">Lastest transactions</h3>
+                            <h3 style="color:#FC5404">Lastest movements</h3>
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle btn-select" type="button" id="dropdownMenuDark"
                                     data-bs-toggle="dropdown" aria-expanded="false" v-cloak>
@@ -290,7 +306,7 @@
                                 <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
                                     <div class="d-flex flex-column h-100">
                                         <label class="d-block">
-                                            <div class="d-flex flex-column position-relative">
+                                            <div class="d-flex flex-column position-relative" >
                                                 <div class="d-flex gap-3 justify-content-center align-items-center">
                                                     <i class='bx bxl-visa bx-lg text-white'
                                                         v-if="card.cardType === 'CREDIT'"></i>
@@ -317,7 +333,7 @@
                                     v-cloak>
                                     <div class="d-flex flex-column h-100">
                                         <label class="d-block">
-                                            <div class="d-flex position-relative">
+                                            <div class="d-flex position-relative" style="cursor: pointer;">
                                                 <div class="d-flex gap-3 justify-content-center align-items-center">
                                                     <p class=" text-white fw-bold">ADD NEW CARD</p>
                                                 </div>
@@ -441,8 +457,8 @@
                     </section>
                     <div class=" div-estadisticas pb-3">
                         <div id="chartdiv3" class="fondoMasClaro "></div>
-                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
-                            <p>${{gastoTotal}}</p>
+                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex" >
+                            <p :class="{cero: gastoTotal == 0}">${{gastoTotal}}</p>
                         </div>
                     </div>
 
@@ -518,9 +534,7 @@
                                             <span class="d-flex justify-content-center"
                                                 @click="linkearAccount(compra.accountNumber)"><i
                                                     class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
-                                                <!-- <span class="d-flex justify-content-center"><i
-                                                    class='bx bxs-credit-card-alt ms-1 bx-md'></i> -->
-                                                <!-- <span class="h-100 d-flex align-items-center">1234</span></span> -->
+                                               
                                                 <span class="descriptionList">{{compra.description}}</span>
                                         </div>
                                     </div>
@@ -658,7 +672,7 @@
                                 <i class="far fa-envelope-open"></i>
                                 <div class="cta-text">
                                     <h4>Mail us</h4>
-                                    <a href="mailto:bankrdo.Admin@gmail.com" target="_blank">bankrdo.Admin@gmail.com</a>
+                                    <a href="mailto:bankrdox@gmail.com" target="_blank">bankrdox@gmail.com</a>
                                 </div>
                             </div>
                         </div>

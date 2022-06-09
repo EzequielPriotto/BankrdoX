@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static com.mindhub.homebanking.Utils.Utils.GenerateToken;
+
 @Entity
 public class Transaction {
 
@@ -26,6 +28,7 @@ public class Transaction {
 
     private TransactionType type;
 
+    private String idEncrypted;
 
     public Transaction(){}
 
@@ -36,6 +39,7 @@ public class Transaction {
         this.date = date;
         this.account = account;
         this.type = type;
+        this.idEncrypted = GenerateToken(15);
     }
     public Transaction(double amount, String description, Account account, TransactionType type) {
         this.amount = amount;
@@ -43,6 +47,7 @@ public class Transaction {
         this.date = LocalDateTime.now();
         this.account = account;
         this.type = type;
+        this.idEncrypted = GenerateToken(15);
     }
 
 
@@ -89,5 +94,9 @@ public class Transaction {
 
     public void setAccountOwner(Account account) {
         this.account = account;
+    }
+
+    public String getIdEncrypted() {
+        return idEncrypted;
     }
 }

@@ -66,6 +66,9 @@ Vue.createApp({
 
       loader2.classList.remove("active")
       error2.classList.remove("active")
+     },
+     redirect(){
+      window.location.href= "http://localhost:8080/web/index.html"
      }
   },
 }).mount('#app')

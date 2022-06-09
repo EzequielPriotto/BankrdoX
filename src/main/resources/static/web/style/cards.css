@@ -238,9 +238,7 @@
   left: 4rem;
   font-size: 0.6rem;
 }
-.addaccount {
-  cursor: pointer !important;
-}
+
 .numbersContainer i{
   position: absolute;
   top: 6.5rem;

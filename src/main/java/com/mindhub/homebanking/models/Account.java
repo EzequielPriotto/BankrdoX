@@ -27,14 +27,19 @@ public class Account {
     private LocalDateTime creationDate;
     private double balance;
 
+    private String cvu;
+
+    private AccountType accountType;
+
 
     public Account(){}
 
-    public Account(String number, LocalDateTime creationDate, double balance){
+    public Account(String number, LocalDateTime creationDate, double balance, String cvu, AccountType accountType ){
         this.number =  number;
         this.creationDate = creationDate;
         this.balance = balance;
-
+        this.cvu = cvu;
+        this.accountType = accountType;
     }
 
     public long getId() {
@@ -88,6 +93,23 @@ public class Account {
     }
     public void restBalance(double amountAdd){
         this.balance -= amountAdd;
+    }
+
+
+    public String getCvu() {
+        return cvu;
+    }
+
+    public void setCvu(String cvu) {
+        this.cvu = cvu;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 }
 

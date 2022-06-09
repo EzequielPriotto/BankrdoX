@@ -12,4 +12,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     public List<Account> findByClient(Client client);
     public Account findByNumber(String number);
 
+    Account findByCvu(String cvu);
 }

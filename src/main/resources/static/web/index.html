@@ -16,14 +16,14 @@
     <main id="app">
         <header>
             <nav class="d-flex justify-content-between">
-                <h1>BankrdoX</h1>
+                <h1>Bankrdo<span>X</span></h1>
                 <div class="links">
                     <a href="#a"> Home </a>
                     <a href="#b"> Service </a>
-                    <a href="#c"> About </a>
-                    <a href="#d"> Feactures </a>
+                    <a href="#c"> Features </a>
+                    <a href="#d"> - </a>
                 </div>
-                <button class="btn btn-secondary">Login</button>
+                <button class="btn  btn-login" onclick="redirect()">Login</button>
             </nav>
         </header>
 
@@ -44,7 +44,7 @@
                     </div>
 
                     <div>
-                        <button class="btn"> Get Started</button>
+                        <button class="btn" onclick="redirect()"> Create Account</button>
                     </div>
 
                 </div>
@@ -64,7 +64,7 @@
                 <h2 class="mb-3"> We Provide Quality <span>Service</span></h2>
                 <p class="d-flex flex-column">
                     <span>We will provide the best service to you so that you understand how to</span>
-                    <span>use and get to know the feactures that we provide</span>
+                    <span>use and get to know the features that we provide</span>
                 </p>
             </article>
 
@@ -101,42 +101,48 @@
         <section class="space" id="c"></section>
 
         <section class="info">
-            <div class="div-izq w-50">
+            <div class="div-izq">
                 <img src="./assets/background.svg" alt="">
             </div>
 
             <div class="div-der">
                 <h3>
                     <span>What You Can Get From</span>
-                    <span>BankrdoX Feactures</span>
+                    <span>BankrdoX Features</span>
                 </h3>
 
                 <p>We will provide many features for you. you can use all the <span>existing functions at no additional
                         cost.</span></p>
 
-                <div class="divFeactures">
+                <div class="divFeatures">
 
-                    <div class="feactures">
+                    <div class="feature">
+                       <div class="iconF">
                         <i class='bx bxs-check-shield'></i>
+                       </div>
                         <div>
-                            <p>Easy Manage Your Money</p>
-                            <p>You can manage your money with us easily, reliably and <span>safely</span></p>
+                            <p class="titleFea">Easy Manage Your Money</p>
+                            <p class="descriptionFea">You can manage your money with us easily, reliably and safely</p>
                         </div>
                     </div>
 
-                    <div class="feactures">
-                        <i class='bx bxs-check-shield'></i>
+                    <div class="feature">
+                        <div class="iconF">
+                            <i class='bx bxs-check-shield'></i>
+                        </div>
                         <div>
-                            <p>Easy Payment</p>
-                            <p>You can easily at the time of payment and only one swipe</p>
+                            <p class="titleFea">Easy Payment</p>
+                            <p class="descriptionFea">You can easily at the time of payment and only one swipe</p>
                         </div>
                     </div>
 
-                    <div class="feactures">
-                        <i class='bx bxs-check-shield'></i>
+                    <div class="feature">
+                        <div class="iconF">
+                            <i class='bx bxs-check-shield'></i>
+                        </div>
                         <div>
-                            <p>Monitor Financial Transactions</p>
-                            <p>You can monitor you transactions easily</p>
+                            <p class="titleFea">Monitor Financial Transactions</p>
+                            <p class="descriptionFea">You can monitor you transactions easily</p>
                         </div>
                     </div>
 
@@ -178,7 +184,7 @@
                                 <i class="far fa-envelope-open"></i>
                                 <div class="cta-text">
                                     <h4>Mail us</h4>
-                                    <a href="mailto:bankrdo.Admin@gmail.com" target="_blank">bankrdo.Admin@gmail.com</a>
+                                    <a href="mailto:bankrdox@gmail.com" target="_blank">bankrdox@gmail.com</a>
                                 </div>
                             </div>
                         </div>
@@ -249,9 +255,11 @@
     </main>
 
     <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        function redirect(){
+            window.location.href= "http://localhost:8080/web/login.html"
+        }
+    </script>
 </body>
 
 </html>

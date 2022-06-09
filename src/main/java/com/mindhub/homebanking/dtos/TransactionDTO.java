@@ -20,6 +20,9 @@ public class TransactionDTO {
 
     private String accountNumber;
 
+    private String idEncrypted;
+
+
     public TransactionDTO (Transaction transaction){
         this.id = transaction.getId();
         this.amount = transaction.getAmount();
@@ -28,6 +31,7 @@ public class TransactionDTO {
         this.type = transaction.getType();
         this.link = "http://localhost:8080/rest/transactions/" + this.id;
         this.accountNumber = transaction.getAccountOwner().getNumber();
+        this.idEncrypted = transaction.getIdEncrypted();
     }
 
 
@@ -58,4 +62,7 @@ public class TransactionDTO {
 
     public String getAccountNumber(){return accountNumber;}
 
+    public String getIdEncrypted() {
+        return idEncrypted;
+    }
 }

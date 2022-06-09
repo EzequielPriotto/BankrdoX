@@ -8,7 +8,9 @@ Vue.createApp({
             avatarSelect: "./assets/avatares/avatar1.png",
             userSettings: {},
             mailFooterInput:"",
-            notificaciones: []
+            notificaciones: [],
+            amount:0,
+            number:"",
 
         }
     },
@@ -53,7 +55,10 @@ Vue.createApp({
         getDateCreate(dateInput) {
             const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             const date = new Date(dateInput);
-            return months[date.getMonth()].toLowerCase() + " " + date.getDate() + ", " + date.getFullYear()+ " " + date.getHours()+ ":" + date.getMinutes() + `${date.getHours() < 12 ? " am" : " pm"}`
+            const dia = date.getDate() < 10? "0"+ date.getDate() : date.getDate()
+            const hora = date.getHours() < 10? "0"+ date.getHours() : date.getHours()
+            const minutos =  date.getMinutes() < 10? "0"+ date.getMinutes() :  date.getMinutes()
+            return months[date.getMonth()].toLowerCase() + " " + dia + ", " + date.getFullYear()+ " " + hora + ":" + minutos + `${date.getHours() < 12 ? " am" : " pm"}`
         },
         generateIdCifrada (id){ 
             let idEncriptada = CryptoJS.AES.encrypt(id.toString(), "ASD");     
@@ -71,6 +76,11 @@ Vue.createApp({
         signOut(){
             axios.post('/api/logout')
             .then(response => window.location.href = "http://localhost:8080/web/login.html")
+        },
+        sendTransfer(){
+            axios.post("/api/clients/current/transactions",`amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
+            .then(response => console.log(response))
+            .catch(error=> console.log(error))
         },
     },
     computed: {

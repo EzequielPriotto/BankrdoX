@@ -12,8 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.mindhub.homebanking.Utils.Utils.GenerateRandomNumber;
-import static com.mindhub.homebanking.Utils.Utils.GenerateRandomNumberCard;
+import static com.mindhub.homebanking.Utils.Utils.*;
 import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 import static java.util.Arrays.asList;
@@ -39,7 +38,7 @@ public class HomebankingApplication {
 		return (args) ->{
 
 			Client cliente1 =  new Client("Melba", "Morel", "melba@mindhub.com",passwordEnconder.encode("bokaShoTeAmo"),"Melbita");
-			Client cliente2 = new Client("Edu", "Mendoza", "eduMendo@mindhub.com",passwordEnconder.encode("robert123"),"El edu");
+			Client cliente2 = new Client("Edu", "Mendoza", "eduMendo@mindhub.com",passwordEnconder.encode("robert123"),"ElEdu");
 			Client clienteAdmin = new Client("Ezequiel", "Priotto", "Eze_admin@bank.com",passwordEnconder.encode("admin123"), "Zeke");
 
 			cliente1.setEnabled(true);
@@ -50,15 +49,15 @@ public class HomebankingApplication {
 			clientRepository.save(cliente2);
 			clientRepository.save(clienteAdmin);
 
-			Account cuenta1 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now(),4900.00);
-			Account cuenta2 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(1),7390.00 );
-			Account cuenta3 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(5),1489.00 );
+			Account cuenta1 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now(),4900.00, GenerateRandomNumberCVU(), AccountType.DOLAR);
+			Account cuenta2 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(1),7390.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
+			Account cuenta3 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(5),1489.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
 
 			cliente1.addAccount(cuenta1);
 			cliente1.addAccount(cuenta2);
 			cliente1.addAccount(cuenta3);
 
-			Account cuenta5 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().plusDays(2),1640.00 );
+			Account cuenta5 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().plusDays(2),1640.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
 			cliente2.addAccount(cuenta5);
 
 			accountRepository.save(cuenta1);

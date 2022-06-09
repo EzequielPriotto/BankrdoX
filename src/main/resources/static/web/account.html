@@ -115,18 +115,18 @@
         
         <div class="contenedorS"></div>
 
-        <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
+        <div class="contenedor row g-0  m-0 p-0 d-flex justify-content-between px-3">
             <section class="col-12 py-2 mt-5" style=" background-color: #1b1b1b;">
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
             <h2 class="text-center text-white" v-if="dataBase != []">ACCOUNT <span style="color:#FC5404">{{dataBase.number}}</span></h2>
             <h2 v-if="dataBase == []" class="text-center text-white">ACCOUNT <span style="color:#FC5404">NOT FOUND</span></h2>    
             
-           <section class="mt-4 listadoComprasAccount" >
+           <section class="mt-4 listadoComprasAccount col-8" >
                <ul class="pt-2" v-dragscroll.y="true"  v-cloak>
                    <li  class="itemCompraList">
                     <div class="text-white iconoCompraList">
-                       <p>Type</p>
+                       <p class="">Type</p>
                     </div>
                     
                     <div class="descCompraList">
@@ -163,15 +163,33 @@
                         <p >{{getDateCreate(compra.date)}}</p>
                     </div>
                     <div class="idCompraList">
-                        <p >{{generateIdCifrada(compra.id)}}</p>
+                        <p >{{compra.idEncrypted}}</p>
                     </div>
                     <div class="amountCompraList">
-                        <p > $ {{compra.amount}}</p>
+                       
+                        <p v-if="compra.type == 'CREDIT'" >+ $ {{compra.amount}}</p>
+                        <p v-else>- $ {{compra.amount}} </p>
                     </div>
 
                    </li>
                </ul>
            </section>
+           <aside class="mt-4 col-3">
+                <h5 class="text-white">Send money to a <span class="naranja">friend</span></h5>
+                    <label>
+                        <p class="text-muted mb-1 fw-bold">Amount to send</p>
+                        <input type="number" v-model="amount">
+                    </label>
+                    <label>
+                        <p class="text-muted fw-bold" v-if="dataBase.accountType == 'CRYPTO'">Destination Bitcoin address</p>
+                        <p class="text-muted fw-bold" v-if="dataBase.accountType == 'DOLAR'">Destination account</p>
+                        <p class="text-muted mb-2" v-if="dataBase.accountType == 'DOLAR'">(cvu or account number)</p>
+                        <textarea :placeholder=dataBase.cvu  v-model="number"> </textarea>
+                    </label>
+                <button class="btn btnSend" @click="sendTransfer()">Send Transaction</button>
+                    <img src="./assets/transferCrypto.svg" alt="" srcset="" v-if="dataBase.accountType == 'CRYPTO'">
+                    <img src="./assets/transferDolars.svg" alt="" srcset="" v-if="dataBase.accountType == 'DOLAR'">
+            </aside>
         </div>
 
         <footer class="footer-section">
@@ -201,7 +219,7 @@
                                 <i class="far fa-envelope-open"></i>
                                 <div class="cta-text">
                                     <h4>Mail us</h4>
-                                    <a href="mailto:bankrdo.Admin@gmail.com"  target="_blank">bankrdo.Admin@gmail.com</a>
+                                    <a href="mailto:bankrdox@gmail.com"  target="_blank">bankrdox@gmail.com</a>
                                 </div>
                             </div>
                         </div>
