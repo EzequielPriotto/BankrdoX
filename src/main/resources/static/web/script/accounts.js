@@ -57,10 +57,13 @@ Vue.createApp({
     },
 
     created() {
-        axios.get('http://localhost:8080/api/clients/current')
+        axios.get('/api/clients/current')
             .then(repuesta => {
+                console.log(repuesta)
                 this.dataBase = repuesta.data
+                console.log(this.dataBase)
                 this.accountsArray = this.dataBase.accounts
+                console.log(this.accountsArray)
                 this.accountsArray = this.accountsArray.sort((x, y) => x.id - y.id)
                
                 this.accountFocus = this.accountsArray[0]
@@ -75,7 +78,7 @@ Vue.createApp({
                 this.listadoComprasFiltrado = this.listadoComprasCortado;
 
                 this.cards = repuesta.data.cards.sort((x, y) => x.id - y.id)
-                this.cards.forEach(card => this.cardsCortado.length < 3 ? this.cardsCortado.push(card) : "")
+                this.cards.forEach(card => this.cardsCortado.push(card))
                
                 disableLoad();
 
@@ -455,6 +458,7 @@ Vue.createApp({
             setTimeout(()=> contenedor.classList.remove("active") , 500)
             html.classList.remove("load")
         },
+        
        
 
 

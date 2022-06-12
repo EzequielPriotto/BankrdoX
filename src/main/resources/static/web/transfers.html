@@ -202,6 +202,16 @@
             </div>
           </div>
 
+          <div class="confirmBody">
+            <span @click="closeConfirm">X</span>
+            <h3 class="mt-5 pt-4 text-center text-white fw-bold fs-1">TRANSAFER <span class="naranja">RESUME</span></h3>
+            <p class="text-white mx-1 fs-4">Amount: <span class="naranja">{{amount}}</span> </p>
+            <p class="text-white mx-1 fs-4">From: <span class="naranja">{{accountSelectNumber}}</span> </p>
+            <p class="text-white mx-1 fs-4">To: <span class="naranja">{{accountDestiny}}</span> </p>
+            <button class="btn btn-danger mt-1 mx-3" @click="sendTransfer">Confirm</button>
+            <img src="./assets/confirmTransaccion.svg" alt="" srcset="">
+          </div>
+
             <section class="centerContainer">
 
                 <div class="transferDiv">
@@ -213,14 +223,13 @@
                     <div class="paso2">
                         <button class="btn btnBack" @click="activarForm(0)">Go back</button>
 
-                        <form @submit.prevent="sendTransfer()">
+                        <form @submit.prevent="verifyTransfer()">
                           
                             <fieldset>
                               
                                 <div class="accountOriginContainer">
                                     <button class="btn" type="button" @click="activateDropdown">
-                                      <span>ACCOUNT ORIGIN</span>
-                                      <!-- <i class="fa mx-1" :class="{'fa-caret-down': !isActiveDrop, 'fa-caret-up': isActiveDrop}"></i> -->
+                                      <span class="marcador">Account Origin</span>
                                     </button>
                                     <ul class="accountOrigin active"  >
                                       <li v-for="account in accounts" @click="actualizarSelect">
@@ -233,7 +242,7 @@
                             </fieldset>
                           
                             <fieldset>
-                                <label for="amount">Amount to send</label>
+                                <label for="amount" class="marcador">Amount to send</label>
                                 <input type="number" id="amount" v-model="amount">
                             </fieldset>
                         
@@ -241,8 +250,8 @@
                               
                                 <div class="accountOriginContainer " v-if="typeForm == 1 && accountsSend.length > 0">
                                     <button class="btn" type="button" @click="activateDropdown2">
-                                      <span>Account Destiny</span>
-                                      <i class="fa mx-1" :class="{'fa-caret-down': !isActiveDrop2, 'fa-caret-up': isActiveDrop2}"></i>
+                                      <span class="marcador">Account Destiny</span>
+                                      <!-- <i class="fa mx-1" :class="{'fa-caret-down': !isActiveDrop2, 'fa-caret-up': isActiveDrop2}"></i> -->
                                     </button>
                                     <ul class="accountOrigin destiny" :class="{active: isActiveDrop2}" >
                                       <li v-for="account2 in accountsSend" >
@@ -252,7 +261,7 @@
                                     </ul>
                                   </div>
                                   <p v-if="typeForm == 1 && accountsSend.length == 0">No Account available</p>
-                                  <p v-if="typeForm == 2">Account Destiny</p>
+                                  <p v-if="typeForm == 2" class="marcador">Account Destiny</p>
                                   <textarea id="accountDestiny" v-if="typeForm == 2" :placeholder=accountDestiny v-model="accountDestiny"> </textarea>
                             </fieldset>
                          
@@ -277,7 +286,8 @@
 
 
                 </div>
-
+                <div class="transferDivMobile">
+                </div>
 
                 <div class="historyDiv" :class="{empty: transactions.length == 0}">
                     <ul class="" v-dragscroll.y="true" v-cloak>

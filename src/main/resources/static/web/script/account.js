@@ -2,15 +2,15 @@ Vue.createApp({
     data() {
         return {
             idURL: "",
-            dataBase:[],
+            dataBase: [],
             dataBaseUser: [],
             userNameInput: "",
             avatarSelect: "./assets/avatares/avatar1.png",
             userSettings: {},
-            mailFooterInput:"",
+            mailFooterInput: "",
             notificaciones: [],
-            amount:0,
-            number:"",
+            amount: 0,
+            number: "",
 
         }
     },
@@ -18,10 +18,10 @@ Vue.createApp({
     created() {
         const params = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop),
-          });
-          this.idURL = params.id; 
+        });
+        this.idURL = params.id;
 
-            axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`http://localhost:8080/api/clients/current`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
                 console.log(this.dataBaseUser)
@@ -33,20 +33,20 @@ Vue.createApp({
                 let userSettings = JSON.parse(localStorage.getItem("userSettings"));
 
                 if (!userSettings) {
-                    this.userNameInput = this.dataBaseUser.firstName + " "  + this.dataBaseUser.lastName
-                    this.userSettings = 
-                        {
-                            avatar: this.avatarSelect,
-                            userName: this.userNameInput,
-                         
-                        }
-                    
+                    this.userNameInput = this.dataBaseUser.firstName + " " + this.dataBaseUser.lastName
+                    this.userSettings =
+                    {
+                        avatar: this.avatarSelect,
+                        userName: this.userNameInput,
+
+                    }
+
                     localStorage.setItem("userSettings", JSON.stringify(this.userSettings));
 
                 }
                 else {
                     this.userSettings = userSettings;
-                  
+
                 }
             })
     },
@@ -55,33 +55,55 @@ Vue.createApp({
         getDateCreate(dateInput) {
             const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             const date = new Date(dateInput);
-            const dia = date.getDate() < 10? "0"+ date.getDate() : date.getDate()
-            const hora = date.getHours() < 10? "0"+ date.getHours() : date.getHours()
-            const minutos =  date.getMinutes() < 10? "0"+ date.getMinutes() :  date.getMinutes()
-            return months[date.getMonth()].toLowerCase() + " " + dia + ", " + date.getFullYear()+ " " + hora + ":" + minutos + `${date.getHours() < 12 ? " am" : " pm"}`
+            const dia = date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+            const hora = date.getHours() < 10 ? "0" + date.getHours() : date.getHours()
+            const minutos = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+            return months[date.getMonth()].toLowerCase() + " " + dia + ", " + date.getFullYear() + " " + hora + ":" + minutos + `${date.getHours() < 12 ? " am" : " pm"}`
         },
-        generateIdCifrada (id){ 
-            let idEncriptada = CryptoJS.AES.encrypt(id.toString(), "ASD");     
+        generateIdCifrada(id) {
+            let idEncriptada = CryptoJS.AES.encrypt(id.toString(), "ASD");
             let idDesencriptada = CryptoJS.AES.decrypt(idEncriptada, "ASD");
-           
-           return idEncriptada.salt.toString()
+
+            return idEncriptada.salt.toString()
         },
-        enviarMail(){
+        enviarMail() {
             Swal.fire(
                 'Mail send',
                 `Soon you will receive more news to the ${this.mailFooterInput} address`,
                 'success'
-              ).then(result => result.isConfirmed ? location.reload() : "")
+            ).then(result => result.isConfirmed ? location.reload() : "")
         },
-        signOut(){
+        signOut() {
             axios.post('/api/logout')
-            .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "http://localhost:8080/web/login.html")
         },
-        sendTransfer(){
-            axios.post("/api/clients/current/transactions",`amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
-            .then(response => console.log(response))
-            .catch(error=> console.log(error))
+        sendTransfer() {
+            axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
         },
+        formatBalance(balance) {
+            let balanceDescompuesto = balance.toString().split("").reverse();
+            let balanceFormateado = [];
+            for (let i = 0; i < balanceDescompuesto.length; i++) {
+                switch (i) {
+                    case 3:
+                    case 6:
+                    case 9:
+                    case 12:
+                    case 16:
+                    case 17:
+                        balanceFormateado.push(balanceDescompuesto[i] + ".");
+                        break;
+
+                    default:
+                        balanceFormateado.push(balanceDescompuesto[i])
+                        break;
+                }
+            }
+            return balanceFormateado.reverse().join("");
+
+        }
     },
     computed: {
 
@@ -94,7 +116,7 @@ Vue.createApp({
 
 
 }).directive('dragscroll', VueDragscroll)
-.mount('#app')
+    .mount('#app')
 
 
 

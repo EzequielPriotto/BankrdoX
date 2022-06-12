@@ -2,13 +2,14 @@ package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
-import com.mindhub.homebanking.models.Transaction;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
 public class AccountDTO {
 
     private long id;
@@ -33,32 +34,4 @@ public class AccountDTO {
         this.accountType = account.getAccountType();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-
-    public Set<TransactionDTO> getTransactions() {
-        return transactions;
-    }
-
-    public String getCvu() {
-        return cvu;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
 }

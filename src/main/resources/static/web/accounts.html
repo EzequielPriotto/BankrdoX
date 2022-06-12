@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="./style/header.css">
 
-    <link rel="stylesheet" href="./style/prueba.css">
     <link rel="stylesheet" href="./style/custom.css">
 </head>
 
@@ -160,7 +159,6 @@
         </div>
         <div class="contenedorSCVU" >
             <div class="contenedorCreateCVU">
-
                 <div class="w-100 d-flex justify-content-start"><button class="btn text-white mx-3 " @click="closeOffCVU">X</button></div>
                 <img src="./assets/cvuSVG.svg">
                 <form class="ms-3 text-white" v-if="accountFocusCVU">
@@ -303,7 +301,7 @@
                                     <p class="text-muted  ms-2">Here you can see your associated available cards</p>
                                 </div>
 
-                                <div class="debit-card mb-3" v-for="(card, i) in cardsCortado" v-cloak>
+                                <div class="debit-card mb-3" v-for="(card, i) in cards" v-cloak>
                                     <div class="d-flex flex-column h-100">
                                         <label class="d-block">
                                             <div class="d-flex flex-column position-relative" >
@@ -318,7 +316,8 @@
                                                     <p class="text-white fw-bold">{{getDateCard(card.thruDate)}}</p>
                                                 </div>
                                                 <div id="progressbar" class="mt-2" v-if="card.cardType === 'CREDIT'">
-                                                    <div></div>
+                                                    <div :style="'width:' + (card.expense * 100) / card.limitCard + '%'" 
+                                                    :class="{'bg-danger':  ((card.expense * 100) / card.limitCard) >= 80, 'bg-warning': ((card.expense * 100) / card.limitCard) > 50   , 'bg-success': 50 >= ((card.expense * 100) / card.limitCard)}"></div>
                                                 </div>
 
                                             </div>

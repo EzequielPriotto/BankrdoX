@@ -26,6 +26,10 @@ body {
 
 }
 
+/* *{
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+} */
+
 header,
 nav {
     height: var(--heightNav);

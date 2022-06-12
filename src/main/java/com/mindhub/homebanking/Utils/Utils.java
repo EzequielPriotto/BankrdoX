@@ -1,4 +1,5 @@
 package com.mindhub.homebanking.Utils;
+import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import net.bytebuddy.utility.RandomString;
 
@@ -12,7 +13,7 @@ public class Utils {
 
     private static List<String> numbersCreated = new ArrayList<>();
     private static List<String> numbersCardsCreated = new ArrayList<>();
-    private static List<String> tokensCardsCreated = new ArrayList<>();
+    private static List<String> tokensCreated = new ArrayList<>();
 
     private static List<String> numbersCVUCreated = new ArrayList<>();
 
@@ -119,14 +120,25 @@ public class Utils {
         String token = "";
         do {
             token = RandomString.make(tokenL);
-        }while (tokensCardsCreated.contains(token));
-        tokensCardsCreated.add(token);
+        }while (tokensCreated.contains(token));
+        tokensCreated.add(token);
 
         return token;
     }
 
     public static void DeleteToken(String tokenD) {
-        tokensCardsCreated =  tokensCardsCreated.stream().filter(token -> token != tokenD).collect(Collectors.toList());
+        tokensCreated =  tokensCreated.stream().filter(token -> token != tokenD).collect(Collectors.toList());
+    }
+
+
+    public static int SelectLimit(CardColor cardColor){
+        if(cardColor == CardColor.SILVER)
+            return 100000;
+        if(cardColor == CardColor.GOLD)
+            return 300000;
+        if(cardColor == CardColor.TITANIUM)
+            return 500000;
+        return 0;
     }
 
     }

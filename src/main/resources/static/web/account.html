@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" href="./style/header.css">
+    <link rel="stylesheet" href="./style/transaction.css">
     <link rel="stylesheet" href="./style/custom.css">
 </head>
 <body>
@@ -116,13 +117,13 @@
         <div class="contenedorS"></div>
 
         <div class="contenedor row g-0  m-0 p-0 d-flex justify-content-between px-3">
-            <section class="col-12 py-2 mt-5" style=" background-color: #1b1b1b;">
+            <section class="col-12 py-2 mt-5" >
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
-            <h2 class="text-center text-white" v-if="dataBase != []">ACCOUNT <span style="color:#FC5404">{{dataBase.number}}</span></h2>
+            <h2 class="ps-4 text-start text-white text-white" v-if="dataBase != []">ACCOUNT <span style="color:#FC5404">{{dataBase.number}}</span></h2>
             <h2 v-if="dataBase == []" class="text-center text-white">ACCOUNT <span style="color:#FC5404">NOT FOUND</span></h2>    
             
-           <section class="mt-4 listadoComprasAccount col-8" >
+           <!-- <section class="mt-4 listadoComprasAccount col-8" >
                <ul class="pt-2" v-dragscroll.y="true"  v-cloak>
                    <li  class="itemCompraList">
                     <div class="text-white iconoCompraList">
@@ -173,8 +174,64 @@
 
                    </li>
                </ul>
-           </section>
-           <aside class="mt-4 col-3">
+           </section> -->
+           <div class="historyDiv col-8" :class="{empty: transactions.length == 0}">
+            <ul class="" v-dragscroll.y="true" v-cloak>
+                <li class="itemCompraList">
+                    <div class="text-white iconoCompraList">
+                        <p class="">Type</p>
+                    </div>
+
+                    <div class="descCompraList">
+                        <p>Description</p>
+                    </div>
+                    <div class="dateCompraList">
+                        <p>Date</p>
+                    </div>
+                    <div class="idCompraList">
+                        <p>Transaction id</p>
+                    </div>
+                    <div class="amountCompraList">
+                        <p> Amount</p>
+                    </div>
+
+                </li>
+                <li v-if="transactions.length == 0">
+                    <h2 class="text-center mt-5 text-white">NO TRANSACTIONS <span class="naranja">FOUND</span>
+                    </h2>
+                    <img src="./assets/notFound.svg" alt="">
+                </li>
+                <li v-for="compra in transactions" class="itemCompraList" :class="{}"
+                    v-if="transactions.length > 0">
+                    <div class="text-white iconoCompraList">
+                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
+                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
+                        <i class='bx bx-restaurant iconoCompra' v-if="compra.description === 'Food'"></i>
+                        <i class='bx bxs-t-shirt iconoCompra' v-if="compra.description === 'Outfit'"></i>
+                        <i class='bx bxs-shopping-bag iconoCompra' v-if="compra.description === 'Others'"></i>
+                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
+                    </div>
+
+                    <div class="descCompraList">
+                        <p>{{compra.description}}</p>
+                    </div>
+                    <div class="dateCompraList d-flex flex-column">
+                        <p>{{getDateCreate(compra.date)}}</p>
+                    </div>
+                    <div class="idCompraList">
+                        <p>{{compra.idEncrypted}}</p>
+                    </div>
+                    <div class="amountCompraList">
+                        <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{formatBalance(compra.amount)}}</p>
+                        <p v-else class="negativo">- $ {{formatBalance(compra.amount)}} </p>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+           
+           <aside class=" col-3">
                 <h5 class="text-white">Send money to a <span class="naranja">friend</span></h5>
                     <label>
                         <p class="text-muted mb-1 fw-bold">Amount to send</p>

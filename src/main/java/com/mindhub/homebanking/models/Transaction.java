@@ -1,34 +1,34 @@
 package com.mindhub.homebanking.models;
-
-import net.minidev.json.annotate.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
+import org.jetbrains.annotations.Unmodifiable;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 import static com.mindhub.homebanking.Utils.Utils.GenerateToken;
-
+@Getter
+@Setter
 @Entity
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    @Unmodifiable
     private long id;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id")
+    @Unmodifiable
     private Account account;
-
 
     private double amount;
     private String description;
     private LocalDateTime date;
-
     private TransactionType type;
-
+    @Unmodifiable
     private String idEncrypted;
+
 
     public Transaction(){}
 
@@ -50,53 +50,4 @@ public class Transaction {
         this.idEncrypted = GenerateToken(15);
     }
 
-
-
-    public long getId() {
-        return id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-
-    public TransactionType getType() {
-        return type;
-    }
-
-    public void setType(TransactionType type) {
-        this.type = type;
-    }
-    public Account getAccountOwner() {
-        return this.account;
-    }
-
-    public void setAccountOwner(Account account) {
-        this.account = account;
-    }
-
-    public String getIdEncrypted() {
-        return idEncrypted;
-    }
 }

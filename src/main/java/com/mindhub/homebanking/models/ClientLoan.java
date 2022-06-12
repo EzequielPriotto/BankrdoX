@@ -1,32 +1,33 @@
 package com.mindhub.homebanking.models;
-
-import net.minidev.json.annotate.JsonIgnore;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+@Setter
+@Getter
 @Entity
 public class ClientLoan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    @Unmodifiable
     private long id;
-
-
     private int payments;
-
     private double amount;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
+    @Unmodifiable
     private Client client;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="loan_id")
+    @Unmodifiable
     private Loan loan;
-
 
     public ClientLoan(){}
 
@@ -36,43 +37,5 @@ public class ClientLoan {
         this.client = client;
         this.loan = loan;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public int getPayments() {
-        return payments;
-    }
-
-    public void setPayments(int payments) {
-        this.payments = payments;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
-    }
-
-
 
 }

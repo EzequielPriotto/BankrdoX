@@ -7,6 +7,10 @@ input {
 }
 
 
+*{
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
 .loader {
   width: 99vw;
   height: 100vh;
@@ -72,13 +76,13 @@ color: chocolate;
 
 .btnRedirect{
   position: absolute;
-  right: 61%;
+  right: 90%;
   top: 2%;
   text-decoration: none;
   color: white;
   font-weight: bold;
   font-size: large;
-  width: 69%;
+  width: 11%;
   transition: 1s;
   display: flex;
   align-items: center;

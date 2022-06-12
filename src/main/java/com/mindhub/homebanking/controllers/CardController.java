@@ -4,57 +4,49 @@ import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+
 import static com.mindhub.homebanking.Utils.Utils.GenerateRandomNumberCard;
+import static com.mindhub.homebanking.Utils.Utils.SelectLimit;
 import static com.mindhub.homebanking.models.CardType.CREDIT;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 @RestController
 @RequestMapping("/api")
 public class CardController {
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
 
-    @RequestMapping("/cards/")
+    @GetMapping("/cards/")
     public List<CardDTO> getCards() {
-        return cardRepository.findAll().stream().map(card -> new CardDTO(card)).collect(toList());
+        return cardService.getCardsDTO();
     }
 
-    @RequestMapping("/clients/current/cards/")
+    @GetMapping("/clients/current/cards/")
     public List<CardDTO> getCurrentCards(Authentication authentication){
-        Client client = clientRepository.findByEmail(authentication.getName());
-
-
-
+        Client client = clientService.getClient(authentication.getName());
         return client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
     }
 
-    @RequestMapping(path = "/clients/current/cards/",  method = RequestMethod.POST)
+    @PostMapping(path = "/clients/current/cards/")
     public ResponseEntity<Object> createCurrentCards(@RequestParam CardColor cardColor, @RequestParam CardType cardType, Authentication authentication) {
 
         try{
-            Client client = clientRepository.findByEmail(authentication.getName());
+            Client client = clientService.getClient(authentication.getName());
             String number = GenerateRandomNumberCard(0,9, cardType);
             String cardHolder = client.getFullName();
             int cvv =(int) ((Math.random() * (99 - 999)) + 999);
@@ -65,10 +57,10 @@ public class CardController {
             if(cardType == CardType.DEBIT && client.getCardsDebit().size() >= 3){
                 return new ResponseEntity<>("Max limit debit card created", HttpStatus.FORBIDDEN);
             }
-
-            Card card = new Card(cardHolder,cardType,cardColor,number,cvv);
+            int limitCard = SelectLimit(cardColor);
+            Card card = new Card(cardHolder,cardType,cardColor,number,cvv,limitCard);
             client.addCard(card);
-            cardRepository.save(card);
+            cardService.saveCard(card);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch(Exception e){

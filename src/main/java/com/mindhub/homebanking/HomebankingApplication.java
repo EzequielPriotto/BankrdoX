@@ -122,10 +122,12 @@ public class HomebankingApplication {
 			clientLoanRepository.save(cloan4);
 
 
-			Card card1 = new Card(cliente1,CardType.DEBIT, CardColor.GOLD, GenerateRandomNumberCard(10, 0,CardType.DEBIT),682,LocalDateTime.now(),LocalDateTime.now().plusYears(5));
-			Card card2 = new Card(cliente1,CardType.CREDIT, CardColor.TITANIUM,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),543,LocalDateTime.now(),LocalDateTime.now().plusYears(5));
-			Card card3 = new Card(cliente1,CardType.CREDIT, CardColor.SILVER,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),763,LocalDateTime.now(),LocalDateTime.now().plusYears(5));
-			Card card4 = new Card(cliente1,CardType.CREDIT, CardColor.SILVER,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),540,LocalDateTime.now(),LocalDateTime.now().plusYears(5));
+			Card card1 = new Card(cliente1,CardType.DEBIT, CardColor.GOLD, GenerateRandomNumberCard(10, 0,CardType.DEBIT),682,LocalDateTime.now(),LocalDateTime.now().plusYears(5),300000);
+			Card card2 = new Card(cliente1,CardType.CREDIT, CardColor.TITANIUM,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),543,LocalDateTime.now(),LocalDateTime.now().plusYears(5),500000);
+			Card card3 = new Card(cliente1,CardType.CREDIT, CardColor.SILVER,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),763,LocalDateTime.now(),LocalDateTime.now().plusYears(5), 100000);
+			card3.setExpense(51000);
+			Card card4 = new Card(cliente1,CardType.CREDIT, CardColor.SILVER,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),540,LocalDateTime.now(),LocalDateTime.now().plusYears(5), 100000);
+			card4.setExpense(90000);
 
 			cliente1.addCard(card1);
 			cliente1.addCard(card2);

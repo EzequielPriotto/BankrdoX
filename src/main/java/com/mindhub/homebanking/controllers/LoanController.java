@@ -4,6 +4,10 @@ import com.mindhub.homebanking.dtos.ClientLoanDTO;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.LoanService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,27 +24,22 @@ public class LoanController {
 
 
     @Autowired
-    ClientRepository clientRepository;
+    ClientService clientService;
     @Autowired
-    LoanRepository loanRepository;
-
+    AccountService accountService;
     @Autowired
-    ClientLoanRepository clientLoanRepository;
-
+    LoanService loanService;
     @Autowired
-    AccountRepository accountRepository;
-
-    @Autowired
-    TransactionRepository transactionRepository;
+    TransactionService transactionService;
 
 
     @Transactional
     @PostMapping("/clients/current/loans")
     public ResponseEntity<Object> makeLoan(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication){
 
-        Loan loan = loanRepository.findById(loanApplicationDTO.getIdLoan()).orElse(null);
-        Client client = clientRepository.findByEmail(authentication.getName());
-        Account account = accountRepository.findByNumber(loanApplicationDTO.getNumberAccount());
+        Loan loan = loanService.getLoanById(loanApplicationDTO.getIdLoan());
+        Client client = clientService.getClient(authentication.getName());
+        Account account = accountService.getAccountByNumber(loanApplicationDTO.getNumberAccount());
 
         if (Long.toString(loanApplicationDTO.getIdLoan()).isEmpty() || loanApplicationDTO.getAmount() == 0 ||
                 loanApplicationDTO.getPayments() == 0 || loanApplicationDTO.getNumberAccount().isEmpty())
@@ -68,12 +68,17 @@ public class LoanController {
         Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), "Deposit",account,TransactionType.CREDIT);
         account.addBalance(loanApplicationDTO.getAmount());
 
-        transactionRepository.save(transaction);
-        clientLoanRepository.save(clientLoan);
-        accountRepository.save(account);
+
+        transactionService.saveTransaction(transaction);
+        loanService.saveClientLoan(clientLoan);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/loans")
+    public List<Loan> getLoans(){
+        return  loanService.getLoans();
+    }
 
 }
