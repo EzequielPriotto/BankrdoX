@@ -13,7 +13,7 @@
 }
 
 *{
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace ;
 }
 
 html {
@@ -1456,8 +1456,7 @@ input::-webkit-inner-spin-button {
 
 }
 
-.card {
-
+.cardIndex {
     height: 29.99rem;
     overflow: hidden;
     overflow-y: auto;
@@ -1580,7 +1579,7 @@ input::-webkit-inner-spin-button {
         cursor: pointer;
     }
 
-    .card {
+    .cardIndex {
         display: flex;
         align-items: center;
     }

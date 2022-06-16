@@ -1,43 +1,41 @@
 package com.mindhub.homebanking.models;
-import lombok.Builder;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.jetbrains.annotations.Unmodifiable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@Entity
-public class ClientLoan {
+@Entity  // crea la tabla en base a la entity
+public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Unmodifiable
     private long id;
-    private int payments;
-    private double amount;
-    private double payment;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
     @Unmodifiable
     private Client client;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="loan_id")
-    @Unmodifiable
-    private Loan loan;
+    private String user, message, url;
 
-    public ClientLoan(){}
+    private LocalDateTime date;
 
-    public ClientLoan(int payments, double amount, Client client, Loan loan,double payment) {
-        this.payments = payments;
-        this.amount = amount;
-        this.client = client;
-        this.loan = loan;
-        this.payment = payment;
+    public Notification(){}
+
+
+    public Notification( String user, String message, String url) {
+        this.user = user;
+        this.message = message;
+        this.url = url;
+        this.date = LocalDateTime.now();
     }
-
 }

@@ -10,7 +10,7 @@ public class TransactionDTO {
     private long id;
 
 
-    private double amount;
+    private double amount, oldBalance, newBalance;
     private String description;
     private LocalDateTime date;
 
@@ -23,6 +23,7 @@ public class TransactionDTO {
     private String idEncrypted;
 
 
+
     public TransactionDTO (Transaction transaction){
         this.id = transaction.getId();
         this.amount = transaction.getAmount();
@@ -32,6 +33,8 @@ public class TransactionDTO {
         this.link = "http://localhost:8080/rest/transactions/" + this.id;
         this.accountNumber = transaction.getAccount().getNumber();
         this.idEncrypted = transaction.getIdEncrypted();
+        this.oldBalance = transaction.getOldBalance();
+        this.newBalance = transaction.getNewBalance();
     }
 
 }

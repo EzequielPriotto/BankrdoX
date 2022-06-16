@@ -57,13 +57,13 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                v-for="(userNoti, index) in notificacionesCortadas">
+                                                <div class="notification-info" >
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">{{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -295,7 +295,7 @@
 
                     <div class="fondoMasClaro divCards sombra">
                         <div class="wrapper">
-                            <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
+                            <div class="cardIndex px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
                                 <div class=" my-3">
                                     <p class="h8 ms-2">Cards Resume</p>
                                     <p class="text-muted  ms-2">Here you can see your associated available cards</p>
@@ -565,7 +565,7 @@
 
                     <div class="fondoMasClaro divCards">
                         <div class="wrapper">
-                            <div class="card px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
+                            <div class="cardIndex px-1 px-md-2 fondoMasClaro" v-dragscroll.y="true">
                                 <div class=" my-3">
                                     <p class="h8 ms-1">Cards Resume</p>
                                     <p class="text-muted  ms-1">Here you can see your associated available cards</p>

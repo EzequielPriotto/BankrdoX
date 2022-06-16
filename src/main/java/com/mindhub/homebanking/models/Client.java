@@ -33,6 +33,8 @@ public class Client {
 
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER)
     private Set<Card> cards = new HashSet<>();
+    @OneToMany(mappedBy="client", fetch=FetchType.EAGER)
+    private Set<Notification> notifications = new HashSet<>();
 
     @Unmodifiable
     private String password, userName;
@@ -68,6 +70,10 @@ public class Client {
     public void addCard(Card card) {
         card.setClient(this);
         cards.add(card);
+    }
+    public void addNotification(Notification notification) {
+        notification.setClient(this);
+        notifications.add(notification);
     }
 
 

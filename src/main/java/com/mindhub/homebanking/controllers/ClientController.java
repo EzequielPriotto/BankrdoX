@@ -3,8 +3,10 @@ import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.Notification;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,9 @@ public class ClientController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    NotificationService notificationService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -166,6 +171,11 @@ public class ClientController {
 
         client.setAvatar(avatar);
         client.setUserName(userName);
+        notificationService.getAllByClient(client).stream().forEach(notification -> {
+         if (notification.getClient() == client){
+             notification.setUrl(avatar);
+         }
+        });
         clientService.saveClient(client);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

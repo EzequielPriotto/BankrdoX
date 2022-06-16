@@ -29,25 +29,30 @@ public class Transaction {
     @Unmodifiable
     private String idEncrypted;
 
+    private double oldBalance, newBalance;
 
     public Transaction(){}
 
 
-    public Transaction(double amount, String description, LocalDateTime date, Account account, TransactionType type) {
+    public Transaction(double amount, String description, LocalDateTime date, Account account, TransactionType type, double oldBalance, double newBalance) {
         this.amount = amount;
         this.description = description;
         this.date = date;
         this.account = account;
         this.type = type;
         this.idEncrypted = GenerateToken(15);
+        this.oldBalance = oldBalance;
+        this.newBalance = newBalance;
     }
-    public Transaction(double amount, String description, Account account, TransactionType type) {
+    public Transaction(double amount, String description, Account account, TransactionType type, double oldBalance, double newBalance) {
         this.amount = amount;
         this.description = description;
         this.date = LocalDateTime.now();
         this.account = account;
         this.type = type;
         this.idEncrypted = GenerateToken(15);
+        this.oldBalance = oldBalance;
+        this.newBalance = newBalance;
     }
 
 }

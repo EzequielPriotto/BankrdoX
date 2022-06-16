@@ -10,8 +10,9 @@ public class ClientLoanDTO {
     private long idLoan;
 
     private LoanType name;
-    private double amount;
+    private double amount, payment;
     private int payments;
+
 
     public ClientLoanDTO() {
     }
@@ -22,8 +23,7 @@ public class ClientLoanDTO {
         this.name = clientLoans.getLoan().getName();
         this.amount = clientLoans.getAmount();
         this.payments = clientLoans.getPayments();
+        this.payment = clientLoans.getPayment();
     }
-
-
 
 }

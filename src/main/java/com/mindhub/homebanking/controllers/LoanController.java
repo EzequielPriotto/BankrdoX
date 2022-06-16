@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.ClientLoanDTO;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
+import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.services.AccountService;
@@ -32,6 +33,14 @@ public class LoanController {
     @Autowired
     TransactionService transactionService;
 
+    @GetMapping("/loans")
+    public List<LoanDTO> getLoansDto(){
+        return  loanService.getLoansDTO();
+    }
+    @GetMapping("/clients/current/loans")
+    public List<ClientLoanDTO> getClientLoansDto(Authentication authentication){
+        return  loanService.getClientLoansDTOCurrent(clientService.getClient(authentication.getName()));
+    }
 
     @Transactional
     @PostMapping("/clients/current/loans")
@@ -46,7 +55,7 @@ public class LoanController {
             return new ResponseEntity<>("Missing date", HttpStatus.FORBIDDEN);
 
 
-        if(loan == null)
+        if(loanService.existLoan(loan.getId()))
             return new ResponseEntity<>("Loan not exist", HttpStatus.FORBIDDEN);
 
         if(loanApplicationDTO.getAmount() > loan.getMaxAmount())
@@ -64,8 +73,8 @@ public class LoanController {
 
 
 
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getPayments(),loanApplicationDTO.getAmount() * 1.20,client,loan);
-        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), "Deposit",account,TransactionType.CREDIT);
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getPayments(),loanApplicationDTO.getAmount() * 1.20,client,loan,(loanApplicationDTO.getAmount() * 1.20) / loanApplicationDTO.getPayments());
+        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), "Deposit",account,TransactionType.CREDIT,account.getBalance(), account.getBalance() + loanApplicationDTO.getAmount() );
         account.addBalance(loanApplicationDTO.getAmount());
 
 
@@ -76,9 +85,9 @@ public class LoanController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/loans")
-    public List<Loan> getLoans(){
-        return  loanService.getLoans();
-    }
+
+
+
+
 
 }

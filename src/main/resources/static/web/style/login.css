@@ -418,9 +418,12 @@ form {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 2.5rem 8%;
+    padding: 1rem 8%;
+    margin-left: 3rem;
   }
-
+  .panel .content img{
+    display: none;
+  }
   .panel h3 {
     font-size: 1.2rem;
   }
@@ -437,7 +440,9 @@ form {
   }
 
   .panel .content {
-    padding-right: 15%;
+      padding-right: 2%;
+      padding: 1.3rem;
+      padding-right: 22%;
     transition: 0.9s 0.8s ease-in-out;
   }
 
@@ -461,5 +466,10 @@ form {
     top: 5%;
     transform: translate(-50%, 0);
     left: 50%;
+  }
+  .btnRedirect {
+    right: 67%;
+    top: 1%;
+    width: 36%;
   }
 }

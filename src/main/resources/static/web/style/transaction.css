@@ -283,11 +283,12 @@ input::-webkit-inner-spin-button {
 }
 
 .divAlert.disable {
-    display: none;
+   z-index: -10;
 }
 
 .divAlert {
-    display: flex;
+    z-index: 10;
+
 }
 
 .divAlert.disable .alertContainer {
@@ -333,6 +334,13 @@ input::-webkit-inner-spin-button {
     height: 100%;
 }
 
+.divAlert.disable .alerBody img {
+    animation-play-state: paused;
+
+}
+.divAlert.disable .alerBody .txt-pajarito {
+    animation-play-state: paused;
+}
 .alerBody img {
     position: absolute;
     width: 100%;
@@ -342,8 +350,8 @@ input::-webkit-inner-spin-button {
     animation: openPajarito 1400ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
+   
+    animation-play-state: running;
 }
 
 .alerBody .txt-pajarito {
@@ -357,8 +365,10 @@ input::-webkit-inner-spin-button {
     animation: opentxt 2000ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
+    /* -webkit-animation-delay: 1s; */
+    /* animation-delay: 1s; */
+    animation-play-state: running;
+
 }
 
 .alertDetails {

@@ -37,7 +37,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-                <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
+               <div><img src="./assets/LOGO/logoWhite.png" alt="" srcset=""></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -149,28 +149,33 @@
                 <section class="col-12 position-relative  h-100 cardContainerC">
                     <div class="position-relative h-50" v-for="(card, i) in creditArray" :id="'id' + i"
                         @click="changeFocus('id' + i)">
-                        <div class="frontSVG"></div>
+                        <div class="frontSVG" style="font-family: 'creditCardBack'" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }"></div>
 
-                        <div class="backSVG">
-                            <div class="w-100 h-100 position-relative">
-                                <p class="txtLogoCard">BK<span>R</span></p>
-                                <div>
-                                    <p class="position-absolute nameCard">{{separarNombre(card.cardHolder , 0)}}</p>
-                                    <p class="position-absolute lastnameCard">{{separarNombre(card.cardHolder , 1)}}</p>
+                        <div class="backSVG" style="font-family: 'creditCardBack'">
+                        <div class="cardBody">
+                            <p class="firma" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{card.cardHolder}}</p>
+                            <div class="background">
+                                <div class="bakrdoxName">
+                                    <p class="text-white">Bankrdo<span   :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span></p>
                                 </div>
-                                <div class="numbersContainer">
-                                    <p class=" numeroCard1">{{separarNombre(card.number , 0)}}</p>
-                                    <p class=" numeroCard2">{{separarNombre(card.number , 1)}}</p>
-                                    <p class=" numeroCard3">{{separarNombre(card.number , 2)}}</p>
-                                    <p class=" numeroCard4">{{separarNombre(card.number , 3)}}</p>
-                                    <p class=" numeroDate">trhu: {{getDateCreate(card.thruDate)}}</p>
-                                    <p class=" numeroCvv">cvv: {{card.cvv}}</p>
-                                    <i class='bx bx-md'
-                                        :class="{'bxl-visa' : card.cardType === 'CREDIT', 'bxl-mastercard' : card.cardType === 'DEBIT'}"></i>
+                                <div class="cardHolder">
+                                    <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span></p>
                                 </div>
-                                <div class="barraNegraD"></div>
-
+                                <div class="cardNumber">
+                                   <p>{{separarNombre(card.number,0)}}</p>
+                                   <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,1)}}</p>
+                                   <p>{{separarNombre(card.number,2)}}</p>
+                                   <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,3)}}</p>
+                                </div>
+                                <div class="cardDate">
+                                    <p> {{getDateCreate(card.thruDate)}}</p>
+                                </div>
+                                <div class="cardCvv">
+                                    <p> <span>cvv</span> <span>{{card.cvv}}</span></p>
+                                </div>
                             </div>
+                            
+                        </div>
                         </div>
                     </div>
                 </section>
@@ -180,26 +185,31 @@
                 <section class="col-12 position-relative  h-100 cardContainerC">
                     <div class="position-relative h-50" v-for="(card, i) in debitArray" :id="'id' + i + 10"
                         @click="changeFocus2('id' + i+ 10)">
-                        <div class="frontSVG"></div>
+                        <div class="frontSVG" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }"></div>
                         <div class="backSVG">
-                            <div class="w-100 h-100 position-relative">
-                                <p class="txtLogoCard">BK<span>R</span></p>
-                                <div>
-                                    <p class="position-absolute nameCard">{{separarNombre(card.cardHolder , 0)}}</p>
-                                    <p class="position-absolute lastnameCard">{{separarNombre(card.cardHolder , 1)}}</p>
+                            <div class="cardBody">
+                                <p class="firma" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{card.cardHolder}}</p>
+                                <div class="background">
+                                    <div class="bakrdoxName">
+                                        <p class="text-white">Bankrdo<span   :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span></p>
+                                    </div>
+                                    <div class="cardHolder">
+                                        <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span></p>
+                                    </div>
+                                    <div class="cardNumber">
+                                       <p>{{separarNombre(card.number,0)}}</p>
+                                       <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,1)}}</p>
+                                       <p>{{separarNombre(card.number,2)}}</p>
+                                       <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,3)}}</p>
+                                    </div>
+                                    <div class="cardDate">
+                                        <p> {{getDateCreate(card.thruDate)}}</p>
+                                    </div>
+                                    <div class="cardCvv">
+                                        <p> <span>cvv</span> <span>{{card.cvv}}</span></p>
+                                    </div>
                                 </div>
-                                <div class="numbersContainer">
-                                    <p class=" numeroCard1">{{separarNombre(card.number , 0)}}</p>
-                                    <p class=" numeroCard2">{{separarNombre(card.number , 1)}}</p>
-                                    <p class=" numeroCard3">{{separarNombre(card.number , 2)}}</p>
-                                    <p class=" numeroCard4">{{separarNombre(card.number , 3)}}</p>
-                                    <p class=" numeroDate">trhu: {{getDateCreate(card.thruDate)}}</p>
-                                    <p class=" numeroCvv">cvv: {{card.cvv}}</p>
-                                    <i class='bx bx-md'
-                                        :class="{'bxl-visa' : card.cardType === 'CREDIT', 'bxl-mastercard' : card.cardType === 'DEBIT'}"></i>
-                                </div>
-                                <div class="barraNegraD"></div>
-
+                            </div>
                             </div>
                         </div>
                     </div>

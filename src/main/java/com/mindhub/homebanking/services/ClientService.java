@@ -13,4 +13,5 @@ public interface ClientService {
     Client getClientToken(String token);
     void saveClient(Client client);
 
+    boolean existClient(long id);
 }

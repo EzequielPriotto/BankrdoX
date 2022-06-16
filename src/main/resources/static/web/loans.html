@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Orbitron|Roboto+Condensed:400,700" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" href="./style/header.css">
-    <link rel="stylesheet" href="./style/cards.css">
+    <link rel="stylesheet" href="./style/loans.css">
     <link rel="stylesheet" href="./style/custom.css">
 </head>
+
 <body>
-    
+
     <main id="app">
 
-        
+
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
                 <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon" ><i class='bx bx-menu text-white' style="margin-top: .7rem;"></i></span>
+                    <span class="navbar-toggler-icon"><i class='bx bx-menu text-white'
+                            style="margin-top: .7rem;"></i></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
@@ -69,7 +73,8 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="./accounts.html" class="connection-item "><i class='bx bx-group bx-md'></i>
+                                            <a href="./accounts.html" class="connection-item "><i
+                                                    class='bx bx-group bx-md'></i>
                                                 <span>Accounts</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -78,7 +83,8 @@
                                                 <span>Cards</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="./transfers.html" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                            <a href="./transfers.html" class="connection-item"><i
+                                                    class='bx bx-spreadsheet bx-md'></i>
                                                 <span>Transfers</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -97,8 +103,8 @@
                         </li>
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                     alt="" class="user-avatar-md rounded-circle" :src=dataBase.avatar v-cloak></a>
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img alt=""
+                                    class="user-avatar-md rounded-circle" :src=dataBase.avatar v-cloak></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
@@ -116,48 +122,70 @@
                 </div>
             </nav>
         </div>
-        
+
         <div class="contenedorS"></div>
 
         <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
             <section class="col-12 py-2 mt-5" style=" background-color: #111315;">
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
-          
-            <section class="col-12"><h2 class="text-white text-center">YOUR <span style="color: #FC5404;">LOANS</span> </h2></section>
 
-                <ul class="text-white d-flex gap-5 align-items-center w-100 justify-content-center mt-4">
-                    <li v-for="loan in loans" >
-                       <p> Amount:{{loan.amount}}</p>
-                       <p> Payments:{{loan.payments}}</p>
-                       <p> Type:{{loan.name}}</p>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                   ADD LOAN
-                  </button>
+            <section class="col-12">
+                <h2 class="text-white text-center">YOUR <span style="color: #FC5404;">LOANS</span> </h2>
+            </section>
+
+            <section class="col-12 divContent">
+                <div class="loanLayout"  v-dragscroll.y="true">
+
+                    <div class="loanItem" v-for="loanActive in loansActives" v-if="loansActives.length > 0">
+                        <div class="loanImg">
+                            <img src="./assets/loans/casa.svg" alt="" srcset="" v-if="loanActive.name == 'MORTGAGE'">
+                            <img src="./assets/loans/personal.svg" alt="" srcset=""
+                                v-else-if="loanActive.name == 'PERSONAL'">
+                            <img src="./assets/loans/moto.svg" alt="" srcset="" v-else-if="loanActive.name == 'AUTOMOTIVE'">
+                        </div>
+                        <div class="textLoan">
+                            <p class="loanType"> Type Loan: <span class="naranja">{{loanActive.name}}</span></p>
+                            <p class="loanAmount">Amount: <span class="naranja">${{loanActive.amount.toLocaleString('de-DE')}}</span></p>
+                            <p class="loanPayments"> Payments <span class="naranja">{{loanActive.payments}}</span></p>
+                            <p class="loanPayments"> Monthly payment:  <span class="naranja">${{loanActive.payment.toLocaleString('de-DE')}}</span></p>
+                        </div>
+                    </div>
+                    <div class="text-center" v-else>
+                        <img src="./assets/loans/noFound.svg" alt="">
+                        <p class="text-white fs-1 mt-4">Nothing for <span class="naranja">here</span></p>
+                      
+                    </div>
+                </div>
+                <div class="loansInfo">
+                    <div id="accordion">
+                        <div class="card" v-for="loan in loans">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-loan naranja" data-toggle="collapse" :data-target="'#id' +loan.id"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                       {{loan.name}}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div :id="'id' +loan.id" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordion">
+                                <div class="card-body">
+                                  <p class="text-white"> {{loan.descriptionLoan}}</p>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="applyForLoan" @click="redireccionar">
+                        <div></div>
+                        <h3 class="text-center">APPLY FOR LOANS</h3>
+                    </div>
+                </div>
+            </section>
+
         </div>
-      
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <form @submit.prevent="addLoan()">
-           
-        </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
         <footer class="footer-section">
             <div class="container">
@@ -168,7 +196,8 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <div class="cta-text">
                                     <h4>Find us</h4>
-                                    <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen Terrace</a>
+                                    <a href="https://goo.gl/maps/sPQenkcJJfpCsCZ67" target="_blank">742 Evergreen
+                                        Terrace</a>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +215,7 @@
                                 <i class="far fa-envelope-open"></i>
                                 <div class="cta-text">
                                     <h4>Mail us</h4>
-                                    <a href="mailto:bankrdox@gmail.com"  target="_blank">bankrdox@gmail.com</a>
+                                    <a href="mailto:bankrdox@gmail.com" target="_blank">bankrdox@gmail.com</a>
                                 </div>
                             </div>
                         </div>
@@ -197,17 +226,22 @@
                         <div class="col-xl-4 col-lg-4 mb-50">
                             <div class="footer-widget">
                                 <div class="footer-logo">
-                                    <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png" class="img-fluid" alt="logo"></a>
+                                    <a href="https://beacons.ai/e7ke" target="_blank"><img src="./assets/e7ke.png"
+                                            class="img-fluid" alt="logo"></a>
                                 </div>
                                 <div class="footer-text">
-                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                                    elit,Lorem ipsum dolor sit amet.</p>
+                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.</p>
                                 </div>
                                 <div class="footer-social-icon">
                                     <span>Follow us</span>
-                                    <a href="https://instagram.com/ezequiel__55/" target="_blank"><i class="fab fa-instagram facebook-bg"></i></a>
-                                    <a href="https://twitter.com/9zE7KE" target="_blank"><i class="fab fa-twitter twitter-bg"></i></a>
-                                    <a href="https://github.com/EzequielPriotto" target="_blank"><i class="fab fa-github google-bg"></i></a>
+                                    <a href="https://instagram.com/ezequiel__55/" target="_blank"><i
+                                            class="fab fa-instagram facebook-bg"></i></a>
+                                    <a href="https://twitter.com/9zE7KE" target="_blank"><i
+                                            class="fab fa-twitter twitter-bg"></i></a>
+                                    <a href="https://github.com/EzequielPriotto" target="_blank"><i
+                                            class="fab fa-github google-bg"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +270,8 @@
                                 </div>
                                 <div class="subscribe-form">
                                     <form @submit.prevent="enviarMail">
-                                        <input type="email" placeholder="Email Address" v-model="mailFooterInput" required>
+                                        <input type="email" placeholder="Email Address" v-model="mailFooterInput"
+                                            required>
                                         <button><i class="fab fa-telegram-plane"></i></button>
                                     </form>
                                 </div>
@@ -250,10 +285,12 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 text-center">
                             <div class="copyright-text">
-                                <p>Copyright &copy; 2022, All Right Reserved <a href="https://github.com/EzequielPriotto" target="_blank">Ezequiel Priotto</a></p>
+                                <p>Copyright &copy; 2022, All Right Reserved <a
+                                        href="https://github.com/EzequielPriotto" target="_blank">Ezequiel Priotto</a>
+                                </p>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -261,9 +298,14 @@
     </main>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-dragscroll"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3"></script>
@@ -274,4 +316,5 @@
 
     <script src="./script/loans.js"></script>
 </body>
+
 </html>

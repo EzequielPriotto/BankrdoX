@@ -4,7 +4,8 @@ Vue.createApp({
             dataBase: [],
             mailFooterInput: "",
             loans: [],
-            notificaciones:[]
+            notificaciones: [],
+            loansActives: [],
         }
     },
 
@@ -12,11 +13,13 @@ Vue.createApp({
         axios.get(`http://localhost:8080/api/clients/current`)
             .then(repuesta => {
                 this.dataBase = repuesta.data
-                this.loans = this.dataBase.loans.sort((x, y) => x.id - y.id)
+                this.loansActives = this.dataBase.loans.sort((x, y) => x.id - y.id)
                 desableLoad();
-
             })
-
+        axios.get(`http://localhost:8080/api/loans`)
+            .then(repuesta => {
+                this.loans = repuesta.data
+            })
 
     },
 
@@ -40,7 +43,10 @@ Vue.createApp({
             axios.post('/api/logout')
                 .then(response => window.location.href = "http://localhost:8080/web/login.html")
         },
-       
+        redireccionar() {
+            window.location.href = "http://localhost:8080/web/create-loan.html"
+        }
+
 
     },
     computed: {
@@ -53,7 +59,7 @@ Vue.createApp({
 
 
 
-})
+}).directive('dragscroll', VueDragscroll)
     .mount('#app')
 
 
@@ -61,6 +67,11 @@ function desableLoad() {
     $('.loader').toggleClass('active');
 
 }
+
+
+
+
+
 
 // =====SLIDEBAR LOGICA====
 

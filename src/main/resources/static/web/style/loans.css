@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+:root {
+    --colorMain: #e85b1a;
+}
+
+*{
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace ;
+}
+
+.divContent {
+    display: flex;
+    gap: 5%;
+}
+
+.loanLayout {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 32.5rem;
+    overflow-y: auto;
+}
+
+.loanItem {
+    display: flex;
+    gap: 2rem;
+    background-color: #26272e;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: larger;
+    color: white;
+    height: 10rem;
+}
+
+.loanItem .loanImg img {
+    width: 8rem;
+    height: 10rem;
+}
+
+.loanItem .textLoan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loansInfo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: .5rem;
+}
+#accordion{
+    width: 90%;
+}
+.card{
+    background-color: #26272e;
+}
+.btn-loan{
+    background-color: #26272e;
+    
+}
+.btn-loan:hover{
+    color: white;
+}
+.btn-loan:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+.applyForLoan{
+    height: 10rem;
+    width: 90%;
+    background-color: #e85b1a;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+
+}
+.applyForLoan div{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/backgroundLoan.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 2;
+    border-radius: 15px;
+    opacity: .4;
+    cursor: pointer;
+
+}
+.applyForLoan h3{
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    z-index: 3;
+    transition: .3s;
+    cursor: pointer;
+
+}
+.applyForLoan:hover h3{
+    letter-spacing: .2rem;
+}
+
+
+@media (max-width: 950px) {
+
+    .divContent{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .loanItem{
+        height: auto;
+    }
+    .loanLayout, .loansInfo{
+        width: 90%;
+       
+    }
+    #accordion,.applyForLoan {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}

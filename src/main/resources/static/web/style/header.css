@@ -57,6 +57,10 @@
     color: #82849f;
 }
 
+.navbar.navbar-expand-lg div:first-child > img{
+    width: 5rem;
+    margin-left: 3rem;
+}
 
 /* --  top-search-bar ---  */
 

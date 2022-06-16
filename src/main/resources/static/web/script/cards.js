@@ -54,7 +54,6 @@ Vue.createApp({
             let firstCardF = document.querySelector("#id0").firstChild;
             let firstCardB = document.querySelector("#id0").lastChild;
 
-
             let secondCardF = document.querySelector("#id1");
             let secondCardB = document.querySelector("#id1");
             if (secondCardF != null) {
@@ -84,7 +83,7 @@ Vue.createApp({
                     }
                     else {
                         firstCardF.style.left = "0.9%";
-                        firstCardB.style.left = "1.5%";
+                        firstCardB.style.left = "0.2%";
 
                         setTimeout(() => {
                             firstCardF.style.animationPlayState = "running";
@@ -95,14 +94,14 @@ Vue.createApp({
 
                     if (secondCardF != null) {
                         secondCardF.style.left = "12.9%";
-                        secondCardB.style.left = "13.5%";
+                        secondCardB.style.left = "12.2%";
                         secondCardF.style.animationPlayState = "running";
                         secondCardB.style.animationPlayState = "running";
 
                     }
                     if (thirdCardF != null) {
-                        thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardF.style.left = "24.9%";
+                        thirdCardB.style.left = "24.2%";
                         thirdCardF.style.animationPlayState = "running";
                         thirdCardB.style.animationPlayState = "running";
                     }
@@ -110,7 +109,7 @@ Vue.createApp({
                     break;
                 case "id1":
                     firstCardF.style.left = "0.9%";
-                    firstCardB.style.left = "1.5%";
+                    firstCardB.style.left = "0.2%";
                     firstCardF.style.animationPlayState = "running";
                     firstCardB.style.animationPlayState = "running";
 
@@ -124,7 +123,7 @@ Vue.createApp({
                     }
                     else {
                         secondCardF.style.left = "12.9%";
-                        secondCardB.style.left = "13.5%";
+                        secondCardB.style.left = "12.2%";
                         setTimeout(() => {
                             secondCardF.style.animationPlayState = "running";
                             secondCardB.style.animationPlayState = "running";
@@ -133,8 +132,8 @@ Vue.createApp({
 
                     if (thirdCardB != null) {
 
-                        thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardF.style.left = "24.9%";
+                        thirdCardB.style.left = "24.2%";
                         thirdCardF.style.animationPlayState = "running";
                         thirdCardB.style.animationPlayState = "running";
                     }
@@ -143,17 +142,17 @@ Vue.createApp({
                 case "id2":
 
                     firstCardF.style.left = "0.9%";
-                    firstCardB.style.left = "1.5%";
+                    firstCardB.style.left = "0.2%";
                     firstCardF.style.animationPlayState = "running";
                     firstCardB.style.animationPlayState = "running";
 
                     secondCardF.style.left = "12.9%";
-                    secondCardB.style.left = "13.5%";
+                    secondCardB.style.left = "12.2%";
                     secondCardF.style.animationPlayState = "running";
                     secondCardB.style.animationPlayState = "running";
 
                     
-                    if (thirdCardF.style.left == "19.9%") {
+                    if (thirdCardF.style.left == "24.9%") {
                         thirdCardF.style.animationPlayState = "paused";
                         thirdCardB.style.animationPlayState = "paused";
                         thirdCardF.style.left = "45%";
@@ -161,8 +160,8 @@ Vue.createApp({
                         setTimeout(() => thirdCardB.style.left = "61.2%", 1100)
                     }
                     else {
-                        thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardF.style.left = "24.9%";
+                        thirdCardB.style.left = "24.2%";
                         setTimeout(() => {
                             thirdCardF.style.animationPlayState = "running";
                             thirdCardB.style.animationPlayState = "running";
@@ -208,7 +207,7 @@ Vue.createApp({
                     }
                     else {
                         firstCardF.style.left = "0.9%";
-                        firstCardB.style.left = "1.5%";
+                        firstCardB.style.left = "0.2%";
 
                         setTimeout(() => {
                             firstCardF.style.animationPlayState = "running";
@@ -219,14 +218,14 @@ Vue.createApp({
 
                     if (secondCardF != null) {
                         secondCardF.style.left = "12.9%";
-                        secondCardB.style.left = "13.5%";
+                        secondCardB.style.left = "12.2%";
                         secondCardF.style.animationPlayState = "running";
                         secondCardB.style.animationPlayState = "running";
 
                     }
                     if (thirdCardF != null) {
                         thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardB.style.left = "19.2%";
                         thirdCardF.style.animationPlayState = "running";
                         thirdCardB.style.animationPlayState = "running";
                     }
@@ -234,7 +233,7 @@ Vue.createApp({
                     break;
                 case "id110":
                     firstCardF.style.left = "0.9%";
-                    firstCardB.style.left = "1.5%";
+                    firstCardB.style.left = "0.2%";
                     firstCardF.style.animationPlayState = "running";
                     firstCardB.style.animationPlayState = "running";
 
@@ -248,7 +247,7 @@ Vue.createApp({
                     }
                     else {
                         secondCardF.style.left = "12.9%";
-                        secondCardB.style.left = "13.5%";
+                        secondCardB.style.left = "12.2%";
                         setTimeout(() => {
                             secondCardF.style.animationPlayState = "running";
                             secondCardB.style.animationPlayState = "running";
@@ -258,7 +257,7 @@ Vue.createApp({
                     if (thirdCardB != null) {
 
                         thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardB.style.left = "19.2%";
                         thirdCardF.style.animationPlayState = "running";
                         thirdCardB.style.animationPlayState = "running";
                     }
@@ -267,12 +266,12 @@ Vue.createApp({
                 case "id210":
 
                     firstCardF.style.left = "0.9%";
-                    firstCardB.style.left = "1.5%";
+                    firstCardB.style.left = "0.2%";
                     firstCardF.style.animationPlayState = "running";
                     firstCardB.style.animationPlayState = "running";
 
                     secondCardF.style.left = "12.9%";
-                    secondCardB.style.left = "13.5%";
+                    secondCardB.style.left = "12.9%";
                     secondCardF.style.animationPlayState = "running";
                     secondCardB.style.animationPlayState = "running";
 
@@ -286,7 +285,7 @@ Vue.createApp({
                     }
                     else {
                         thirdCardF.style.left = "19.9%";
-                        thirdCardB.style.left = "20.5%";
+                        thirdCardB.style.left = "19.2%";
                         setTimeout(() => {
                             thirdCardF.style.animationPlayState = "running";
                             thirdCardB.style.animationPlayState = "running";

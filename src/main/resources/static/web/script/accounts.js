@@ -27,31 +27,13 @@ Vue.createApp({
             mailFooterInput: "",
             loans: [],
             notificaciones: [
-                {
-                    avatar: "./assets/avatares/avatar3.png",
-                    name: "Pepito",
-                    message: "accepted your transfer",
-                    date: 2
-                },
-                {
-                    avatar: "./assets/avatares/avatar5.png",
-                    name: "Pepita",
-                    message: "Send $1600 you",
-                    date: 6
-                },
-                {
-                    avatar: "./assets/avatares/avatar2.png",
-                    name: "Edu",
-                    message: "Send $42.6 you",
-                    date: 7
-                }
             ],
             gastoTotal: 0,
             cards: [],
             cardsCortado: [],
             accountFocusCVU: {},
             accountTypeCreate: "DOLAR",
-            
+            notificacionesCortadas:[]
 
         }
     },
@@ -80,6 +62,12 @@ Vue.createApp({
                 this.cards = repuesta.data.cards.sort((x, y) => x.id - y.id)
                 this.cards.forEach(card => this.cardsCortado.push(card))
                
+               this.notificaciones = this.dataBase.notifications.sort((x,y)=>y.id - x.id)
+                this.notificaciones.forEach(notificacion => {
+                    if(this.notificacionesCortadas.length < 3){
+                        this.notificacionesCortadas.push(notificacion)
+                    }
+                })
                 disableLoad();
 
             })
@@ -458,6 +446,40 @@ Vue.createApp({
             setTimeout(()=> contenedor.classList.remove("active") , 500)
             html.classList.remove("load")
         },
+        getDateNotification(dateTrans){
+            const date = new Date(dateTrans)
+            let dateNow = new Date()
+            let year = "";
+            let month = "";
+            let hours = "";
+            let minutes = "";
+
+            if(date.getFullYear() != dateNow.getFullYear()){
+                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear()) 
+                return year + " years ago"
+            }
+            if(date.getMonth() != dateNow.getMonth()){
+                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth()) 
+                return month + " months ago"
+            }
+            if(date.getHours() != dateNow.getHours()){
+                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours()) 
+                if(hours < 0){
+                    hours = hours * -1
+                }
+                 return hours + " hours ago"
+            }
+            if(date.getMinutes() != dateNow.getMinutes()){
+                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes()) 
+                if(minutes < 0){
+                    minutes = minutes * -1
+                }
+                 return minutes + " minutes ago"
+            }
+
+           
+
+        }
         
        
 

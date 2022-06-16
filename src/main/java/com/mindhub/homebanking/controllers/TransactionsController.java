@@ -1,12 +1,9 @@
 package com.mindhub.homebanking.controllers;
-
 import com.mindhub.homebanking.dtos.TransactionDTO;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.NotificationService;
 import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +24,9 @@ public class TransactionsController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/transactions")
     public List<TransactionDTO> getTransactions(){
@@ -71,11 +71,33 @@ public class TransactionsController {
 
         }
 
-        Transaction transactionDebit = new Transaction(amount ,description,accountS, TransactionType.DEBIT);
-        Transaction transactionCredit = new Transaction(amount,description,accountR, TransactionType.CREDIT);
+        Transaction transactionDebit = new Transaction(amount ,description,accountS, TransactionType.DEBIT,accountS.getBalance(), accountS.getBalance() - amount);
+        Transaction transactionCredit = new Transaction(amount,description,accountR, TransactionType.CREDIT,accountR.getBalance(), accountR.getBalance() + amount);
 
         accountS.restBalance(amount);
         accountR.addBalance(amount);
+
+        if(accountR.getClient() == accountS.getClient()){
+            Notification notificationOwn = new Notification(accountS.getClient().getUserName(), "Swap $" + amount + " from " + accountSNumber + " to "  + accountRNumber, accountS.getClient().getAvatar());
+            accountS.getClient().addNotification(notificationOwn);
+            clientService.saveClient(accountS.getClient());
+            notificationService.saveNotification(notificationOwn);
+        }
+        else{
+
+            Notification notificationDebit = new Notification(accountR.getClient().getUserName(), "received $" + amount + " from you", accountR.getClient().getAvatar());
+            Notification notificationCredit= new Notification(accountS.getClient().getUserName(),"sent you $" + amount , accountS.getClient().getAvatar());
+
+            accountS.getClient().addNotification(notificationDebit);
+            accountR.getClient().addNotification(notificationCredit);
+
+
+            clientService.saveClient(accountS.getClient());
+            clientService.saveClient(accountR.getClient());
+
+            notificationService.saveNotification(notificationCredit);
+            notificationService.saveNotification(notificationDebit);
+        }
 
         transactionService.saveTransaction(transactionCredit);
         transactionService.saveTransaction(transactionDebit);

@@ -30,7 +30,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
         auth.userDetailsService(inputName-> {
             Client client = clientService.getClient(inputName);
 
-            if (client != null) {
+            if (clientService.existClient(client.getId())) {
                 if (client.isEnabled()){
                     if(client.getEmail().contains("_admin@bank.com")){
                         return new User(client.getEmail(), client.getPassword(),AuthorityUtils.createAuthorityList("ADMIN"));

@@ -1,14 +1,15 @@
 package com.mindhub.homebanking.repositories;
 
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource
-public interface ClientRepository extends JpaRepository<Client, Long> {
+import java.util.List;
 
-    Client findByEmail(String email);
-    Client findByUserName(String userName);
-    Client getById(long id);
-    Client findByToken(String token);
+@RepositoryRestResource
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
+    List<Notification> findByClient(Client client);
+
 }
