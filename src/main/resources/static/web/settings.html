@@ -42,13 +42,14 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -61,6 +62,7 @@
                                 </li>
                             </ul>
                         </li>
+                        
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
@@ -85,7 +87,16 @@
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>
@@ -125,13 +136,21 @@
                 <img :src=avatarSelect alt="" class="w-100 avatarFocus">
                 <form onsubmit="return false" class="d-flex flex-column w-100 mt-2">
 
-
+                  
                     <div class="input-group w-100 d-flex row g-0">
-                        <input required="" v-model="userNameInput" type="text" name="text" autocomplete="off"
+                        <!-- <input required="" v-model="userNameInput" type="text" name="text" autocomplete="off"
                             class="input col-7">
-                        <label class="user-label col-7">Username</label>
+                        <label class="user-label col-7">Username</label> -->
 
-                        <button @click="cambiarUserName()" class="buttonChange  col-4">Save Change</button>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" v-model="userNameInput">
+                          </div>
+
+
+                        <button @click="cambiarUserName()" class="buttonChange btn col-4">Save Change</button>
                     </div>
 
                 </form>

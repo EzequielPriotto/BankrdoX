@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -49,13 +50,14 @@ public class LoanController {
         Loan loan = loanService.getLoanById(loanApplicationDTO.getIdLoan());
         Client client = clientService.getClient(authentication.getName());
         Account account = accountService.getAccountByNumber(loanApplicationDTO.getNumberAccount());
+        List<Long> ids = client.getLoans().stream().map(clientLoan -> clientLoan.getLoan().getId() ).collect(Collectors.toList());
 
         if (Long.toString(loanApplicationDTO.getIdLoan()).isEmpty() || loanApplicationDTO.getAmount() == 0 ||
                 loanApplicationDTO.getPayments() == 0 || loanApplicationDTO.getNumberAccount().isEmpty())
             return new ResponseEntity<>("Missing date", HttpStatus.FORBIDDEN);
 
 
-        if(loanService.existLoan(loan.getId()))
+        if(loan == null)
             return new ResponseEntity<>("Loan not exist", HttpStatus.FORBIDDEN);
 
         if(loanApplicationDTO.getAmount() > loan.getMaxAmount())
@@ -71,10 +73,11 @@ public class LoanController {
         if (loanApplicationDTO.getAmount() < 0)
             return new ResponseEntity<>("the amount is negative", HttpStatus.FORBIDDEN);
 
+        if (ids.contains(loanApplicationDTO.getIdLoan()))
+            return new ResponseEntity<>("The client have this type of loan", HttpStatus.FORBIDDEN);
 
-
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getPayments(),loanApplicationDTO.getAmount() * 1.20,client,loan,(loanApplicationDTO.getAmount() * 1.20) / loanApplicationDTO.getPayments());
-        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), "Deposit",account,TransactionType.CREDIT,account.getBalance(), account.getBalance() + loanApplicationDTO.getAmount() );
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getPayments(),loanApplicationDTO.getAmount() * loan.getFee(),client,loan,(loanApplicationDTO.getAmount() * loan.getFee()) / loanApplicationDTO.getPayments());
+        Transaction transaction = new Transaction(loanApplicationDTO.getAmount(), "Transfer", "Loan of " + loanApplicationDTO.getAmount() + " usd",account,TransactionType.CREDIT,account.getBalance(), account.getBalance() + loanApplicationDTO.getAmount(), "USD");
         account.addBalance(loanApplicationDTO.getAmount());
 
 

@@ -8,9 +8,15 @@ Vue.createApp({
             avatarSelect: "./assets/avatares/avatar1.png",
             userSettings: {},
             mailFooterInput: "",
-            notificaciones: [],
+            notificaciones: [
+            ],
+            notificacionesCortadas:[],
             amount: 0,
             number: "",
+            transactions:[],
+            errorAccount:false,
+            errorAmount:false,
+
 
         }
     },
@@ -30,24 +36,12 @@ Vue.createApp({
                 this.transactions = this.dataBase.transactions.sort((x, y) => new Intl.Collator().compare(y.date, x.date))
                 console.log(this.transactions)
 
-                let userSettings = JSON.parse(localStorage.getItem("userSettings"));
-
-                if (!userSettings) {
-                    this.userNameInput = this.dataBaseUser.firstName + " " + this.dataBaseUser.lastName
-                    this.userSettings =
-                    {
-                        avatar: this.avatarSelect,
-                        userName: this.userNameInput,
-
+                this.notificaciones = this.dataBaseUser.notifications.sort((x,y)=>y.id - x.id)
+                this.notificaciones.forEach(notificacion => {
+                    if(this.notificacionesCortadas.length < 3){
+                        this.notificacionesCortadas.push(notificacion)
                     }
-
-                    localStorage.setItem("userSettings", JSON.stringify(this.userSettings));
-
-                }
-                else {
-                    this.userSettings = userSettings;
-
-                }
+                })
             })
     },
 
@@ -80,30 +74,67 @@ Vue.createApp({
         sendTransfer() {
             axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
                 .then(response => console.log(response))
-                .catch(error => console.log(error))
+                .catch(error => {
+                    this.errorAmount = false;
+                    this.errorAccount = false;
+
+                    if(error.request.response == "Amount no available"){
+                        this.errorAmount = true;
+                    }
+                    if(error.request.response == "Missing account destiny" || error.request.response == "The account destiny dont exist"){
+                        this.errorAccount = true;
+                    }
+                })
         },
-        formatBalance(balance) {
-            let balanceDescompuesto = balance.toString().split("").reverse();
-            let balanceFormateado = [];
-            for (let i = 0; i < balanceDescompuesto.length; i++) {
-                switch (i) {
-                    case 3:
-                    case 6:
-                    case 9:
-                    case 12:
-                    case 16:
-                    case 17:
-                        balanceFormateado.push(balanceDescompuesto[i] + ".");
-                        break;
+        verify(){
+            axios.post("/api/clients/current/transactions/verify", `amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
+            .then(response => this.sendTransfer())
+            .catch(error => {
+                this.errorAmount = false;
+                this.errorAccount = false;
 
-                    default:
-                        balanceFormateado.push(balanceDescompuesto[i])
-                        break;
+                if(error.request.response == "Amount no available"){
+                    this.errorAmount = true;
                 }
-            }
-            return balanceFormateado.reverse().join("");
+                if(error.request.response == "Missing account destiny" || error.request.response == "The account destiny dont exist"){
+                    this.errorAccount = true;
+                }
+            })
+        },
+        getDateNotification(dateTrans){
+            const date = new Date(dateTrans)
+            let dateNow = new Date()
+            let year = "";
+            let month = "";
+            let hours = "";
+            let minutes = "";
 
-        }
+            if(date.getFullYear() != dateNow.getFullYear()){
+                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear()) 
+                return year + " years ago"
+            }
+            if(date.getMonth() != dateNow.getMonth()){
+                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth()) 
+                return month + " months ago"
+            }
+            if(date.getHours() != dateNow.getHours()){
+                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours()) 
+                if(hours < 0){
+                    hours = hours * -1
+                }
+                 return hours + " hours ago"
+            }
+            if(date.getMinutes() != dateNow.getMinutes()){
+                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes()) 
+                if(minutes < 0){
+                    minutes = minutes * -1
+                }
+                 return minutes + " minutes ago"
+            }
+
+           
+
+        },
     },
     computed: {
 

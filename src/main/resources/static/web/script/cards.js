@@ -5,6 +5,7 @@ Vue.createApp({
             dataBaseUser: [],
             mailFooterInput: "",
             cards: [],
+            notificacionesCortadas:[],
             notificaciones: [],
             creditArray: [],
             debitArray: [],
@@ -22,6 +23,12 @@ Vue.createApp({
                 this.creditArray = this.cards.filter(card => card.cardType === "CREDIT")
                 this.debitArray = this.cards.filter(card => card.cardType === "DEBIT")
                 this.cardsFocus = this.creditArray
+                this.notificaciones = this.dataBaseUser.notifications.sort((x,y)=>y.id - x.id)
+                this.notificaciones.forEach(notificacion => {
+                    if(this.notificacionesCortadas.length < 3){
+                        this.notificacionesCortadas.push(notificacion)
+                    }
+                })
                 desableLoad();
 
             })
@@ -299,6 +306,40 @@ Vue.createApp({
         signOut() {
             axios.post('/api/logout')
                 .then(response => window.location.href = "http://localhost:8080/web/login.html")
+        },
+        getDateNotification(dateTrans){
+            const date = new Date(dateTrans)
+            let dateNow = new Date()
+            let year = "";
+            let month = "";
+            let hours = "";
+            let minutes = "";
+
+            if(date.getFullYear() != dateNow.getFullYear()){
+                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear()) 
+                return year + " years ago"
+            }
+            if(date.getMonth() != dateNow.getMonth()){
+                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth()) 
+                return month + " months ago"
+            }
+            if(date.getHours() != dateNow.getHours()){
+                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours()) 
+                if(hours < 0){
+                    hours = hours * -1
+                }
+                 return hours + " hours ago"
+            }
+            if(date.getMinutes() != dateNow.getMinutes()){
+                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes()) 
+                if(minutes < 0){
+                    minutes = minutes * -1
+                }
+                 return minutes + " minutes ago"
+            }
+
+           
+
         },
 
     },

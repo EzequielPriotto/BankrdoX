@@ -1,27 +1,45 @@
-Vue.createApp({
+const APP = Vue.createApp({
     data() {
         return {
+            loans: [],
             dataBaseUser: [],
             mailFooterInput:"",
-            cards:[],
             notificacionesCortadas:[],
-            notificaciones: [],
+            notificaciones: [
+            ],
             formulario:{
                 nombre:"",
                 apellido:"",
                 typeCard:"CREDIT",
                 levelCard:"SILVER",
             },
+            loanFocus:{},
+            paymentSelect:0,
+            amountLoan:0,
+            dataOk:false,
+            confirm:false,
+            fullName: "",
+            firma:false,
+            fullName: "",
+            accounts:[],
+            accountDestiny:"",
+            paymentPreview:0,
+            loansAcceptes:[]
+
         }
     },
 
     created() {
-            axios.get(`http://localhost:8080/api/clients/current`)
+            axios.get(`http://localhost:8080/api/loans`)
+            .then(repuesta => {
+                this.loans = repuesta.data
+            })
+            axios.get(`http://localhost:8080/api/clients/current/`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
-                this.cards = repuesta.data.cards.sort((x,y) => x.id - y.id)
-                this.formulario.nombre = this.dataBaseUser.firstName;
-                this.formulario.apellido = this.dataBaseUser.lastName;
+                this.accounts = this.dataBaseUser.accounts.filter(account => account.accountType != "CRYPTO")
+                let ids =  this.dataBaseUser.loans.map(loan =>loan.idLoan)
+                this.loansAcceptes = this.loans.filter(loan => !ids.includes(loan.id))
                 this.notificaciones = this.dataBaseUser.notifications.sort((x,y)=>y.id - x.id)
                 this.notificaciones.forEach(notificacion => {
                     if(this.notificacionesCortadas.length < 3){
@@ -51,20 +69,65 @@ Vue.createApp({
             axios.post('/api/logout')
             .then(response => window.location.href = "http://localhost:8080/web/login.html")
         },
-        guardarFirma(){
-            if(!signaturePad.isEmpty()){
-                alert('todo legal')
-            }else{
-                alert("falta la firma pa")
+        confirmarFirma(){
+            if(!signaturePad.isEmpty() ){
+                this.firma = !this.firma;
+            }
+            else{
+                this.firma = false 
             }
         },
         borrarFirma(){
             signaturePad.clear();
         },
-        createCard(){
-            axios.post('/api/clients/current/cards/',`cardColor=${this.formulario.levelCard}&cardType=${this.formulario.typeCard}`,{
-                headers:{'content-type':'application/x-www-form-urlencoded'}})
-                .then(response => window.location.href = "http://localhost:8080/web/cards.html")
+        createPayment(){
+            let newLoan ={
+                idLoan: this.loanFocus.id,
+                amount: this.amountLoan,
+                payments: this.paymentSelect,
+                numberAccount: this.accountDestiny
+            }
+            console.log(newLoan)
+            axios.post('/api/clients/current/loans/',newLoan)
+                .then(response =>window.location.href="http://localhost:8080/web/loans.html")
+                .catch(error => console.log(error))
+        },
+        selectTypeLoan(loan){
+            let loans =  document.querySelectorAll('.loanType');
+            let loanItem = document.getElementById(`id${loan.id}`);
+            this.loanFocus = loan;
+            this.paymentSelect = "";
+            loans.forEach(item => {
+                item.classList.remove('active')
+            })
+            let payments =  document.querySelectorAll('.payment');
+            if(payments.length > 0){
+                payments.forEach(item => {
+                    item.classList.remove('active')
+                })
+            }
+            loanItem.classList.add('active')
+            
+        },
+        selectAccount(account){
+            let accounts =  document.querySelectorAll('.account');
+            let accountItem = document.getElementById(`id${account.number}`);
+            this.accountDestiny = account.number;
+            accounts.forEach(item => {
+                item.classList.remove('active')
+            })
+           
+            accountItem.classList.add('active')
+            
+        },
+        selectPayment(payment){
+            let payments =  document.querySelectorAll('.payment');
+            let paymentItem = document.getElementById(`id${payment}`);
+            this.paymentSelect = payment;
+            payments.forEach(item => {
+                item.classList.remove('active')
+            })
+            paymentItem.classList.add('active')
         },
         getDateNotification(dateTrans){
             const date = new Date(dateTrans)
@@ -100,10 +163,34 @@ Vue.createApp({
            
 
         },
+
         
     },
     computed: {
-       
+       comprobarData(){
+         if(this.paymentSelect != "" && this.loanFocus.name != "" && this.amountLoan > 0 && this.amountLoan < this.loanFocus.maxAmount && this.accountDestiny != ""){
+            this.dataOk = true;
+         }
+         else{
+            this.dataOk = false;
+         }
+         
+         if(this.firma  && this.fullName.toLowerCase().includes(this.dataBaseUser.firstName.toLowerCase()) && this.fullName.toLowerCase().includes(this.dataBaseUser.lastName.toLowerCase()) &&  this.dataOk){
+            this.confirm = true;
+         }
+         else{
+            this.confirm = false;
+         }
+         if((this.amountLoan * this.loanFocus.fee) != NaN){
+             console.log(this.paymentPreview)
+             console.log(this.selectPayment)
+             this.paymentPreview = (this.amountLoan * this.loanFocus.fee)  / parseInt(this.paymentSelect)
+             } 
+         else{
+             this.paymentPreview = 0
+             console.log(this.paymentPreview)
+         } 
+       }
     }
 
 
@@ -193,9 +280,6 @@ function guardar(){
 $('.card__container').click(function () {
     var id = $(this).attr("id")
     console.log(id)
-    // $('.card__back').toggleClass("active");
-    // $('.card__front').toggleClass("active");
-    // $('.card__back').toggleClass("desactive");
     $('.card__front').toggleClass("desactive");
 
 });

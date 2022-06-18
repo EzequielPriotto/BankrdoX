@@ -47,13 +47,14 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -88,11 +89,20 @@
                                                 <span>Transfers</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="#" class="connection-item "><i
+                                            <a href="./loans.html" class="connection-item "><i
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>
@@ -235,6 +245,7 @@
                                       <li v-for="account in accounts" @click="actualizarSelect">
                                           <input type="radio" class="select-item"  v-model="accountSelectNumber" @change="actualizarSelect"  :value=account.number :id=account.number style="display: none;"></input>
                                           <label :for=account.number >{{account.number}} <span>({{account.accountType}})</span></label>
+                                          <p class="text-danger fw-bold " v-show="errorAccountOrigin">Account not available</p>
                                         </li>
                                     </ul>
                                   </div>
@@ -244,6 +255,7 @@
                             <fieldset>
                                 <label for="amount" class="marcador">Amount to send</label>
                                 <input type="number" id="amount" v-model="amount">
+                                <p class="text-danger fw-bold " v-show="errorAmount">Amount not available</p>
                             </fieldset>
                         
                             <fieldset>
@@ -257,13 +269,17 @@
                                       <li v-for="account2 in accountsSend" >
                                           <input type="radio" class="select-item"   v-model="accountDestiny"  :value=account2.number :id="'id'+ account2.number" style="display: none;"></input>
                                           <label :for="'id'+ account2.number" >{{account2.number}}</label>
+                                          <p class="text-danger fw-bold " v-show="errorAccountDestiny">Amount not available</p>
+
                                         </li>
                                     </ul>
                                   </div>
                                   <p v-if="typeForm == 1 && accountsSend.length == 0">No Account available</p>
                                   <p v-if="typeForm == 2" class="marcador">Account Destiny</p>
                                   <textarea id="accountDestiny" v-if="typeForm == 2" :placeholder=accountDestiny v-model="accountDestiny"> </textarea>
-                            </fieldset>
+                                  <p class="text-danger fw-bold" v-show="errorAccountDestiny && typeForm == 2">Account not available</p>
+                            
+                                </fieldset>
                          
                             <button type="submit" v-if="typeForm == 1 && accountsSend.length == 0" disabled>
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -318,6 +334,7 @@
                         <li v-for="compra in transactions" class="itemCompraList" :class="{}"
                             v-if="transactions.length > 0">
                             <div class="text-white iconoCompraList">
+                                <i class='bx bx-transfer-alt iconoCompra' v-if="compra.description === 'Swap'"></i>
                                 <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
                                 <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
                                 <i class='bx bx-restaurant iconoCompra' v-if="compra.description === 'Food'"></i>
@@ -335,9 +352,13 @@
                             <div class="idCompraList">
                                 <p>{{compra.idEncrypted}}</p>
                             </div>
-                            <div class="amountCompraList">
-                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount}}</p>
-                                <p v-else class="negativo">- $ {{compra.amount}} </p>
+                            <div class="amountCompraList" v-if="compra.cryptoOrUsd == 'USD'">
+                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toLocaleString('de-DE')}}</p>
+                                <p v-else class="negativo">- $ {{compra.amount.toLocaleString('de-DE')}} </p>
+                            </div>
+                            <div class="amountCompraList" v-else>
+                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}}</p>
+                                <p v-else class="negativo">- $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}} </p>
                             </div>
 
                         </li>

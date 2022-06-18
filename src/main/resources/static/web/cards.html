@@ -37,7 +37,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-               <div><img src="./assets/LOGO/logoWhite.png" alt="" srcset=""></div>
+               <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset="" ></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -57,13 +57,14 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -102,7 +103,16 @@
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>

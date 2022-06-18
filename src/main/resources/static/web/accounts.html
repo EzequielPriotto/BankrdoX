@@ -58,12 +58,13 @@
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
                                                 v-for="(userNoti, index) in notificacionesCortadas">
-                                                <div class="notification-info" >
+                                                <div class="notification-info">
                                                     <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{getDateNotification(userNoti.date)}}</div>
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -106,8 +107,13 @@
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
                                             <a href="./cryptos.html" class="connection-item"><i
-                                                    class='bx bxl-bitcoin bx-md'></i></i>
-                                                <span>Cryptos</span></a>
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
                                         </div>
 
                                     </div>
@@ -140,33 +146,45 @@
         </div>
 
 
-        <div class="contenedorS" >
-            <div class="contenedorCreate">
+        <div class="contenedorS ">
+            <div class="contenedorCreate ">
 
-                <div class="w-100 d-flex justify-content-end"><button class="btn text-white mx-3 " @click="closeOff">X</button></div>
+                <div class="w-100 d-flex justify-content-end"><button class="btn text-white mx-3 "
+                        @click="closeOff">X</button></div>
                 <img src="./assets/spaceAccount.svg">
-                <form class="ms-3" @submit.prevent="addAccount">
+                <form class="ms-3 d-flex flex-column gap-2" @submit.prevent="addAccount">
                     <h3>Please select the account type you want</h3>
-                    <select v-model="accountTypeCreate">
-                        <option value="DOLAR">Dolars Account</option>
-                        <option value="CRYPTO" >Crypto Account</option>
-                    </select>
+                    <div class="accountType" id="DOLAR" @click="selectAccountType('DOLAR')"> <i
+                            class='bx bxs-dollar-circle'></i>
+                        <p>Dolars Account</p>
+                    </div>
+                    <div class="accountType" id="CRYPTO" @click="selectAccountType('CRYPTO')"><i
+                            class='bx bxl-bitcoin'></i>
+                        <p>Crypto Account</p>
+                    </div>
+                    <!-- accountTypeCreate -->
 
-                    <button class="btn" type="submit">Create account</button>
+
+                    <button class="btn accountType" type="submit">Create account</button>
 
                 </form>
             </div>
         </div>
-        <div class="contenedorSCVU" >
+        <div class="contenedorSCVU">
             <div class="contenedorCreateCVU">
-                <div class="w-100 d-flex justify-content-start"><button class="btn text-white mx-3 " @click="closeOffCVU">X</button></div>
+                <div class="w-100 d-flex justify-content-start"><button class="btn text-white mx-3 "
+                        @click="closeOffCVU">X</button></div>
                 <img src="./assets/cvuSVG.svg">
                 <form class="ms-3 text-white" v-if="accountFocusCVU">
                     <h3>More info of <span class="naranja">{{accountFocusCVU.number}}</span></h3>
-                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">CVU: <span class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
-                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">ADDRESS: <span class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
-                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">BALANCE: <span class="naranja">{{accountFocusCVU.balance}}usd</span> </h4>
-                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">BALANCE: <span class="naranja">{{accountFocusCVU.balance}} btc</span> </h4>
+                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">CVU: <span
+                            class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
+                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">ADDRESS: <span
+                            class="naranja">{{accountFocusCVU.cvu}}</span> </h4>
+                    <h4 v-if="accountFocusCVU.accountType == 'DOLAR'">BALANCE: <span
+                            class="naranja">{{accountFocusCVU.balance}}usd</span> </h4>
+                    <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">BALANCE: <span
+                            class="naranja">{{accountFocusCVU.balance.toFixed(6)}} btc</span> </h4>
                     <p @click="linkearAccount(accountFocusCVU.number)">View account movements </p>
                 </form>
             </div>
@@ -199,14 +217,18 @@
                                     <div class="secondaryAccountTop">
                                         <div class="d-flex ">
                                             <p>Account<span style="color:#FC5404">X</span></p>
-                                            <i class='bx bx-dollar bx-sm' @click="openOffCVU(account)" v-if="account.accountType == 'DOLAR'"></i>
-                                            <i class='bx bx-bitcoin bx-sm' @click="openOffCVU(account)" v-else-if="account.accountType == 'CRYPTO'"></i>
+                                            <i class='bx bx-dollar bx-sm' @click="openOffCVU(account)"
+                                                v-if="account.accountType == 'DOLAR'"></i>
+                                            <i class='bx bx-bitcoin bx-sm' @click="openOffCVU(account)"
+                                                v-else-if="account.accountType == 'CRYPTO'"></i>
                                         </div>
                                         <p class="mb-0">{{account.number}}</p>
                                     </div>
                                     <div class=" secondaryAccountBottom">
-                                        <p class="balanceAccounts"  v-if="account.accountType == 'DOLAR'">${{account.balance}}</p>
-                                        <p class="balanceAccounts" v-else-if="account.accountType == 'CRYPTO'">{{account.balance}} <span>btc</span></p>
+                                        <p class="balanceAccounts" v-if="account.accountType == 'DOLAR'">
+                                            ${{account.balance}}</p>
+                                        <p class="balanceAccounts" v-else-if="account.accountType == 'CRYPTO'">
+                                            {{account.balance.toFixed(6)}} <span>btc</span></p>
                                     </div>
 
                                 </div>
@@ -227,16 +249,15 @@
                         <div class="separadorExpenses fondoMasClaro">
                             <h3 class="text-white">Category Expenses</h3>
                         </div>
-                        <div class="separadorGraph fondoMasClaro d-none d-lg-flex">
-                            <h3 class="text-white">Summary Expenses</h3>
+                        <div class="separadorGraph  d-none d-lg-flex">
+                           
                         </div>
                     </section>
                     <div class=" div-estadisticas pb-3">
                         <div id="chartdiv" class="fondoMasClaro "> </div>
 
-                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
-                            <p v-if="listadoComprasCortado.length > 0">${{gastoTotal}}</p>
-                            <p :class="{cero: gastoTotal == 0}" v-else>$0</p>
+                        <div id="chartdiv2" class=" d-none d-lg-flex">
+                           <img src="./assets/luna.svg" alt="" srcset="">
                         </div>
                     </div>
 
@@ -270,6 +291,9 @@
                                             v-if="compra.description === 'Outfit'"></i>
                                         <i class='bx bxs-shopping-bag iconoCompra'
                                             v-if="compra.description === 'Others'"></i>
+                                        <i class='bx bx-transfer-alt iconoCompra'
+                                            v-if="compra.description === 'Swap'"></i>
+
                                         <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
                                         <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
                                     </td>
@@ -277,10 +301,12 @@
                                     <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
                                             class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
                                     </td>
-                                    <td class="fw-bolder"
-                                        :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">
-                                        {{compra.type === "DEBIT"? "- " + "$" + compra.amount : "+ " +"$" +
-                                        compra.amount}}</td>
+                                    <td class="fw-bolder debitColor" v-if="compra.type === 'DEBIT'">- $
+                                        {{ compra.cryptoOrUsd == "USD"? compra.amount.toLocaleString('de-DE') :
+                                        compra.amount.toFixed(6).toLocaleString('de-DE') }}</td>
+                                    <td class="fw-bolder depositColor" v-if="compra.type === 'CREDIT'">+ $
+                                        {{ compra.cryptoOrUsd == "USD"? compra.amount.toLocaleString('de-DE') :
+                                        compra.amount.toFixed(6).toLocaleString('de-DE') }}</td>
                                 </tr>
                             </tbody>
 
@@ -304,7 +330,7 @@
                                 <div class="debit-card mb-3" v-for="(card, i) in cards" v-cloak>
                                     <div class="d-flex flex-column h-100">
                                         <label class="d-block">
-                                            <div class="d-flex flex-column position-relative" >
+                                            <div class="d-flex flex-column position-relative">
                                                 <div class="d-flex gap-3 justify-content-center align-items-center">
                                                     <i class='bx bxl-visa bx-lg text-white'
                                                         v-if="card.cardType === 'CREDIT'"></i>
@@ -316,8 +342,9 @@
                                                     <p class="text-white fw-bold">{{getDateCard(card.thruDate)}}</p>
                                                 </div>
                                                 <div id="progressbar" class="mt-2" v-if="card.cardType === 'CREDIT'">
-                                                    <div :style="'width:' + (card.expense * 100) / card.limitCard + '%'" 
-                                                    :class="{'bg-danger':  ((card.expense * 100) / card.limitCard) >= 80, 'bg-warning': ((card.expense * 100) / card.limitCard) > 50   , 'bg-success': 50 >= ((card.expense * 100) / card.limitCard)}"></div>
+                                                    <div :style="'width:' + (card.expense * 100) / card.limitCard + '%'"
+                                                        :class="{'bg-danger':  ((card.expense * 100) / card.limitCard) >= 80, 'bg-warning': ((card.expense * 100) / card.limitCard) > 50   , 'bg-success': 50 >= ((card.expense * 100) / card.limitCard)}">
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -397,7 +424,7 @@
                                         <p class="mb-0">{{account.number}}</p>
                                     </div>
                                     <div class=" secondaryAccountBottom">
-                                        <p class="balanceAccounts">${{account.balance}}</p>
+                                        <p class="balanceAccounts">${{account.balance.toFixed(6)}}</p>
                                     </div>
 
                                 </div>
@@ -456,7 +483,7 @@
                     </section>
                     <div class=" div-estadisticas pb-3">
                         <div id="chartdiv3" class="fondoMasClaro "></div>
-                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex" >
+                        <div id="chartdiv2" class="fondoMasClaro d-none d-lg-flex">
                             <p :class="{cero: gastoTotal == 0}">${{gastoTotal}}</p>
                         </div>
                     </div>
@@ -492,6 +519,8 @@
                                             v-if="compra.description === 'Outfit'"></i>
                                         <i class='bx bxs-shopping-bag iconoCompra'
                                             v-if="compra.description === 'Others'"></i>
+                                            <i class='bx bx-transfer-alt iconoCompra'
+                                            v-if="compra.description === 'Swap'"></i>
                                         <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
                                         <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
                                     </td>
@@ -499,10 +528,12 @@
                                     <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
                                             class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
                                     </td>
-                                    <td class="fw-bolder"
-                                        :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">
-                                        {{compra.type === "DEBIT"? "- " + "$" + compra.amount : "+ " +"$" +
-                                        compra.amount}}</td>
+                                    <td class="fw-bolder debitColor" v-if="compra.type === 'DEBIT'">- $
+                                        {{ compra.cryptoOrUsd == "USD"? compra.amount.toLocaleString('de-DE') :
+                                        compra.amount.toFixed(6).toLocaleString('de-DE') }}</td>
+                                    <td class="fw-bolder depositColor" v-if="compra.type === 'CREDIT'">+ $
+                                        {{ compra.cryptoOrUsd == "USD"? compra.amount.toLocaleString('de-DE') :
+                                        compra.amount.toFixed(6).toLocaleString('de-DE') }}</td>
                                 </tr>
                             </tbody>
 
@@ -526,6 +557,8 @@
                                                 v-if="compra.description === 'Others'"></i>
                                             <i class='bx bx-store iconoCompra'
                                                 v-if="compra.description === 'Services'"></i>
+                                                <i class='bx bx-transfer-alt iconoCompra'
+                                            v-if="compra.description === 'Swap'"></i>
                                         </div>
                                         <div class="d-flex gap-0 flex-column ">
 
@@ -533,14 +566,15 @@
                                             <span class="d-flex justify-content-center"
                                                 @click="linkearAccount(compra.accountNumber)"><i
                                                     class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
-                                               
+
                                                 <span class="descriptionList">{{compra.description}}</span>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gap-0 text-end me-3">
                                         <span class="fw-bolder"
                                             :class="{depositColor: compra.type === 'CREDIT', debitColor:compra.type === 'DEBIT'}">$
-                                            {{compra.amount}}</span>
+                                            {{compra.cryptoOrUsd === "USD"?compra.amount.toLocaleString('de-DE')
+                                            :compra.amount.toFixed(6).toLocaleString('de-DE')}}</span>
 
                                         <span>{{getDateCreate(compra.date)}}</span>
 

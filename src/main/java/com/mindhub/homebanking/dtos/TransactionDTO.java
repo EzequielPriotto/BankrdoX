@@ -22,11 +22,12 @@ public class TransactionDTO {
 
     private String idEncrypted;
 
-
+    private String cryptoOrUsd,category;
 
     public TransactionDTO (Transaction transaction){
         this.id = transaction.getId();
         this.amount = transaction.getAmount();
+        this.category = transaction.getCategory();
         this.description = transaction.getDescription();
         this.date = transaction.getDate();
         this.type = transaction.getType();
@@ -35,6 +36,7 @@ public class TransactionDTO {
         this.idEncrypted = transaction.getIdEncrypted();
         this.oldBalance = transaction.getOldBalance();
         this.newBalance = transaction.getNewBalance();
+        this.cryptoOrUsd = transaction.getCryptoOrUsd();
     }
 
 }

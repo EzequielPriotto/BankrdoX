@@ -36,7 +36,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-
+                        
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
@@ -47,13 +47,14 @@
                                     <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -92,7 +93,16 @@
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>
@@ -131,7 +141,7 @@
             </section>
 
             <section class="col-12">
-                <h2 class="text-white text-center">YOUR <span style="color: #FC5404;">LOANS</span> </h2>
+                <h2 class="text-white text-start ms-4">YOUR <span style="color: #FC5404;">LOANS</span> </h2>
             </section>
 
             <section class="col-12 divContent">

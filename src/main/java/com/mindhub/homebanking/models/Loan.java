@@ -30,17 +30,19 @@ public class Loan {
 
     private LoanType name;
     private int maxAmount;
+    private double fee;
     @OneToMany(mappedBy="loan", fetch=FetchType.EAGER)
     private Set<ClientLoan> loans;
 
     private String descriptionLoan;
     public Loan(){}
 
-    public Loan(List<Integer> payments, LoanType name, int maxAmount, String descriptionLoan) {
+    public Loan(List<Integer> payments, LoanType name, int maxAmount, String descriptionLoan, double fee) {
         this.payments = payments;
         this.name = name;
         this.maxAmount = maxAmount;
         this.descriptionLoan = descriptionLoan;
+        this.fee = fee;
     }
 
     public void addClientLoan(ClientLoan clientLoan) {

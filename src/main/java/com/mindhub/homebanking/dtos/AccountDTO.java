@@ -23,7 +23,7 @@ public class AccountDTO {
     private String cvu;
 
     private AccountType accountType;
-
+    boolean isActive;
     public AccountDTO (Account account){
         this.id = account.getId();
         this.number = account.getNumber();
@@ -32,6 +32,7 @@ public class AccountDTO {
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
         this.cvu = account.getCvu();
         this.accountType = account.getAccountType();
+        this.isActive = account.isActive();
     }
 
 }

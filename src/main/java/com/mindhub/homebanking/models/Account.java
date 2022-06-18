@@ -43,15 +43,16 @@ public class Account {
     @Unmodifiable
     private AccountType accountType;
 
-
+    private boolean isActive;
     public Account(){}
 
     public Account(String number, LocalDateTime creationDate, double balance, String cvu, AccountType accountType ){
         this.number =  number;
         this.creationDate = creationDate;
-        this.balance = balance;
+        this.balance = accountType.equals(AccountType.CRYPTO) ? balance / 20532 : balance;
         this.cvu = cvu;
         this.accountType = accountType;
+        this.isActive = true;
     }
 
     public void addTransaction(Transaction transaction) {

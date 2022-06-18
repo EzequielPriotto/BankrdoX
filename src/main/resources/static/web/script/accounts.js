@@ -26,14 +26,15 @@ Vue.createApp({
             },
             mailFooterInput: "",
             loans: [],
-            notificaciones: [
-            ],
+            
             gastoTotal: 0,
             cards: [],
             cardsCortado: [],
             accountFocusCVU: {},
             accountTypeCreate: "DOLAR",
-            notificacionesCortadas:[]
+            notificacionesCortadas:[],
+            notificaciones: [
+            ],
 
         }
     },
@@ -54,7 +55,6 @@ Vue.createApp({
                 this.listadoComprasOriginal = this.listadoComprasOriginal.sort((x, y) =>  Intl.Collator('en').compare(y.date, x.date))
                 this.generarEstadisticas("chartdiv")
                 this.generarEstadisticas("chartdiv3")
-                this.generarEstadisticas2("chartdiv2")
 
                 this.listadoComprasOriginal.forEach(compra => this.listadoComprasCortado.length < 5 ? this.listadoComprasCortado.push(compra) : "")
                 this.listadoComprasFiltrado = this.listadoComprasCortado;
@@ -284,74 +284,6 @@ Vue.createApp({
 
             }
         },
-        generarEstadisticas2() {
-            let gastoTotal = this.gastoTotal;
-            am5.ready(function () {
-
-                // Create root element
-                // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-                var root = am5.Root.new("chartdiv2");
-
-                // Set themes
-                // https://www.amcharts.com/docs/v5/concepts/themes/
-                root.setThemes([
-                    am5themes_Animated.new(root)
-                ]);
-
-                // Create chart
-                // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-                var chart = root.container.children.push(
-                    am5percent.PieChart.new(root, {
-                        startAngle: 160,
-                        endAngle: 380,
-
-                    })
-                );
-
-                // Create series
-                // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-
-
-
-
-
-
-                var data = [
-                    {
-                        account: "Account1",
-                        expense: 15012,
-
-                    },
-                    {
-                        account: "Account2",
-                        expense: 17823,
-
-                    },
-                    {
-                        account: "Account3",
-                        expense: 9043,
-
-                    }
-                ];
-
-                var series1 = chart.series.push(
-                    am5percent.PieSeries.new(root, {
-                        startAngle: 160,
-                        endAngle: 380,
-                        valueField: "expense",
-                        innerRadius: am5.percent(80),
-                        categoryField: "account"
-                    })
-                );
-                series1.ticks.template.set("forceHidden", true);
-                series1.labels.template.set("forceHidden", true);
-                //   series1.set("fill", am5.color("#00ff00"));
-
-                // Set data
-                // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-                series1.data.setAll(data);
-            })
-        },
         enviarMail() {
             Swal.fire(
                 'Mail send',
@@ -479,6 +411,13 @@ Vue.createApp({
 
            
 
+        },
+        selectAccountType(accountType){
+            let accounts = document.querySelectorAll(".accountType");
+            accounts.forEach(account=> account.classList.remove("active"))
+            let account = document.querySelector("#"+accountType)
+            account.classList.add("active")
+            this.accountTypeCreate = accountType;
         }
         
        

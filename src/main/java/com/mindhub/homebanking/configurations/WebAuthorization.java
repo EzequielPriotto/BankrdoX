@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
 
 
 @EnableWebSecurity
@@ -18,12 +19,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/clients","/api/activateAccount/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients","/api/activateAccount/**","/api/transactions/makePayment").permitAll()
                 .antMatchers("/web/index.html", "/web/login.html","/web/401.html","/web/403.html", "/web/style/**",
                         "/web/script/**",  "/web/assets/**", "/web/activateClient.html").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/loans").hasAnyAuthority("CLIENT", "ADMIN")
                 .antMatchers("/api/clients/current/**").hasAnyAuthority("CLIENT", "ADMIN")
-                .antMatchers("/rest/**", "/h2-console", "/api/**", "/web/cryptos.html").hasAuthority("ADMIN")
+                .antMatchers("/rest/**", "/h2-console", "/api/**").hasAuthority("ADMIN")
                 .antMatchers("/**").hasAnyAuthority("CLIENT", "ADMIN");
 
         http.formLogin()
@@ -49,6 +50,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                                 .accessDeniedHandler(accessDeniedHandler());
 
         http.csrf().disable();
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.headers().frameOptions().disable();
     }
 

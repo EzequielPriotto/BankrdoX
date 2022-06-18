@@ -33,33 +33,32 @@
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                                class="indicator" v-if="notificaciones.length > 0"></span></a>
-                            <ul  class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                    class="indicator" v-if="notificaciones.length > 0"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                                 <li>
                                     <div class="notification-title"> Notification</div>
                                     <div class="notification-list">
-                                        <div class="list-group"  v-if="notificaciones.length > 0">
-                                            <a href="#" class="list-group-item list-group-item-action active" v-for="userNoti in notificaciones">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action active"
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img
-                                                            :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
-                                           
+
                                         </div>
-                                        <p v-else-if="notificaciones.length == 0" class="text-center pt-1">Nothing for here</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="list-footer"> <a href="#">View all notifications</a></div>
                                 </li>
                             </ul>
-                           
                         </li>
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -83,7 +82,16 @@
                                             <a href="./loans.html" class="connection-item"><i class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-                                        
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
                                    
                                 </li>
@@ -123,58 +131,7 @@
             <h2 class="ps-4 text-start text-white text-white" v-if="dataBase != []">ACCOUNT <span style="color:#FC5404">{{dataBase.number}}</span></h2>
             <h2 v-if="dataBase == []" class="text-center text-white">ACCOUNT <span style="color:#FC5404">NOT FOUND</span></h2>    
             
-           <!-- <section class="mt-4 listadoComprasAccount col-8" >
-               <ul class="pt-2" v-dragscroll.y="true"  v-cloak>
-                   <li  class="itemCompraList">
-                    <div class="text-white iconoCompraList">
-                       <p class="">Type</p>
-                    </div>
-                    
-                    <div class="descCompraList">
-                        <p >Description</p>
-                    </div>
-                    <div class="dateCompraList">
-                        <p >Date</p>
-                    </div>
-                    <div class="idCompraList">
-                        <p >Transaction id</p>
-                    </div>
-                    <div class="amountCompraList">
-                        <p > Amount</p>
-                    </div>
-
-                   </li>
-                   <li v-for="compra in transactions" class="itemCompraList">
-                    <div class="text-white iconoCompraList">
-                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
-                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
-                        <i class='bx bx-restaurant iconoCompra'
-                            v-if="compra.description === 'Food'"></i>
-                        <i class='bx bxs-t-shirt iconoCompra'
-                            v-if="compra.description === 'Outfit'"></i>
-                        <i class='bx bxs-shopping-bag iconoCompra'
-                            v-if="compra.description === 'Others'"></i>
-                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
-                    </div>
-                    
-                    <div class="descCompraList">
-                        <p >{{compra.description}}</p>
-                    </div>
-                    <div class="dateCompraList">
-                        <p >{{getDateCreate(compra.date)}}</p>
-                    </div>
-                    <div class="idCompraList">
-                        <p >{{compra.idEncrypted}}</p>
-                    </div>
-                    <div class="amountCompraList">
-                       
-                        <p v-if="compra.type == 'CREDIT'" >+ $ {{compra.amount}}</p>
-                        <p v-else>- $ {{compra.amount}} </p>
-                    </div>
-
-                   </li>
-               </ul>
-           </section> -->
+        
            <div class="historyDiv col-8" :class="{empty: transactions.length == 0}">
             <ul class="" v-dragscroll.y="true" v-cloak>
                 <li class="itemCompraList">
@@ -210,6 +167,7 @@
                         <i class='bx bxs-t-shirt iconoCompra' v-if="compra.description === 'Outfit'"></i>
                         <i class='bx bxs-shopping-bag iconoCompra' v-if="compra.description === 'Others'"></i>
                         <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
+                        <i class='bx bx-transfer-alt iconoCompra' v-if="compra.description === 'Swap'"></i>
                     </div>
 
                     <div class="descCompraList">
@@ -221,9 +179,13 @@
                     <div class="idCompraList">
                         <p>{{compra.idEncrypted}}</p>
                     </div>
-                    <div class="amountCompraList">
-                        <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{formatBalance(compra.amount)}}</p>
-                        <p v-else class="negativo">- $ {{formatBalance(compra.amount)}} </p>
+                    <div class="amountCompraList" v-if="compra.cryptoOrUsd == 'USD'">
+                        <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toLocaleString('de-DE')}}</p>
+                        <p v-else class="negativo">- $ {{compra.amount.toLocaleString('de-DE')}} </p>
+                    </div>
+                    <div class="amountCompraList" v-else>
+                        <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}}</p>
+                        <p v-else class="negativo">- $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}} </p>
                     </div>
 
                 </li>
@@ -236,14 +198,16 @@
                     <label>
                         <p class="text-muted mb-1 fw-bold">Amount to send</p>
                         <input type="number" v-model="amount">
+                        <p class="text-danger fw-bold" v-if="errorAmount">Amount not available </p>
                     </label>
                     <label>
                         <p class="text-muted fw-bold" v-if="dataBase.accountType == 'CRYPTO'">Destination Bitcoin address</p>
                         <p class="text-muted fw-bold" v-if="dataBase.accountType == 'DOLAR'">Destination account</p>
                         <p class="text-muted mb-2" v-if="dataBase.accountType == 'DOLAR'">(cvu or account number)</p>
                         <textarea :placeholder=dataBase.cvu  v-model="number"> </textarea>
+                        <p class="text-danger fw-bold" v-if="errorAccount">Account not available </p>
                     </label>
-                <button class="btn btnSend" @click="sendTransfer()">Send Transaction</button>
+                <button class="btn btnSend" @click="verify()">Send Transaction</button>
                     <img src="./assets/transferCrypto.svg" alt="" srcset="" v-if="dataBase.accountType == 'CRYPTO'">
                     <img src="./assets/transferDolars.svg" alt="" srcset="" v-if="dataBase.accountType == 'DOLAR'">
             </aside>

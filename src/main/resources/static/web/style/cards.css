@@ -628,7 +628,9 @@ h2 {
   position: relative;
   margin-top: 20px;
 }
-
+.loanshtml .form-wizard-steps {
+  padding-left: 2rem;
+}
 .form-wizard-step {
   padding-top: 10px !important;
   border: 2px solid #fff;
@@ -639,6 +641,7 @@ h2 {
   /* Safari */
   transform: skewX(-30deg);
   /* Standard syntax */
+  transition: .5s;
 }
 
 .form-wizard-step.active {
@@ -648,6 +651,19 @@ h2 {
 .form-wizard-step.activated {
   background: #ea6303;
 }
+.loanshtml .form-wizard-steps {
+  cursor: pointer;
+  padding-bottom: 2rem;
+
+}
+
+.loanshtml .form-wizard-step-icon {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
 
 .form-wizard-progress {
   position: absolute;
@@ -857,13 +873,21 @@ h2 {
   position: relative;
   z-index: 2;
 }
-
-
-
+.loanshtml .form-wizard-step-icon{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 2rem; 
+}
+  .form-wizard-step-icon i{
+    align-self: center;
+  }
 .formularioSolo {
   position: absolute;
   left: -11rem;
   top: -14%;
+  z-index: -1;
 }
 
 .formularioSolo2 {
@@ -871,16 +895,113 @@ h2 {
   left: 59rem;
   top: 73.8%;
   width: 22rem;
+  z-index: -1;
 }
 
+.loansType{
+  display: flex;
+  gap: 1.3rem;
+}
+.loanType, .account{
+  display: flex;
+  background: #cccccc;
+  padding: 1rem;
+  border-radius: 12px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: .5rem;
+  transition: .3s;
+}
+.account{
+  margin-top: 1rem;
+}
+.loanType:hover,.payment:hover,.account:hover{
+cursor: pointer;
+}
+.loanType.active, .payment.active,.account.active{
+  background-color: #ea6303;
+ 
+}
+.loanType i{
+  color: #777777;
+}
+.loanType.active i, .payment.active i{
+
+  color: white;
+}
+
+.loansPayments{
+  display: flex;
+    gap: 1rem;
+    color: white;
+    margin-top: 2rem;
+}
+.paymentText{
+  color: #888888;
+}
+.payment{
+  background-color: #cccccc;
+  padding: .6rem .6rem;
+  border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  transition: .3s;
+  align-items: center;
+}
+.btn-disable{
+  background-color: #cccccc;
+}
+.inputAmount{
+  width: 10rem;
+}
 
 canvas {
+  width: 20rem;
+  height: 12rem;
   background-color: rgb(217, 217, 217);
   border: 2px solid rgb(146, 146, 146);
   border-radius: 2%;
   cursor: url(https://cdn.custom-cursor.com/db/cursor/32/Pencil_Cursor.png), default !important;
 }
+.canvasDisable{
+  position: absolute;
+  width: 20rem;
+  height: 12rem;
+  background-color: rgb(253 181 112 / 22%);
+  border: 2px solid rgb(146, 146, 146);
+  border-radius: 2%;
+  cursor: url(https://cdn.custom-cursor.com/db/cursor/32/Pencil_Cursor.png), default !important;
+}
 
+.borrarFirma{
+  background: #cccccc;
+  width: 11rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 11px;
+  cursor: pointer;
+}
+.confirmarFirma{
+  background-color: #ea6303;
+  width: 11rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 11px;
+  cursor: pointer;
+  color: white;
+}
+.confirmarFirma:hover{
+  background-color: #ea4503;
+
+}
 @media (min-width: 1286px) {
 
   .formularioSolo2 {

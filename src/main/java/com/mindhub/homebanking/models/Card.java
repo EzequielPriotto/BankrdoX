@@ -29,10 +29,11 @@ public class Card {
     private int cvv;
 
     private int limitCard;
-    private int expense;
+    private double expense;
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
 
+    private boolean isActive;
     public Card(){}
     public Card(Client client, CardType cardType, CardColor cardColor, String number, int cvv,LocalDateTime fromDate , LocalDateTime thruDate, int limitCard) {
         this.cardType = cardType;
@@ -44,6 +45,7 @@ public class Card {
         this.cardHolder = client.getFullName();
         this.limitCard = limitCard;
         this.expense = 13000;
+        this.isActive = false;
     }
 
     public Card(String cardHolder, CardType cardType, CardColor cardColor, String number, int cvv, int limitCard) {
@@ -56,6 +58,7 @@ public class Card {
         this.cardHolder = cardHolder;
         this.limitCard = limitCard;
         this.expense = 0;
+        this.isActive = false;
     }
 
 

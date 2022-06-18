@@ -263,7 +263,29 @@ body {
     margin-top: 1rem;
     color: #ffffff;
 }
-
+.accountType{
+    width: 11rem;
+    background: aliceblue;
+    height: 2.5rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: .3s;
+}
+.accountType i{
+    font-size: 1.4rem;
+}    .accountType:hover, .accountType.active{
+    cursor: pointer;
+    background-color: #e85b1a;
+    color: white;
+}
+.btn.accountType{
+    background-color: #e85b1a;
+    color: white;
+}
 .seccionCuentas {
     width: 100%;
     display: flex;
@@ -656,18 +678,11 @@ td {
 
 }
 
-#chartdiv2 p {
+#chartdiv2 img {
     position: absolute;
-    color: #ff6a00;
-    top: 50%;
-    left: 40%;
-    font-size: 1.5rem;
-    font-weight: bold;
-
-}
-#chartdiv2 p.cero {
-    left: 45%;
-
+    top: -12%;
+    left: 9%;
+    width: 15rem;
 
 }
 
@@ -888,6 +903,16 @@ td {
     color: #202020;
     z-index: -1;
     text-align: center
+}
+
+.buttonChange{
+    background: aliceblue;
+    border-radius: 11px !important;
+    transition: .3s;
+}
+.buttonChange:hover{
+    color: white;
+    background-color: #e47426;
 }
 
 /* FOOTER DESING */

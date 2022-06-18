@@ -1,9 +1,6 @@
 package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.CardDTO;
-import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +40,7 @@ public class CardController {
         return client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
     }
 
+    @Transactional
     @PostMapping(path = "/clients/current/cards/")
     public ResponseEntity<Object> createCurrentCards(@RequestParam CardColor cardColor, @RequestParam CardType cardType, Authentication authentication) {
 
@@ -69,6 +68,33 @@ public class CardController {
 
 
     }
+
+
+    @Transactional
+    @PostMapping("/clients/current/cards/disable/")
+    public ResponseEntity<Object> activeCard(Authentication authentication, @RequestParam String cardNumber) {
+
+        Client client = clientService.getClient(authentication.getName());
+        Card card = cardService.getCardByNumber(cardNumber);
+        if (cardNumber.isEmpty())
+            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+
+        if (client == null)
+            return new ResponseEntity<>("Client not authorized", HttpStatus.FORBIDDEN);
+
+        if (card == null)
+            return new ResponseEntity<>("Card not exist", HttpStatus.FORBIDDEN);
+
+        if (!client.getAccounts().contains(card))
+            return new ResponseEntity<>("Card no is of this client", HttpStatus.FORBIDDEN);
+
+        boolean isActive = card.isActive();
+        card.setActive(!isActive);
+        cardService.saveCard(card);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 
 
 }

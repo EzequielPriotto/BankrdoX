@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" class="loanshtml">
 
 <head>
     <meta charset="UTF-8">
@@ -32,37 +32,40 @@
     <main id="app">
 
         <div class="loader">
-            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_t6deqxek.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" class="astronauta"  loop  autoplay></lottie-player>
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_t6deqxek.json" background="transparent"
+                speed="1" style="width: 300px; height: 300px;" class="astronauta" loop autoplay></lottie-player>
         </div>
-        
+
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
                 <h1 class="text-center text-white mx-5">Bankrdo<span style="color:#FC5404">X</span></h1>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ><i class='bx bx-menu text-white' style="margin-top: .7rem;"></i></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto navbar-right-top">
-                    
-                    <li class="nav-item dropdown notification">
-                        <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                        class="indicator" v-if="notificaciones.length > 0"></span></a>
-                        <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                            <li>
-                                <div class="notification-title"> Notification</div>
-                                <div class="notification-list">
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class='bx bx-menu text-white'
+                            style="margin-top: .7rem;"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                    class="indicator" v-if="notificaciones.length > 0"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                <li>
+                                    <div class="notification-title"> Notification</div>
+                                    <div class="notification-list">
                                         <div class="list-group">
                                             <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
+                                                v-for="(userNoti, index) in notificacionesCortadas">
                                                 <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
+                                                    <div class="notification-list-user-img"><img :src=userNoti.url
                                                             alt="" class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
+                                                            class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                        <div class="notification-date">
+                                                            {{getDateNotification(userNoti.date)}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -82,7 +85,8 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="./accounts.html" class="connection-item "><i class='bx bx-group bx-md'></i>
+                                            <a href="./accounts.html" class="connection-item "><i
+                                                    class='bx bx-group bx-md'></i>
                                                 <span>Accounts</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -91,7 +95,8 @@
                                                 <span>Cards</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="./transfers.html" class="connection-item"><i class='bx bx-spreadsheet bx-md'></i>
+                                            <a href="./transfers.html" class="connection-item"><i
+                                                    class='bx bx-spreadsheet bx-md'></i>
                                                 <span>Transfers</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -99,7 +104,16 @@
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>
@@ -110,8 +124,8 @@
                         </li>
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                     alt="" class="user-avatar-md rounded-circle" :src=dataBaseUser.avatar v-cloak></a>
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img alt=""
+                                    class="user-avatar-md rounded-circle" :src=dataBaseUser.avatar v-cloak></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
@@ -143,20 +157,19 @@
 
 
 
-            <section class="col-12 d-flex gap-5 mt-4 position-relative justify-content-center" >
+            <section class="col-12 d-flex gap-5 mt-4 position-relative justify-content-center">
                 <img src="./assets/space.svg" alt="" class="formularioSolo">
                 <img src="./assets/space2.svg" alt="" class="formularioSolo2">
-               
-               
+
+
                 <section class="form-box pt-0 ">
                     <div class="container">
-                     
+
                         <div class="row">
-                            <div
-                                class="form-wizard">
+                            <div class="form-wizard">
 
                                 <!-- Form Wizard -->
-                                <form role="form" @submit.prevent="createCard" method="post">
+                                <form role="form" @submit.prevent="createPayment" >
 
                                     <h3>APPLY FOR LOAN</h3>
                                     <p>Fill all form field to go next step</p>
@@ -168,149 +181,95 @@
                                                 data-number-of-steps="4" style="width: 12.25%;"></div>
                                         </div>
                                         <!-- Step 1 -->
-                                        <div class="form-wizard-step active">
-                                            <div class="form-wizard-step-icon"><i class="fa fa-user"
+                                        <div class="form-wizard-step">
+                                            <div class="form-wizard-step-icon"><i class="fa-solid fa-sack-dollar"
                                                     aria-hidden="true"></i></div>
-                                            <p>Type</p>
+                                            <p>Loan Info </p>
                                         </div>
                                         <!-- Step 1 -->
-
-                                        <!-- Step 2 -->
-                                        <div class="form-wizard-step">
-                                            <div class="form-wizard-step-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-                                            <p>Amount</p>
-                                        </div>
-                                        <!-- Step 2 -->
-
-                                        <!-- Step 3 -->
-                                        <div class="form-wizard-step">
-                                            <div class="form-wizard-step-icon"><i class="fa-brands fa-buffer"></i></div>
-                                            <p>Payments</p>
-                                        </div>
-                                        <!-- Step 3 -->
-
-                                        <!-- Step 4 -->
-                                        <div class="form-wizard-step">
-                                            <div class="form-wizard-step-icon"><i class="fa-solid fa-credit-card"></i></div>
-                                            <p>Account</p>
+                                        <div class="form-wizard-step ">
+                                            <div class="form-wizard-step-icon"><i class="fa-solid fa-circle-info"
+                                                    aria-hidden="true"></i></div>
+                                            <p>Confirm</p>
                                         </div>
                                         <!-- Step 4 -->
                                     </div>
                                     <!-- Form progress -->
 
-                                  
+
                                     <!-- Form Step 1 -->
                                     <fieldset>
 
-                                        <h4>Personal Information: <span>Step 1 - 4</span></h4>
-                                        <div class="form-group">
-                                            <label>First Name: <span>*</span></label>
-                                            <input type="text" name="First Name" placeholder="First Name"
-                                                class="form-control required" v-model="formulario.nombre">
+                                        <div class="form-group loansType" >
+                                            <p class="paymentText">Loan type: <span class="naranja">*</span></p>
+                                            <div class="loanType" v-for="loan in loansAcceptes"  @click="selectTypeLoan(loan)" :id="'id'+loan.id">
+                                                <i class='bx bxs-building-house' v-if="loan.name =='MORTGAGE'"></i>
+                                                <i class='bx bxs-car' v-else-if="loan.name =='AUTOMOTIVE'"></i>
+                                                <i class='bx bxs-user' v-else-if="loan.name =='PERSONAL'"></i>
+                                                <p>{{loan.name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group loansPayments" >
+                                            <p class="paymentText">Payments: <span class="naranja">*</span></p>
+                                            <div class="payment" if="loanFocus.payments" v-for="payment in loanFocus.payments" :id="'id'+payment" @click="selectPayment(payment)">
+                                                <p>{{payment}}</p>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Last Name: <span>*</span></label>
-                                            <input type="text" name="Last Name" placeholder="Last Name"
-                                                class="form-control required" v-model="formulario.apellido">
+                                            <label>Amount of loan: <span class="naranja">*</span></label>
+                                            <label class="d-flex gap-3"> <input type="number" name="number" placeholder="0"
+                                                class="form-control required inputAmount" v-model="amountLoan"> <p v-if="paymentPreview > 0 &&loanFocus.maxAmount > amountLoan">Mounthly Payment: {{paymentPreview.toFixed(3).toLocaleString('de-DE')}}</p></label>
+                                                <p v-if="amountLoan >loanFocus.maxAmount" class="text-danger">Amount no valid</p>
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label>DNI: <span>*</span></label>
-                                            <input type="number" name="DNI" placeholder="12 345678"
-                                                class="form-control required">
+                                        <div class="form-group loansType flex-column gap-1" >
+                                            <p class="paymentText">Account Destiny: <span class="naranja">*</span></p>
+                                            <div class="d-flex gap-3">
+                                                <div class="account" v-for="account in accounts"  @click="selectAccount(account)" :id="'id'+account.number">
+                                                    <i class='bx bx-user-circle'></i>
+                                                    <p>{{account.number}}</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Address: <span>*</span></label>
-                                            <input type="text" name="Address" placeholder="Address"
-                                                class="form-control required">
-                                        </div>
-
 
                                         <div class="form-wizard-buttons">
-                                            <button type="button" class="btn btn-next">Next</button>
+                                            <button type="button" class="btn btn-next" v-show="dataOk">Next</button>
+                                            <button type="button" class="btn btn-disable" v-if="!dataOk" disabled>Next</button>
+
                                         </div>
                                     </fieldset>
                                     <!-- Form Step 1 -->
-
                                     <!-- Form Step 2 -->
                                     <fieldset>
-
-                                        <h4 class="mt-1">Types Of Cards : <span>Step 2 - 4</span></h4>
-                                        <div>
-                                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni culpa,
-                                                blanditiis harum architecto eligendi necessitatibus maxime sequi
-                                                voluptatibus dolore repellat enim earum porro, libero asperiores alias
-                                                beatae sunt sit deleniti.</p>
-                                        </div>
                                         <div class="form-group">
-                                            <label>Select the Type: </label>
-                                            <select class="form-control" v-model="formulario.typeCard">
-                                                <option value="CREDIT">Credit</option>
-                                                <option value="DEBIT">Debit</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="form-wizard-buttons">
-                                            <button type="button" class="btn btn-previous mx-1">Previous</button>
-                                            <button type="button" class="btn btn-next">Next</button>
-                                        </div>
-                                    </fieldset>
-                                    <!-- Form Step 2 -->
-
-                                    <!-- Form Step 3 -->
-                                    <fieldset>
-
-                                        <h4>Level of Cards: <span>Step 3 - 4</span></h4>
-                                        <div>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi
-                                                quaerat dignissimos magni, consequuntur officiis ullam at nemo ipsa
-                                                harum error inventore modi aspernatur, laborum pariatur repudiandae
-                                                rerum magnam cumque neque. Lorem ipsum dolor sit amet consectetur
-                                                adipisicing elit. Ex modi voluptatem est quod ad soluta illum placeat,
-                                                labore eos, expedita, voluptas voluptatum voluptate voluptatibus cum
-                                                illo dicta debitis nulla et. </p>
-                                        </div>
-                                      
-                                        <div class="form-group">
-                                            <label>Select the Card Level:</label>
-                                            <select class="form-control" v-model="formulario.levelCard">
-                                                <option value="SILVER">Silver</option>
-                                                <option value="GOLD">Gold</option>
-                                                <option value="TITANIUM">Titanium</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-wizard-buttons">
-                                            <button type="button" class="btn btn-previous mx-1">Previous</button>
-                                            <button type="button" class="btn btn-next">Next</button>
-                                        </div>
-                                    </fieldset>
-                                    <!-- Form Step 3 -->
-                                    <fieldset>
-
-                                        <h4>Last step: <span>Step 4 - 4</span></h4>
-                                        <div style="clear:both;"></div>
-                                        <div>
-                                             <p>To complete the application we will ask you for your virtual signature:</p>
-                                           <div>
-                                           <div class="d-flex gap-5">
-                                            <canvas></canvas>
-                                            <p class="fw-bold" @click="borrarFirma">borrarFirma</p>
+                                            <div>
+                                                <p>To complete the application we will ask you for your virtual signature:</p>
+                                              <div>
+                                              <div class="d-flex gap-5">
+                                               <canvas >
+                                            </canvas>
+                                            <div class="canvasDisable" v-if="firma"></div>
+                                              <div class="d-flex flex-column gap-3">
+                                                <p class="borrarFirma" disable v-if="firma">Clear signature</p>
+                                                <p class="borrarFirma" @click="borrarFirma" v-else>Clear signature</p>
+                                                <p class="confirmarFirma" @click="confirmarFirma">Confirm signature</p>
+                                              </div>
+                                              </div>
+                                               </div>
                                            </div>
-                                            </div>
-                                             
-                                       
                                         </div>
+                                        <div class="form-group">
+                                            <label>Full Name: <span class="naranja">*</span></label>
+                                            <input type="text" name="text" placeholder="full name"
+                                                class="form-control required" v-model="fullName">
+                                        </div>
+
                                         <div class="form-wizard-buttons">
                                             <button type="button" class="btn btn-previous mx-1">Previous</button>
-                                            <button type="button" class="btn btn-submit" @click="createCard">Submit</button>
+                                            <button type="submit" class="btn btn-next" v-show="confirm">Confirm</button>
+                                            <button type="button" class="btn btn-disable" v-if="!confirm" disabled>Confirm</button>
                                         </div>
                                     </fieldset>
-                                    <!-- Form Step 4 -->
-                                    
-                                    <!-- Form Step 4 -->
-
                                 </form>
                                 <!-- Form Wizard -->
                             </div>
@@ -318,10 +277,10 @@
 
                     </div>
                 </section>
-            
-            </section>
-           
 
+            </section>
+
+                {{comprobarData}}
             <section>
             </section>
 
@@ -453,9 +412,9 @@
         </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 
-   
+
     <script src="./script/cardsForm.js"></script>
-    <script src="./script/createCard.js"></script>
+    <script src="./script/createLoan.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,9 @@ Vue.createApp({
             transactions: [],
             accounts: [],
             accountsSend: [],
-            notificaciones: [],
+            notificacionesCortadas:[],
+            notificaciones: [
+            ],
             typeForm: 0,
             accountSelect: "",
             accountSelectNumber: "",
@@ -14,7 +16,11 @@ Vue.createApp({
             amount: 0,
             isActiveDrop: false,
             isActiveDrop2: false,
-            transferencia:{}
+            transferencia:{},
+            errorAmount:false,
+            errorAccountOrigin:false,
+            errorAccountDestiny:false,
+
         }
     },
 
@@ -35,6 +41,14 @@ Vue.createApp({
                 this.accountSelectNumber = this.accountSelect.number
                 this.accountsSend = this.dataBase.accounts.filter(account => account.number != this.accountSelectNumber)
                 this.accountsSend = this.accountsSend.filter(account => this.accountSelect.accountType == account.accountType)
+                this.notificaciones = this.dataBase.notifications.sort((x,y)=>y.id - x.id)
+                this.notificaciones.forEach(notificacion => {
+                    if(this.notificacionesCortadas.length < 3){
+                        this.notificacionesCortadas.push(notificacion)
+                    }
+                })
+            
+            
             })
 
 
@@ -75,7 +89,22 @@ Vue.createApp({
                         container.classList.toggle("active")
                     }
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    this.errorAmount = false;
+                    this.errorAccountOrigin = false;
+                    this.errorAccountDestiny = false;
+
+                    if(error.request.response == "Amount no available"){
+                        this.errorAmount = true;
+                    }
+                    if(error.request.response == "Missing account origin"){
+                        this.errorAccountOrigin = true;
+                    }
+                    if(error.request.response == "Missing account destiny" || error.request.response == "The account destiny dont exist"){
+                        this.errorAccountDestiny = true;
+                    }
+                   
+                })
         }, 
         sendTransfer() {
             axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.accountSelectNumber}&accountRNumber=${this.accountDestiny}`)
@@ -129,6 +158,40 @@ Vue.createApp({
                 }
 
             }
+
+        },
+        getDateNotification(dateTrans){
+            const date = new Date(dateTrans)
+            let dateNow = new Date()
+            let year = "";
+            let month = "";
+            let hours = "";
+            let minutes = "";
+
+            if(date.getFullYear() != dateNow.getFullYear()){
+                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear()) 
+                return year + " years ago"
+            }
+            if(date.getMonth() != dateNow.getMonth()){
+                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth()) 
+                return month + " months ago"
+            }
+            if(date.getHours() != dateNow.getHours()){
+                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours()) 
+                if(hours < 0){
+                    hours = hours * -1
+                }
+                 return hours + " hours ago"
+            }
+            if(date.getMinutes() != dateNow.getMinutes()){
+                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes()) 
+                if(minutes < 0){
+                    minutes = minutes * -1
+                }
+                 return minutes + " minutes ago"
+            }
+
+           
 
         },
         

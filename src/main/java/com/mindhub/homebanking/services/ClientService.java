@@ -8,6 +8,8 @@ import java.util.List;
 public interface ClientService {
 
     ClientDTO getClientDTO(long id);
+    Client getClientById(long id);
+
     List<ClientDTO> getClientsDTO();
     Client getClient(String credential);
     Client getClientToken(String token);

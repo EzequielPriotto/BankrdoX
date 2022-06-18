@@ -16,10 +16,11 @@ public class CardDTO {
     private String number;
     private int cvv;
     private int limitCard;
-    private int expense;
+    private double expense;
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
 
+    private boolean isActive;
     public CardDTO() {
     }
     public CardDTO(Card card) {
@@ -33,5 +34,6 @@ public class CardDTO {
         this.thruDate = card.getThruDate();
         this.limitCard = card.getLimitCard();
         this.expense = card.getExpense();
+        this.isActive = card.isActive();
     }
 }

@@ -48,33 +48,34 @@
                     
                     <li class="nav-item dropdown notification">
                         <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                        class="indicator" v-if="notificaciones.length > 0"></span></a>
+                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
+                                class="indicator" v-if="notificaciones.length > 0"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                             <li>
                                 <div class="notification-title"> Notification</div>
                                 <div class="notification-list">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active"
-                                                v-for="userNoti in notificaciones">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img :src=userNoti.avatar
-                                                            alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span
-                                                            class="notification-list-user-name">{{userNoti.name}}</span>{{userNoti.message}}
-                                                        <div class="notification-date">{{userNoti.date}} min ago</div>
-                                                    </div>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item list-group-item-action active"
+                                            v-for="(userNoti, index) in notificacionesCortadas">
+                                            <div class="notification-info">
+                                                <div class="notification-list-user-img"><img :src=userNoti.url
+                                                        alt="" class="user-avatar-md rounded-circle"></div>
+                                                <div class="notification-list-user-block"><span
+                                                        class="notification-list-user-name">{{userNoti.user}}</span>{{userNoti.message}}
+                                                    <div class="notification-date">
+                                                        {{getDateNotification(userNoti.date)}}</div>
                                                 </div>
-                                            </a>
+                                            </div>
+                                        </a>
 
-                                        </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
-                        </li>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list-footer"> <a href="#">View all notifications</a></div>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
@@ -99,7 +100,16 @@
                                                     class='bx bx-money-withdraw bx-md'></i>
                                                 <span>Loans</span></a>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./cryptos.html" class="connection-item"><i
+                                                    class='bx bx-transfer-alt bx-md'></i></i>
+                                                <span>Swap</span></a>
+                                        </div>
+                                        <div class="col-xl-4 col-md-4 col-4 ">
+                                            <a href="./services.html" class="connection-item"><i
+                                                    class='bx bxs-store bx-md'></i></i>
+                                                <span>Services</span></a>
+                                        </div>
                                     </div>
 
                                 </li>
@@ -296,7 +306,7 @@
                                            <div>
                                            <div class="d-flex gap-5">
                                             <canvas></canvas>
-                                            <p class="fw-bold" @click="borrarFirma">borrarFirma</p>
+                                            <p class="borrarFirma" @click="borrarFirma">borrarFirma</p>
                                            </div>
                                             </div>
                                              
@@ -439,7 +449,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/19b971d5e3.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
