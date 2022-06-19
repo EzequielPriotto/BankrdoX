@@ -37,7 +37,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-                <h1 class="text-center text-white ml-3 mx-md-5">Bankrdo<span style="color:#FC5404">X</span></h1>
+                <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset=""></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -185,13 +185,13 @@
                             class="naranja">{{accountFocusCVU.balance}}usd</span> </h4>
                     <h4 v-else-if="accountFocusCVU.accountType == 'CRYPTO'">BALANCE: <span
                             class="naranja">{{accountFocusCVU.balance.toFixed(6)}} btc</span> </h4>
-                    <p @click="linkearAccount(accountFocusCVU.number)">View account movements </p>
+                    <p @click="linkearAccount(accountFocusCVU.number)" class="viewMore">View account movements </p>
                 </form>
             </div>
         </div>
         <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
 
-            <section class="col-12 py-2 mt-5 " style=" background-color: #111315;">
+            <section class="col-12 py-3 mt-5 " style=" background-color: #111315;">
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
 
@@ -223,12 +223,16 @@
                                                 v-else-if="account.accountType == 'CRYPTO'"></i>
                                         </div>
                                         <p class="mb-0">{{account.number}}</p>
+
                                     </div>
                                     <div class=" secondaryAccountBottom">
+
                                         <p class="balanceAccounts" v-if="account.accountType == 'DOLAR'">
                                             ${{account.balance}}</p>
                                         <p class="balanceAccounts" v-else-if="account.accountType == 'CRYPTO'">
                                             {{account.balance.toFixed(6)}} <span>btc</span></p>
+                                        <p class="moreInfo" @click="openOffCVU(account)">View more info</p>
+
                                     </div>
 
                                 </div>
@@ -250,14 +254,14 @@
                             <h3 class="text-white">Category Expenses</h3>
                         </div>
                         <div class="separadorGraph  d-none d-lg-flex">
-                           
+
                         </div>
                     </section>
                     <div class=" div-estadisticas pb-3">
                         <div id="chartdiv" class="fondoMasClaro "> </div>
 
                         <div id="chartdiv2" class=" d-none d-lg-flex">
-                           <img src="./assets/luna.svg" alt="" srcset="">
+                            <img src="./assets/luna.svg" alt="" srcset="">
                         </div>
                     </div>
 
@@ -283,19 +287,16 @@
                             <tbody class="text-white tbody" v-if="listadoComprasFiltrado.length > 0" v-cloak>
                                 <tr v-for="(compra, index) in listadoComprasFiltrado" class="text-start">
                                     <td class="d-flex justify-content-start align-items-center">
-                                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
-                                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
-                                        <i class='bx bx-restaurant iconoCompra'
-                                            v-if="compra.description === 'Food'"></i>
-                                        <i class='bx bxs-t-shirt iconoCompra'
-                                            v-if="compra.description === 'Outfit'"></i>
+                                        <i class='bx bxs-bank iconoCompra' v-if="compra.category === 'Transfer'"></i>
+                                        <i class='bx bx-joystick iconoCompra' v-if="compra.category === 'Games'"></i>
+                                        <i class='bx bx-restaurant iconoCompra' v-if="compra.category === 'Food'"></i>
+                                        <i class='bx bxs-t-shirt iconoCompra' v-if="compra.category === 'Outfit'"></i>
                                         <i class='bx bxs-shopping-bag iconoCompra'
-                                            v-if="compra.description === 'Others'"></i>
-                                        <i class='bx bx-transfer-alt iconoCompra'
-                                            v-if="compra.description === 'Swap'"></i>
+                                            v-if="compra.category === 'Others'"></i>
+                                        <i class='bx bx-transfer-alt iconoCompra' v-if="compra.category === 'Swap'"></i>
 
-                                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
-                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
+                                        <i class='bx bx-store iconoCompra' v-if="compra.category === 'Services'"></i>
+                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.category}}</span>
                                     </td>
                                     <td>{{getDateCreate(compra.date)}}</td>
                                     <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
@@ -511,18 +512,15 @@
                             <tbody class="text-white tbody" v-if="listadoComprasFiltrado.length > 0" v-cloak>
                                 <tr v-for="(compra, index) in listadoComprasFiltrado" class="text-start">
                                     <td class="d-flex justify-content-start align-items-center">
-                                        <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
-                                        <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
-                                        <i class='bx bx-restaurant iconoCompra'
-                                            v-if="compra.description === 'Food'"></i>
-                                        <i class='bx bxs-t-shirt iconoCompra'
-                                            v-if="compra.description === 'Outfit'"></i>
+                                        <i class='bx bxs-bank iconoCompra' v-if="compra.category === 'Transfer'"></i>
+                                        <i class='bx bx-joystick iconoCompra' v-if="compra.category === 'Games'"></i>
+                                        <i class='bx bx-restaurant iconoCompra' v-if="compra.category === 'Food'"></i>
+                                        <i class='bx bxs-t-shirt iconoCompra' v-if="compra.category === 'Outfit'"></i>
                                         <i class='bx bxs-shopping-bag iconoCompra'
-                                            v-if="compra.description === 'Others'"></i>
-                                            <i class='bx bx-transfer-alt iconoCompra'
-                                            v-if="compra.description === 'Swap'"></i>
-                                        <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
-                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.description}}</span>
+                                            v-if="compra.category === 'Others'"></i>
+                                        <i class='bx bx-transfer-alt iconoCompra' v-if="compra.category === 'Swap'"></i>
+                                        <i class='bx bx-store iconoCompra' v-if="compra.category === 'Services'"></i>
+                                        <span class="fw-bold mx-3" style="color: #FC5404;">{{compra.category}}</span>
                                     </td>
                                     <td>{{getDateCreate(compra.date)}}</td>
                                     <td @click="linkearAccount(compra.accountNumber)" style="cursor: pointer;"><i
@@ -546,19 +544,19 @@
                                     <div class="d-flex gap-0 text-start">
                                         <div class="me-3">
                                             <i class='bx bxs-bank iconoCompra'
-                                                v-if="compra.description === 'Transfer'"></i>
+                                                v-if="compra.category === 'Transfer'"></i>
                                             <i class='bx bx-joystick iconoCompra'
-                                                v-if="compra.description === 'Games'"></i>
+                                                v-if="compra.category === 'Games'"></i>
                                             <i class='bx bx-restaurant iconoCompra'
-                                                v-if="compra.description === 'Food'"></i>
+                                                v-if="compra.category === 'Food'"></i>
                                             <i class='bx bxs-t-shirt iconoCompra'
-                                                v-if="compra.description === 'Outfit'"></i>
+                                                v-if="compra.category === 'Outfit'"></i>
                                             <i class='bx bxs-shopping-bag iconoCompra'
-                                                v-if="compra.description === 'Others'"></i>
+                                                v-if="compra.category === 'Others'"></i>
                                             <i class='bx bx-store iconoCompra'
-                                                v-if="compra.description === 'Services'"></i>
-                                                <i class='bx bx-transfer-alt iconoCompra'
-                                            v-if="compra.description === 'Swap'"></i>
+                                                v-if="compra.category === 'Services'"></i>
+                                            <i class='bx bx-transfer-alt iconoCompra'
+                                                v-if="compra.category === 'Swap'"></i>
                                         </div>
                                         <div class="d-flex gap-0 flex-column ">
 
@@ -567,7 +565,7 @@
                                                 @click="linkearAccount(compra.accountNumber)"><i
                                                     class='bx bxs-user-circle bx-sm mx-2'></i><a>{{compra.accountNumber}}</a>
 
-                                                <span class="descriptionList">{{compra.description}}</span>
+                                                <span class="descriptionList">{{compra.category}}</span>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gap-0 text-end me-3">

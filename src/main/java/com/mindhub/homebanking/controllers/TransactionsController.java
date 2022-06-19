@@ -160,7 +160,6 @@ public class TransactionsController {
         if (accountR.getAccountType() != accountS.getAccountType())
             return new ResponseEntity<>("Incompatible accountType", HttpStatus.FORBIDDEN);
 
-
         return new ResponseEntity<>("data correct", HttpStatus.CREATED);
     }
 
@@ -279,5 +278,5 @@ public class TransactionsController {
         return new ResponseEntity<>("Payment make successful", HttpStatus.CREATED);
     }
 
-  
+
 }

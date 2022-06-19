@@ -300,7 +300,7 @@ Vue.createApp({
                     return this.listadoComprasCortado;
                 }
                 else {
-                    return array.filter(compra => compra.description === this.typeCompraInput)
+                    return array.filter(compra => compra.category === this.typeCompraInput)
                 }
 
             }

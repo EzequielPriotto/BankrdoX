@@ -152,7 +152,10 @@
             </section>
 
             <section class="col-12 mt-3">
-                <input type="checkbox" v-model="isCredit">
+                <div class="contenedorSwitch" :class="{right:!isCredit}">
+                    <div class="switchBtn" id="credit" @click="changeCreditOrDebit">CREDIT</div>
+                    <div class="switchBtn" id="debit" @click="changeCreditOrDebit">DEBIT</div>
+                </div>
             </section>
             <div class="containerC " :class="{disable: !isCredit || creditArray.length == 0}">
 

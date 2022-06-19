@@ -62,9 +62,14 @@ Vue.createApp({
             signaturePad.clear();
         },
         createCard(){
+           if(!signaturePad.isEmpty()){
             axios.post('/api/clients/current/cards/',`cardColor=${this.formulario.levelCard}&cardType=${this.formulario.typeCard}`,{
                 headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => window.location.href = "http://localhost:8080/web/cards.html")
+           }
+           else{
+            alert("Missing signature")
+           }
         },
         getDateNotification(dateTrans){
             const date = new Date(dateTrans)

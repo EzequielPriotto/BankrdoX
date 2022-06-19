@@ -10,6 +10,7 @@ Vue.createApp({
             creditArray: [],
             debitArray: [],
             isCredit: true,
+          
 
 
         }
@@ -341,6 +342,87 @@ Vue.createApp({
            
 
         },
+
+        changeCreditOrDebit(){
+           
+
+
+          if(this.isCredit){
+            let firstCardF = document.querySelector("#id0").firstChild;
+            let firstCardB = document.querySelector("#id0").lastChild;
+
+            let secondCardF = document.querySelector("#id1");
+            let secondCardB = document.querySelector("#id1");
+            if (secondCardF != null) {
+                secondCardF = document.querySelector("#id1").firstChild;
+                secondCardB = document.querySelector("#id1").lastChild;
+            }
+
+            let thirdCardF = document.querySelector("#id2");
+            let thirdCardB = document.querySelector("#id2");
+
+            if (thirdCardF != null) {
+                thirdCardF = document.querySelector("#id2").firstChild;
+                thirdCardB = document.querySelector("#id2").lastChild;
+            }
+            firstCardF.style.left = "0.9%";
+            firstCardB.style.left = "0.2%";
+
+            if (secondCardF != null) {
+                secondCardF.style.left = "12.9%";
+                secondCardB.style.left = "12.2%";
+            }
+            if (thirdCardF != null) {
+                thirdCardF.style.left = "24.9%";
+                thirdCardB.style.left = "24.2%";
+            }
+
+            this.isCredit = !this.isCredit
+          }
+          else{
+            
+            let firstCardF = document.querySelector("#id010").firstChild;
+            let firstCardB = document.querySelector("#id010").lastChild;
+
+
+            let secondCardF = document.querySelector("#id110");
+            let secondCardB = document.querySelector("#id110");
+            if (secondCardF != null) {
+                secondCardF = document.querySelector("#id110").firstChild;
+                secondCardB = document.querySelector("#id110").lastChild;
+            }
+
+            let thirdCardF = document.querySelector("#id210");
+            let thirdCardB = document.querySelector("#id210");
+
+            if (thirdCardF != null) {
+                thirdCardF = document.querySelector("#id210").firstChild;
+                thirdCardB = document.querySelector("#id210").lastChild;
+            }
+
+
+
+            firstCardF.style.left = "0.9%";
+            firstCardB.style.left = "0.2%";
+
+            if (secondCardF != null) {
+                secondCardF.style.left = "12.9%";
+                secondCardB.style.left = "12.2%";
+            }
+            if (thirdCardF != null) {
+                thirdCardF.style.left = "24.9%";
+                thirdCardB.style.left = "24.2%";
+            }
+
+            this.isCredit = !this.isCredit
+          }
+
+
+
+
+
+
+        }
 
     },
     computed: {

@@ -148,7 +148,16 @@ body {
     margin-right: 2rem;
 
 }
-
+.viewMore{
+    border-bottom: 2px solid;
+    font-weight: bold;
+    color: white;
+    transition: .3s;
+}
+.viewMore:hover{
+    color: #e06a0e;
+    cursor: pointer;
+}
 .contenedorCreate form h3,
 .contenedorCreateCVU form h3 {
     color: white;
@@ -262,6 +271,15 @@ body {
 .accountSFocus .balanceAccounts {
     margin-top: 1rem;
     color: #ffffff;
+}
+ .moreInfo{
+    color: white;
+    transition: .3s;
+
+}
+.moreInfo:hover{
+    cursor: pointer;
+    letter-spacing: .05rem;
 }
 .accountType{
     width: 11rem;
@@ -1436,7 +1454,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     /* background-color: #0080ff; */
     border-right: 2px solid #ffffff17;
-
+    text-align: center;
     width: 10rem;
 }
 
