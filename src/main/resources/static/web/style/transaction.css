@@ -201,7 +201,6 @@ input::-webkit-inner-spin-button {
 }
 
 .transferDiv fieldset textarea {
-
     resize: none;
 }
 
@@ -215,7 +214,6 @@ input::-webkit-inner-spin-button {
 }
 
 .paso2.active .btnBack:first-child {
-
     z-index: 2;
 }
 
@@ -230,7 +228,6 @@ input::-webkit-inner-spin-button {
 .btn:focus {
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%);
 }
-
 .paso1>.btn {
     letter-spacing: .1rem;
     transition: .5s;
@@ -241,12 +238,14 @@ input::-webkit-inner-spin-button {
     width: 12rem;
     background-color: #f1790100;
 }
-
 .paso1>.btn:hover {
     letter-spacing: .2rem;
     background-color: #ed7323;
 
 }
+
+
+
 
 .transferDiv [type="number"] {
     height: 2.3rem;
@@ -298,111 +297,9 @@ input::-webkit-inner-spin-button {
 
 .transferDiv form button:hover span {
     transform: translateX(7px);
+  
 }
-
-.divAlert.disable {
-   z-index: -10;
-}
-
-.divAlert {
-    z-index: 10;
-
-}
-
-.divAlert.disable .alertContainer {
-    opacity: 0;
-    background-color: #00000000;
-    transition: 1s;
-}
-
-
-.alertContainer {
-    position: fixed;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    opacity: 1;
-    background-color: #00000073;
-    z-index: 999;
-    content: "";
-    transition: 1s;
-}
-
-.alert {
-    position: absolute;
-    height: 27rem;
-    top: 15%;
-    left: 32%;
-    width: 31rem;
-    transform: scale(0);
-    background-color: #282928;
-
-    -webkit-animation: openModal 800ms;
-    animation: openModal 800ms;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-
-}
-
-.alerBody {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.divAlert.disable .alerBody img {
-    animation-play-state: paused;
-
-}
-.divAlert.disable .alerBody .txt-pajarito {
-    animation-play-state: paused;
-}
-.alerBody img {
-    position: absolute;
-    width: 100%;
-    top: 56%;
-    left: 6%;
-    -webkit-animation: openPajarito 1400ms;
-    animation: openPajarito 1400ms;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-   
-    animation-play-state: running;
-}
-
-.alerBody .txt-pajarito {
-    color: #ff5e00;
-    text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.461);
-    font-weight: bold;
-    position: absolute;
-    top: 62%;
-    left: 13%;
-    -webkit-animation: opentxt 2000ms;
-    animation: opentxt 2000ms;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    /* -webkit-animation-delay: 1s; */
-    /* animation-delay: 1s; */
-    animation-play-state: running;
-
-}
-
-.alertDetails {
-    text-align: start;
-    color: white;
-}
-
-.alertDetails p {
-    margin-bottom: .5rem;
-}
-
-.accountOriginContainer {
-    display: flex;
-    flex-direction: column;
-}
-
+/* 
 .accountOrigin {
     background: #272828;
     list-style: none;
@@ -467,6 +364,14 @@ input::-webkit-inner-spin-button {
     color: white;
     font-weight: bold;
 }
+ */
+
+
+
+
+
+
+
 .transferDivMobile{
 display: none;
 }
@@ -526,6 +431,93 @@ cursor: pointer;
 background-color: #e06a1b;
 color: white;
 }
+
+
+.divAlert.disable {
+    z-index: -10;
+ }
+ .divAlert {
+     z-index: 10;
+ }
+ .divAlert.disable .alertContainer {
+     opacity: 0;
+     background-color: #00000000;
+     transition: 1s;
+ }
+ .alertContainer {
+     position: fixed;
+     display: flex;
+     width: 100%;
+     height: 100%;
+     opacity: 1;
+     background-color: #00000073;
+     z-index: 999;
+     content: "";
+     transition: 1s;
+ }
+ .alert {
+     position: absolute;
+     height: 27rem;
+     top: 15%;
+     left: 32%;
+     width: 31rem;
+     transform: scale(0);
+     background-color: #282928;
+     -webkit-animation: openModal 800ms;
+     animation: openModal 800ms;
+     -webkit-animation-fill-mode: forwards;
+     animation-fill-mode: forwards;
+     -webkit-animation-delay: 1s;
+     animation-delay: 1s;
+ }
+ .alerBody {
+     position: relative;
+     width: 100%;
+     height: 100%;
+ }
+ .divAlert.disable .alerBody img {
+     animation-play-state: paused;
+ 
+ }
+ .divAlert.disable .alerBody .txt-pajarito {
+     animation-play-state: paused;
+ }
+ .alerBody img {
+     position: absolute;
+     width: 100%;
+     top: 56%;
+     left: 6%;
+     -webkit-animation: openPajarito 1400ms;
+     animation: openPajarito 1400ms;
+     -webkit-animation-fill-mode: forwards;
+     animation-fill-mode: forwards;
+     animation-play-state: running;
+ }
+ .alerBody .txt-pajarito {
+     color: #ff5e00;
+     text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.461);
+     font-weight: bold;
+     position: absolute;
+     top: 62%;
+     left: 13%;
+     -webkit-animation: opentxt 2000ms;
+     animation: opentxt 2000ms;
+     -webkit-animation-fill-mode: forwards;
+     animation-fill-mode: forwards;
+     animation-play-state: running;
+ }
+ .alertDetails {
+     text-align: start;
+     color: white;
+ }
+ .alertDetails p {
+     margin-bottom: .5rem;
+ }
+ .accountOriginContainer {
+     display: flex;
+     flex-direction: column;
+ }
+
 @keyframes openModal {
 
     0% {

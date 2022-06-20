@@ -4,6 +4,7 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Notification;
+import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.NotificationService;
@@ -37,7 +38,7 @@ public class ClientController {
     private AccountService accountService;
 
     @Autowired
-    NotificationService notificationService;
+    private NotificationService notificationService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -133,7 +134,7 @@ public class ClientController {
 
     @Transactional
     @PostMapping("/clients/current/disable")
-    public ResponseEntity<Object> changeCurrentClient(Authentication authentication) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<Object> disableCurrentClient(Authentication authentication) throws MessagingException, UnsupportedEncodingException {
         Client client = clientService.getClient(authentication.getName());
 
         if (client == null)
@@ -151,7 +152,7 @@ public class ClientController {
 
     @Transactional
     @PostMapping("/activateAccount/{token}")
-    private ResponseEntity<Object> activateAccount(HttpServletRequest request, @PathVariable String token) throws Exception{
+    public ResponseEntity<Object> activateAccount(HttpServletRequest request, @PathVariable String token){
 
         Client client = clientService.getClientToken(token);
 
@@ -164,6 +165,45 @@ public class ClientController {
         clientService.saveClient(client);
         return new ResponseEntity<>( HttpStatus.ACCEPTED);
     }
+
+
+    @PostMapping("/clients/current/sendToken")
+    public ResponseEntity<Object> sendTokenTemp(Authentication authentication) throws MessagingException, UnsupportedEncodingException {
+
+        Client client = clientService.getClient(authentication.getName());
+
+        if(client == null)
+            return new ResponseEntity<>("You not have a authorization", HttpStatus.FORBIDDEN);
+
+        String toAddress = client.getEmail();
+        String fromAddress = "bankrdox@gmail.com";
+        String senderName = "BankrdoX";
+        String subject = "Identity Verification Code";
+        String content = "<h2 style=\"color:black;\">Hi [[name]]!</h2>"
+                + "<p style=\"color:black;\"> Do not share this code with anyone! </p>"
+                +"<img src=\"https://i.imgur.com/DjW6seD.png\" alt=\"ImgRegister\" width=\"450\" height=\"302\"/> <br>"
+                + "<h3 style=\"color:#ff5e14;\">[[code]]</h3>"
+                + "<div style=\"display:flex;gap: 0.4rem;\"> <p style=\"color:black;\"> Thank you, </p> <p style=\"color:rgb(232, 91, 26);font-weight: bold;\"> BankrdoX teams. </p> </div> "
+                ;
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", client.getFullName());
+
+        String code = GenerateRandomNumber(0,9);
+
+        content = content.replace("[[code]]", code);
+
+        helper.setText(content, true);
+        mailSender.send(message);
+        return new ResponseEntity<>(code, HttpStatus.OK);
+    }
+
 
 
     private void sendVerificationEmail(Client client)

@@ -42,11 +42,8 @@ Vue.createApp({
     created() {
         axios.get('/api/clients/current')
             .then(repuesta => {
-                console.log(repuesta)
                 this.dataBase = repuesta.data
-                console.log(this.dataBase)
                 this.accountsArray = this.dataBase.accounts.filter(account => account.active)
-                console.log(this.accountsArray)
                 this.accountsArray = this.accountsArray.sort((x, y) => x.id - y.id)
 
                 this.accountFocus = this.accountsArray[0]

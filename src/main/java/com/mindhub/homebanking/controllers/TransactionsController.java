@@ -328,8 +328,8 @@ public class TransactionsController {
             client.getAccounts().forEach(account1 -> {
                 finalTransactionsResume.addAll(account1.getTransactions());
            });
-
-           transactionsResume = finalTransactionsResume.stream().filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
+            Comparator<Transaction> idComparatorTransaction = Comparator.comparing(Transaction::getId);
+           transactionsResume = finalTransactionsResume.stream().sorted(idComparatorTransaction).filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
 
             MakePDF(response, transactionsResume, dateTimeFormatter.format(resumeApplicationDTO.getDateFrom()), dateTimeFormatter.format(resumeApplicationDTO.getDateTo()));
         }

@@ -936,7 +936,7 @@ td {
     text-align: center
 }
 
-.buttonChange{
+.buttonChange, .buttonDisable{
     background: aliceblue;
     border-radius: 11px !important;
     transition: .3s;
@@ -945,7 +945,21 @@ td {
     color: white;
     background-color: #e47426;
 }
-
+.buttonDisable{
+    width: 14rem;
+    height: 3rem;
+    left: 63rem;
+    top: 90%;
+    position: absolute !important;
+    background-color: #58241299;
+    color: gray;
+}
+.buttonDisable:hover, .buttonDisable:focus-visible,.buttonDisable:focus{
+    color: white;
+    background-color: #852e12c0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+    outline: none;
+}
 /* FOOTER DESING */
 footer {
     margin-top: 2rem;

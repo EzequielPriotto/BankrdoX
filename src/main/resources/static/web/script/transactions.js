@@ -148,18 +148,7 @@ Vue.createApp({
             this.isActiveDrop2 = !this.isActiveDrop2
         },
         actualizarSelect() {
-            if (this.dataBase.accounts != undefined) {
-                this.accountSelect = this.dataBase.accounts.filter(account => account.number == this.accountSelectNumber)
-
-                this.accountsSend = this.dataBase.accounts.filter(account => account.number != this.accountSelectNumber)
-                    .filter(account => this.accountSelect[0].accountType == account.accountType)
-
-                if (this.accountsSend.length > 0 && this.typeForm != 2) {
-                    this.accountDestiny = this.accountsSend[0].number
-                }
-
-            }
-
+            
         },
         getDateNotification(dateTrans){
             const date = new Date(dateTrans)
@@ -225,11 +214,11 @@ Vue.createApp({
          
           axios.post(url,data,{ "responseType": 'blob' }
             ).then(response=> {
-                console.log(response.data)
+                console.log(response)
                 var blob = new Blob([response.data]);
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "report.pdf";
+                link.download = `BankrdoX_Resume_${this.dataBase.firstName}_${this.dataBase.lastName}.pdf`;
                 link.click();
           })
           .catch(error => console.log(error))

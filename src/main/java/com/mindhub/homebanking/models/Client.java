@@ -39,8 +39,6 @@ public class Client {
     @Unmodifiable
     private String password, userName;
     private String avatar = "./assets/avatares/avatar1.png";
-
-
     private String token;
     private boolean enabled;
 
@@ -57,7 +55,6 @@ public class Client {
     public String getFullName(){
         return this.firstName + " " + this.getLastName();
     }
-
 
     public void addAccount(Account account) {
         account.setClient(this);
@@ -85,14 +82,12 @@ public class Client {
     }
 
 
-
     public void deleteToken() {
         this.token = "";
     }
     public boolean isEnabled() {
         return this.enabled;
     }
-
 
 
 }

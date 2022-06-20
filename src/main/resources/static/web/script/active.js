@@ -14,10 +14,11 @@ Vue.createApp({
 
           let token = params.token; 
         
-        axios.post("http://localhost:8080/api/activateAccount/" + token)
+        axios.post("/api/activateAccount/" + token)
         .then(response=> {
             this.dataBase = response.data
             this.failed = false
+            
         })
         .catch(error => {
             this.failed = true
