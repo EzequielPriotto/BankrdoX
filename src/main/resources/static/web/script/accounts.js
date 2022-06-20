@@ -26,13 +26,13 @@ Vue.createApp({
             },
             mailFooterInput: "",
             loans: [],
-            
+
             gastoTotal: 0,
             cards: [],
             cardsCortado: [],
             accountFocusCVU: {},
             accountTypeCreate: "DOLAR",
-            notificacionesCortadas:[],
+            notificacionesCortadas: [],
             notificaciones: [
             ],
 
@@ -45,14 +45,14 @@ Vue.createApp({
                 console.log(repuesta)
                 this.dataBase = repuesta.data
                 console.log(this.dataBase)
-                this.accountsArray = this.dataBase.accounts
+                this.accountsArray = this.dataBase.accounts.filter(account => account.active)
                 console.log(this.accountsArray)
                 this.accountsArray = this.accountsArray.sort((x, y) => x.id - y.id)
-               
+
                 this.accountFocus = this.accountsArray[0]
 
-                this.accountsArray.forEach(cuenta => cuenta.transactions.forEach(compra => this.listadoComprasOriginal.push(compra)));
-                this.listadoComprasOriginal = this.listadoComprasOriginal.sort((x, y) =>  Intl.Collator('en').compare(y.date, x.date))
+                this.dataBase.accounts.forEach(cuenta => cuenta.transactions.forEach(compra => this.listadoComprasOriginal.push(compra)));
+                this.listadoComprasOriginal = this.listadoComprasOriginal.sort((x, y) => Intl.Collator('en').compare(y.date, x.date))
                 this.generarEstadisticas("chartdiv")
                 this.generarEstadisticas("chartdiv3")
 
@@ -61,10 +61,10 @@ Vue.createApp({
 
                 this.cards = repuesta.data.cards.sort((x, y) => x.id - y.id)
                 this.cards.forEach(card => this.cardsCortado.push(card))
-               
-               this.notificaciones = this.dataBase.notifications.sort((x,y)=>y.id - x.id)
+
+                this.notificaciones = this.dataBase.notifications.sort((x, y) => y.id - x.id)
                 this.notificaciones.forEach(notificacion => {
-                    if(this.notificacionesCortadas.length < 3){
+                    if (this.notificacionesCortadas.length < 3) {
                         this.notificacionesCortadas.push(notificacion)
                     }
                 })
@@ -104,7 +104,7 @@ Vue.createApp({
         generarEstadisticas(id) {
 
             this.listadoComprasOriginal.forEach(compra => {
-                let tipo = compra.description
+                let tipo = compra.category
                 switch (tipo) {
 
                     case "Food":
@@ -310,8 +310,21 @@ Vue.createApp({
 
         },
         signOut() {
-            axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Your session will be closed and you will be redirected to the home page.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, I am sure!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/api/logout')
+                        .then(response => window.location.href = "http://localhost:8080/web/index.html")
+                }
+            })
+
         },
         redireccionarCard(lugar) {
             Swal.fire({
@@ -322,12 +335,12 @@ Vue.createApp({
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, I am sure!'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = `./${lugar}`;
                 }
-              })
-            
+            })
+
         },
         linkearAccount(accountNumber) {
             console.log(accountNumber)
@@ -337,6 +350,12 @@ Vue.createApp({
                     window.location.href = `http://localhost:8080/web/account.html?id=${account.id}`
                 }
             })
+            setTimeout(()=> Swal.fire(
+                'Oh wow!',
+                'You are trying to access a disabled account.!',
+                'warning'
+            ), 100)
+
         },
         addAccount() {
             axios.post("http://localhost:8080/api/clients/current/accounts/", `accountType=${this.accountTypeCreate}`)
@@ -345,40 +364,40 @@ Vue.createApp({
                 )
                 .catch(error => alert(error.request.message))
         },
-        openOff(){
+        openOff() {
             let contenedor = document.querySelector(".contenedorS");
             let bodyOff = document.querySelector(".contenedorCreate");
             let html = document.querySelector("html");
             contenedor.classList.add("active");
-            setTimeout(()=>  bodyOff.classList.add("active"), 500)
+            setTimeout(() => bodyOff.classList.add("active"), 500)
             html.classList.add("load")
         },
-        closeOff(){
+        closeOff() {
             let contenedor = document.querySelector(".contenedorS");
             let bodyOff = document.querySelector(".contenedorCreate");
             let html = document.querySelector("html");
             bodyOff.classList.remove("active")
-            setTimeout(()=> contenedor.classList.remove("active") , 500)
+            setTimeout(() => contenedor.classList.remove("active"), 500)
             html.classList.remove("load")
         },
-        openOffCVU(account){
+        openOffCVU(account) {
             let contenedor = document.querySelector(".contenedorSCVU");
             let bodyOff = document.querySelector(".contenedorCreateCVU");
             let html = document.querySelector("html");
             contenedor.classList.add("active");
-            setTimeout(()=>  bodyOff.classList.add("active"), 500)
+            setTimeout(() => bodyOff.classList.add("active"), 500)
             html.classList.add("load")
             this.accountFocusCVU = account
         },
-        closeOffCVU(){
+        closeOffCVU() {
             let contenedor = document.querySelector(".contenedorSCVU");
             let bodyOff = document.querySelector(".contenedorCreateCVU");
             let html = document.querySelector("html");
             bodyOff.classList.remove("active")
-            setTimeout(()=> contenedor.classList.remove("active") , 500)
+            setTimeout(() => contenedor.classList.remove("active"), 500)
             html.classList.remove("load")
         },
-        getDateNotification(dateTrans){
+        getDateNotification(dateTrans) {
             const date = new Date(dateTrans)
             let dateNow = new Date()
             let year = "";
@@ -386,41 +405,100 @@ Vue.createApp({
             let hours = "";
             let minutes = "";
 
-            if(date.getFullYear() != dateNow.getFullYear()){
-                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear()) 
+            if (date.getFullYear() != dateNow.getFullYear()) {
+                year = parseInt(date.getFullYear()) - parseInt(dateNow.getFullYear())
                 return year + " years ago"
             }
-            if(date.getMonth() != dateNow.getMonth()){
-                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth()) 
+            if (date.getMonth() != dateNow.getMonth()) {
+                month = parseInt(date.getMonth()) - parseInt(dateNow.getMonth())
                 return month + " months ago"
             }
-            if(date.getHours() != dateNow.getHours()){
-                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours()) 
-                if(hours < 0){
+            if (date.getHours() != dateNow.getHours()) {
+                hours = parseInt(date.getHours()) - parseInt(dateNow.getHours())
+                if (hours < 0) {
                     hours = hours * -1
                 }
-                 return hours + " hours ago"
+                return hours + " hours ago"
             }
-            if(date.getMinutes() != dateNow.getMinutes()){
-                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes()) 
-                if(minutes < 0){
+            if (date.getMinutes() != dateNow.getMinutes()) {
+                minutes = parseInt(date.getMinutes()) - parseInt(dateNow.getMinutes())
+                if (minutes < 0) {
                     minutes = minutes * -1
                 }
-                 return minutes + " minutes ago"
+                return minutes + " minutes ago"
             }
 
-           
+
 
         },
-        selectAccountType(accountType){
+        selectAccountType(accountType) {
             let accounts = document.querySelectorAll(".accountType");
-            accounts.forEach(account=> account.classList.remove("active"))
-            let account = document.querySelector("#"+accountType)
+            accounts.forEach(account => account.classList.remove("active"))
+            let account = document.querySelector("#" + accountType)
             account.classList.add("active")
             this.accountTypeCreate = accountType;
+        },
+        cancelAccount() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Are you sure you want to cancel the account ${this.accountFocusCVU.number}?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, I am sure!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post("/api/clients/current/accounts/disable/", `accountNumber=${this.accountFocusCVU.number}`)
+                        .then(response => response.data != "" ? alert("ups") : window.location.reload())
+                        .catch(error => {
+                            console.log(error.response.data)
+                            if (error.response.data == "The client have only one account") {
+                                Swal.fire(
+                                    'Oh wow!',
+                                    'It seems that this is the only account you have.!',
+                                    'warning'
+                                )
+                            }
+                            else if (error.response.data == "Account have money") {
+                                Swal.fire({
+                                    title: 'The account has money inside!',
+                                    text: `Do you want to transfer your entire balance to another account and then delete the ${this.accountFocusCVU.number} account ?`,
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, do it!'
+                                }).then(result => {
+                                    let cuentaDestino = this.accountsArray.filter(account => account != this.accountFocusCVU)
+                                    cuentaDestino = cuentaDestino[0]
+                                    axios.post("/api/clients/current/transactions", `amount=${this.accountFocusCVU.balance}&category=Transfer&description=Transfer from ${this.accountFocusCVU.number} to ${cuentaDestino.number}&accountSNumber=${this.accountFocusCVU.number}&accountRNumber=${cuentaDestino.number}`)
+                                        .then(response => {
+                                            axios.post("/api/clients/current/accounts/disable/", `accountNumber=${this.accountFocusCVU.number}`)
+                                                .then(response => response.data != "" ? alert("ups") : window.location.reload())
+                                                .catch(error => {
+                                                    if (error.response.data == "The client have only one account") {
+                                                        Swal.fire(
+                                                            'Oh wow!',
+                                                            'It seems that this is the only account you have.!',
+                                                            'warning'
+                                                        )
+                                                    }
+                                                })
+                                        })
+                                        .catch(response=>{
+                                            
+                                        })
+
+                                })
+                            }
+                            
+                        })
+                }
+            })
         }
-        
-       
+
+
 
 
     },

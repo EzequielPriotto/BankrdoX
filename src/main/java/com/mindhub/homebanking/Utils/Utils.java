@@ -1,13 +1,29 @@
 package com.mindhub.homebanking.Utils;
+import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.models.Transaction;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.w3c.dom.css.RGBColor;
 
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.mindhub.homebanking.models.CardType.CREDIT;
+import static java.awt.Color.*;
 
 public class Utils {
 
@@ -140,5 +156,101 @@ public class Utils {
             return 500000;
         return 0;
     }
+
+    public static void MakePDF(HttpServletResponse response, List<Transaction> transactions, String from, String to ) throws IOException, DocumentException {
+
+        Font catFont = new Font(Font.STRIKETHRU, 20,Font.BOLD);
+        Font redFont = new Font(Font.TIMES_ROMAN, 12,Font.NORMAL, RED);
+        Font subFont = new Font(Font.TIMES_ROMAN, 16,Font.BOLD);
+        Font smallBold = new Font(Font.STRIKETHRU, 12,Font.ITALIC);
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, response.getOutputStream());
+        document.open();
+
+        PdfPTable table = new PdfPTable(6);
+        float[] columnWidths = new float[]{20f, 15f, 15f, 20f, 15f, 15f,};
+
+
+        table.setWidths(columnWidths);
+        table.setWidthPercentage(110);
+        table.setSpacingBefore(10f);
+        table.setSpacingAfter(10f);
+
+        List<String> headers = List.of("ID","DATE","CATEGORY","DESCRIPTION","ACCOUNT","AMOUNT");
+
+        headers.forEach(header->{
+            PdfPCell cell = new PdfPCell(new Phrase(header));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBackgroundColor(new Color(234, 88, 25));
+            cell.setPadding(8);
+
+            table.addCell(cell);
+        });
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        transactions.forEach(transaction -> {
+
+            PdfPCell idCell = new PdfPCell(new Phrase(transaction.getIdEncrypted()));
+            idCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            idCell.setBackgroundColor(new Color(231, 198, 184));
+            idCell.setPadding(8);
+            table.addCell(idCell);
+
+
+            String currentDateTime = dateFormatter.format(transaction.getDate());
+            PdfPCell dateCell = new PdfPCell(new Phrase(currentDateTime));
+            dateCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            dateCell.setBackgroundColor(new Color(231, 198, 184));
+            dateCell.setPadding(8);
+            table.addCell(dateCell);
+
+
+            PdfPCell categoryCell = new PdfPCell(new Phrase(transaction.getCategory()));
+            categoryCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            categoryCell.setBackgroundColor(new Color(231, 198, 184));
+            categoryCell.setPadding(8);
+            table.addCell(categoryCell);
+
+
+            PdfPCell descriptionCell = new PdfPCell(new Phrase(transaction.getDescription()));
+            descriptionCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            descriptionCell.setBackgroundColor(new Color(231, 198, 184));
+            descriptionCell.setPadding(8);
+            table.addCell(descriptionCell);
+
+
+            PdfPCell accountCell = new PdfPCell(new Phrase(transaction.getAccount().getNumber()));
+            accountCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            accountCell.setBackgroundColor(new Color(231, 198, 184));
+            accountCell.setPadding(8);
+            table.addCell(accountCell);
+
+
+            PdfPCell amountCell = new PdfPCell(new Phrase(String.valueOf(transaction.getAmount())));
+            amountCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            amountCell.setBackgroundColor(new Color(231, 198, 184));
+            accountCell.setPadding(8);
+            table.addCell(amountCell);
+
+        });
+
+
+        Paragraph title = new Paragraph("ACCOUNT TRANSACTIONS RESUME", catFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        title.setSpacingAfter(5);
+
+        Paragraph subPara = new Paragraph("from: " + from + " to " + to, smallBold);
+        subPara.setAlignment(Element.ALIGN_CENTER);
+        subPara.setSpacingAfter(20);
+
+        document.add(title);
+        document.add(subPara);
+        document.add(table);
+        document.close();
+
+    }
+
 
     }

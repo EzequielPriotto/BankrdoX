@@ -422,7 +422,23 @@ Vue.createApp({
 
 
 
-        }
+        },
+        redireccionarCard(lugar) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be redirected to another tab!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, I am sure!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `./${lugar}`;
+                }
+            })
+
+        },
 
     },
     computed: {

@@ -136,7 +136,7 @@
                                 </div>
                                 <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
                                 </a>
-                                <a class="dropdown-item" @click="signOut"><i
+                                <a class="dropdown-item logOut" @click="signOut" ><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -170,8 +170,8 @@
                 </form>
             </div>
         </div>
-        <div class="contenedorSCVU">
-            <div class="contenedorCreateCVU">
+        <div class="contenedorSCVU ">
+            <div class="contenedorCreateCVU ">
                 <div class="w-100 d-flex justify-content-start"><button class="btn text-white mx-3 "
                         @click="closeOffCVU">X</button></div>
                 <img src="./assets/cvuSVG.svg">
@@ -187,6 +187,7 @@
                             class="naranja">{{accountFocusCVU.balance.toFixed(6)}} btc</span> </h4>
                     <p @click="linkearAccount(accountFocusCVU.number)" class="viewMore">View account movements </p>
                 </form>
+                <p class="cancelAccount" @click="cancelAccount">Do you want to cancel your account?</p>
             </div>
         </div>
         <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
@@ -216,7 +217,7 @@
                                 <div class=" p-2 fw-bold">
                                     <div class="secondaryAccountTop">
                                         <div class="d-flex ">
-                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                            <p>Account<span >X</span></p>
                                             <i class='bx bx-dollar bx-sm' @click="openOffCVU(account)"
                                                 v-if="account.accountType == 'DOLAR'"></i>
                                             <i class='bx bx-bitcoin bx-sm' @click="openOffCVU(account)"
@@ -328,10 +329,10 @@
                                     <p class="text-muted  ms-2">Here you can see your associated available cards</p>
                                 </div>
 
-                                <div class="debit-card mb-3" v-for="(card, i) in cards" v-cloak>
-                                    <div class="d-flex flex-column h-100">
+                                <div class="debit-card mb-3" v-for="(card, i) in cards" v-cloak @click="redireccionarCard('cards.html')" style="cursor: pointer;">
+                                    <div class="d-flex flex-column h-100" style="cursor: pointer;">
                                         <label class="d-block">
-                                            <div class="d-flex flex-column position-relative">
+                                            <div class="d-flex flex-column position-relative" style="cursor: pointer;">
                                                 <div class="d-flex gap-3 justify-content-center align-items-center">
                                                     <i class='bx bxl-visa bx-lg text-white'
                                                         v-if="card.cardType === 'CREDIT'"></i>
@@ -420,7 +421,7 @@
                                 <div class=" p-2 fw-bold">
                                     <div class="secondaryAccountTop">
                                         <div class="d-flex ">
-                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                            <p>Account<span >X</span></p>
                                         </div>
                                         <p class="mb-0">{{account.number}}</p>
                                     </div>
@@ -450,7 +451,7 @@
                                 <div class=" p-2 fw-bold">
                                     <div class="secondaryAccountTop">
                                         <div class="d-flex ">
-                                            <p>Account<span style="color:#FC5404">X</span></p>
+                                            <p>Account<span >X</span></p>
                                             <!-- <i class='bx bxs-wallet bx-sm'></i> -->
                                         </div>
                                         <p class="mb-0">{{account.number}}</p>

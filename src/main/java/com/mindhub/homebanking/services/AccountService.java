@@ -14,6 +14,8 @@ public interface AccountService {
     List<Account> getAccountsByClient(Client client);
     List<AccountDTO> getAccountsDTO();
 
+    List<Account> getAccounts();
+
     void saveAccount(Account account);
 
 }

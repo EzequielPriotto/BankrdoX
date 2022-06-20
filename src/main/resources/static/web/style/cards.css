@@ -338,6 +338,50 @@ h2 {
 }
 
 /* //============================// */
+.previewCard {
+position: relative;
+}
+.previewCard img{
+  position: absolute;
+    width: 13rem;
+    transform: rotate(90deg);
+    top: 43px;
+}
+
+.anuncio{
+  position: absolute;
+  width: 18rem;
+  height: 14rem;
+  background: rgba(0, 0, 0, 0.21);
+  right: 0;
+  top: 19%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 5px;
+  border-radius: rgba(0, 0, 0, 0.21);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.8px);
+  -webkit-backdrop-filter: blur(3.8px);
+  flex-direction: column;
+z-index: 999;
+}
+.anuncio img{
+  width: 9rem;
+}
+
+.anuncio img:hover{
+  cursor: pointer;
+}
+.anuncio img:hover  + p, .anuncio p:hover{
+color: #cc6d00;
+cursor: pointer;
+
+}
+
+/* //============================// */
 
 .contenedorSwitch {
   width: 10rem;
@@ -351,7 +395,7 @@ h2 {
 }
 
 .contenedorSwitch::before {
-  background-color: #cc6d00;
+  background-color: #ff6f00;
   width: 50%;
   content: "";
   height: 100%;

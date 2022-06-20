@@ -130,7 +130,7 @@
                                 </div>
                                 <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
                                 </a>
-                                <a class="dropdown-item" @click="signOut"><i
+                                <a class="dropdown-item logOut" @click="signOut"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -208,7 +208,6 @@
                                     </div>
                                     <!-- Form progress -->
 
-                                  
                                     <!-- Form Step 1 -->
                                     <fieldset>
 
@@ -247,10 +246,8 @@
 
                                         <h4 class="mt-1">Types Of Cards : <span>Step 2 - 4</span></h4>
                                         <div>
-                                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni culpa,
-                                                blanditiis harum architecto eligendi necessitatibus maxime sequi
-                                                voluptatibus dolore repellat enim earum porro, libero asperiores alias
-                                                beatae sunt sit deleniti.</p>
+                                            <p class="mb-0"> <span class="naranja">Debit</span>: No renewal cost and no monthly maintenance fees for summary issuance. You can withdraw money at any ATM in the BankrdoX network.</p>
+                                            <p class="mb-0"> <span class="naranja">Credit</span>: Buy in installments and plan your consumptions your way, have your additional free of charge and enjoy all the benefits of AccountX. </p>
                                         </div>
                                         <div class="form-group">
                                             <label>Select the Type: </label>
@@ -273,21 +270,17 @@
 
                                         <h4>Level of Cards: <span>Step 3 - 4</span></h4>
                                         <div>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi
-                                                quaerat dignissimos magni, consequuntur officiis ullam at nemo ipsa
-                                                harum error inventore modi aspernatur, laborum pariatur repudiandae
-                                                rerum magnam cumque neque. Lorem ipsum dolor sit amet consectetur
-                                                adipisicing elit. Ex modi voluptatem est quod ad soluta illum placeat,
-                                                labore eos, expedita, voluptas voluptatum voluptate voluptatibus cum
-                                                illo dicta debitis nulla et. </p>
+                                            <p class="mb-0"><span class="naranja">Ruby</span>: Broad purchasing power. Price protection insurance, and the backing and convenience of the most widely used card in the world. </p>
+                                            <p class="mb-0"><span class="naranja">Gold</span>: Higher limit, Travel Assistance free of charge, purchase protections in all the products you acquire, and differential benefits. </p>
+                                            <p class="mb-0"><span class="naranja">Premium</span>: Preferred services that get you where you want to be: Visa Travel Experience, Visa Luxury Hotel Collection, Concierge Service and more. </p>
                                         </div>
                                       
                                         <div class="form-group">
                                             <label>Select the Card Level:</label>
                                             <select class="form-control" v-model="formulario.levelCard">
-                                                <option value="SILVER">Silver</option>
+                                                <option value="SILVER">Ruby</option>
                                                 <option value="GOLD">Gold</option>
-                                                <option value="TITANIUM">Titanium</option>
+                                                <option value="TITANIUM">Premium</option>
                                             </select>
                                         </div>
 
@@ -297,6 +290,7 @@
                                         </div>
                                     </fieldset>
                                     <!-- Form Step 3 -->
+                                  
                                     <fieldset>
 
                                         <h4>Last step: <span>Step 4 - 4</span></h4>
@@ -310,6 +304,16 @@
                                            </div>
                                             </div>
                                              
+                                            <div class="previewCard">
+                                                <img src="./assets/cards/CREDIT/FrontRuby.png" v-if=" formulario.typeCard == 'CREDIT' && formulario.levelCard == 'SILVER'">
+                                                <img src="./assets/cards/CREDIT/FrontGold.png" v-else-if=" formulario.typeCard == 'CREDIT' && formulario.levelCard == 'GOLD'">
+                                                <img src="./assets/cards/CREDIT/FrontPremium.png" v-else-if=" formulario.typeCard == 'CREDIT' && formulario.levelCard == 'TITANIUM'">
+                                                
+                                                <img src="./assets/cards/DEBIT/FrontRuby.png" v-else-if=" formulario.typeCard == 'DEBIT' && formulario.levelCard == 'SILVER'">
+                                                <img src="./assets/cards/DEBIT/FrontGold.png" v-else-if=" formulario.typeCard == 'DEBIT' && formulario.levelCard == 'GOLD'">
+                                                <img src="./assets/cards/DEBIT/FrontPremium.png" v-else-if=" formulario.typeCard == 'DEBIT' && formulario.levelCard == 'TITANIUM'">
+                                              
+                                            </div>
                                        
                                         </div>
                                         <div class="form-wizard-buttons">

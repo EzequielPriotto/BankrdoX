@@ -72,7 +72,7 @@ public class AccountsController {
 
         Client client = clientService.getClient(authentication.getName());
         Account account = accountService.getAccountByNumber(accountNumber);
-
+        List<Account> accountsActive = client.getAccounts().stream().filter(account1 -> account1.isActive()).collect(Collectors.toList());
         if (accountNumber.isEmpty())
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
 
@@ -84,6 +84,11 @@ public class AccountsController {
 
         if (!client.getAccounts().contains(account))
             return new ResponseEntity<>("Account no is of this client", HttpStatus.FORBIDDEN);
+
+        if (accountsActive.size() < 2)
+            return new ResponseEntity<>("The client have only one account", HttpStatus.FORBIDDEN);
+        if(account.getBalance() > 0)
+            return new ResponseEntity<>("Account have money", HttpStatus.FORBIDDEN);
 
         boolean isActive = account.isActive();
         account.setActive(!isActive);

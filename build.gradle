@@ -34,6 +34,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+
+	implementation group: 'com.lowagie', name: 'itext', version: '2.1.7'
+
+
 }
 
 tasks.named('test') {

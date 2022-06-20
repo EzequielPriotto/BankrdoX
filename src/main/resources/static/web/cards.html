@@ -37,7 +37,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-               <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset="" ></div>
+                <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset=""></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -133,7 +133,7 @@
                                 </div>
                                 <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
                                 </a>
-                                <a class="dropdown-item" @click="signOut"><i
+                                <a class="dropdown-item logOut" @click="signOut"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -141,7 +141,13 @@
                 </div>
             </nav>
         </div>
-
+        <div class="anuncio" v-if=" 6 > cards.length" @click="redireccionarCard('create-cards.html')">
+            <h4>Order a card now at <span class="naranja">no additional</span> cost!</h4>
+            <div>
+                <img src="./assets/cardInfo.svg" alt="" srcset="">
+                <p>Click Here!</p>
+            </div>
+        </div>
         <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
             <section class="col-12 py-2 mt-5" style=" background-color: #111315;">
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
@@ -162,33 +168,45 @@
                 <section class="col-12 position-relative  h-100 cardContainerC">
                     <div class="position-relative h-50" v-for="(card, i) in creditArray" :id="'id' + i"
                         @click="changeFocus('id' + i)">
-                        <div class="frontSVG" style="font-family: 'creditCardBack'" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }"></div>
+                        <div class="frontSVG" style="font-family: 'creditCardBack'"
+                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }">
+                        </div>
 
                         <div class="backSVG" style="font-family: 'creditCardBack'">
-                        <div class="cardBody">
-                            <p class="firma" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{card.cardHolder}}</p>
-                            <div class="background">
-                                <div class="bakrdoxName">
-                                    <p class="text-white">Bankrdo<span   :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span></p>
+                            <div class="cardBody">
+                                <p class="firma"
+                                    :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                    {{card.cardHolder}}</p>
+                                <div class="background">
+                                    <div class="bakrdoxName">
+                                        <p class="text-white">Bankrdo<span
+                                                :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span>
+                                        </p>
+                                    </div>
+                                    <div class="cardHolder">
+                                        <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span
+                                                :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="cardNumber">
+                                        <p>{{separarNombre(card.number,0)}}</p>
+                                        <p
+                                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                            {{separarNombre(card.number,1)}}</p>
+                                        <p>{{separarNombre(card.number,2)}}</p>
+                                        <p
+                                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                            {{separarNombre(card.number,3)}}</p>
+                                    </div>
+                                    <div class="cardDate">
+                                        <p> {{getDateCreate(card.thruDate)}}</p>
+                                    </div>
+                                    <div class="cardCvv">
+                                        <p> <span>cvv</span> <span>{{card.cvv}}</span></p>
+                                    </div>
                                 </div>
-                                <div class="cardHolder">
-                                    <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span></p>
-                                </div>
-                                <div class="cardNumber">
-                                   <p>{{separarNombre(card.number,0)}}</p>
-                                   <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,1)}}</p>
-                                   <p>{{separarNombre(card.number,2)}}</p>
-                                   <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,3)}}</p>
-                                </div>
-                                <div class="cardDate">
-                                    <p> {{getDateCreate(card.thruDate)}}</p>
-                                </div>
-                                <div class="cardCvv">
-                                    <p> <span>cvv</span> <span>{{card.cvv}}</span></p>
-                                </div>
+
                             </div>
-                            
-                        </div>
                         </div>
                     </div>
                 </section>
@@ -198,22 +216,34 @@
                 <section class="col-12 position-relative  h-100 cardContainerC">
                     <div class="position-relative h-50" v-for="(card, i) in debitArray" :id="'id' + i + 10"
                         @click="changeFocus2('id' + i+ 10)">
-                        <div class="frontSVG" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }"></div>
+                        <div class="frontSVG"
+                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER', debit: card.cardType == 'DEBIT',credit: card.cardType == 'CREDIT'  }">
+                        </div>
                         <div class="backSVG">
                             <div class="cardBody">
-                                <p class="firma" :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{card.cardHolder}}</p>
+                                <p class="firma"
+                                    :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                    {{card.cardHolder}}</p>
                                 <div class="background">
                                     <div class="bakrdoxName">
-                                        <p class="text-white">Bankrdo<span   :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span></p>
+                                        <p class="text-white">Bankrdo<span
+                                                :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">X</span>
+                                        </p>
                                     </div>
                                     <div class="cardHolder">
-                                        <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span></p>
+                                        <p class="text-white">{{separarNombre(card.cardHolder,0)}} <span
+                                                :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.cardHolder,1)}}</span>
+                                        </p>
                                     </div>
                                     <div class="cardNumber">
-                                       <p>{{separarNombre(card.number,0)}}</p>
-                                       <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,1)}}</p>
-                                       <p>{{separarNombre(card.number,2)}}</p>
-                                       <p :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">{{separarNombre(card.number,3)}}</p>
+                                        <p>{{separarNombre(card.number,0)}}</p>
+                                        <p
+                                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                            {{separarNombre(card.number,1)}}</p>
+                                        <p>{{separarNombre(card.number,2)}}</p>
+                                        <p
+                                            :class="{premium: card.cardColor == 'TITANIUM', gold: card.cardColor == 'GOLD', ruby: card.cardColor == 'SILVER'}">
+                                            {{separarNombre(card.number,3)}}</p>
                                     </div>
                                     <div class="cardDate">
                                         <p> {{getDateCreate(card.thruDate)}}</p>
@@ -223,13 +253,14 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     </div>
-                </section>
             </div>
+            </section>
+        </div>
 
-            <img src="./assets/aliensCard.svg" alt="" srcset="">
+       
+        <img src="./assets/aliensCard.svg" alt="" srcset="">
         </div>
         <footer class="footer-section" style="z-index: 3;">
             <div class="container">

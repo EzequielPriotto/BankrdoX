@@ -88,6 +88,9 @@ public class CardController {
         if (!client.getAccounts().contains(card))
             return new ResponseEntity<>("Card no is of this client", HttpStatus.FORBIDDEN);
 
+        if (card.getExpense() > 0)
+            return new ResponseEntity<>("Card have expenses", HttpStatus.FORBIDDEN);
+
         boolean isActive = card.isActive();
         card.setActive(!isActive);
         cardService.saveCard(card);

@@ -95,7 +95,7 @@ body {
 .contenedorS.active,
 .contenedorSCVU.active {
     opacity: 100;
-    z-index: 9999;
+    z-index: 23;
     transition: .5s;
 }
 
@@ -304,6 +304,19 @@ body {
     background-color: #e85b1a;
     color: white;
 }
+
+.cancelAccount{
+    position: absolute;
+    top: 93%;
+    left: 50%;
+    color: #e7e7e74d;
+    transition: .5s;
+}
+.cancelAccount:hover{
+    color: #e85b1a;
+    cursor: pointer;
+}
+
 .seccionCuentas {
     width: 100%;
     display: flex;

@@ -20,6 +20,8 @@ Vue.createApp({
             errorAmount:false,
             errorAccountOrigin:false,
             errorAccountDestiny:false,
+            dateInputFrom:"",
+            dateInputTo:"",
 
         }
     },
@@ -28,7 +30,7 @@ Vue.createApp({
         axios.get(`http://localhost:8080/api/clients/current`)
             .then(repuesta => {
                 this.dataBase = repuesta.data
-                this.accounts = this.dataBase.accounts.sort((x, y) => x.id - y.id)
+                this.accounts = this.dataBase.accounts.filter(account=> account.active).sort((x, y) => x.id - y.id)
                 this.accounts.forEach(account => {
                     account.transactions.forEach(trans => {
                         this.transactions.push(trans)
@@ -107,7 +109,7 @@ Vue.createApp({
                 })
         }, 
         sendTransfer() {
-            axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.accountSelectNumber}&accountRNumber=${this.accountDestiny}`)
+            axios.post("/api/clients/current/transactions", `amount=${this.amount}&category=Transfer&description=Transfer from ${this.accountSelectNumber} to ${this.accountDestiny}&accountSNumber=${this.accountSelectNumber}&accountRNumber=${this.accountDestiny}`)
                 .then(response => {
                     Swal.fire({
                         title: 'Are you sure?',
@@ -139,7 +141,6 @@ Vue.createApp({
                 this.accountDestiny = ""
             }
         },
-       
         activateDropdown() {
             this.isActiveDrop = !this.isActiveDrop
         },
@@ -194,6 +195,45 @@ Vue.createApp({
            
 
         },
+        abrirPDF(){
+            let container = document.querySelector(".confirmBody2")
+            container.classList.toggle("active")
+        },
+        changeAccount(number){
+            let accountsOption = document.querySelectorAll(".accountOption")
+            accountsOption.forEach(account=> account.classList.remove("active"))
+
+            let accountFocus = document.querySelector("#id" + number)
+            accountFocus.classList.add("active")
+
+            number === "all"? this.accountFocusPDF = "all": this.accountFocusPDF  = number;
+        },
+        getPDF(){
+          let transactionsPdf=[];
+          this.accounts.forEach(account=>{
+            account.transactions.forEach(transaction=>{
+                transactionsPdf.push(transaction);
+            })
+          })
+          transactionsPdf =  transactionsPdf.filter(transaction => transaction.date > this.dateInputFrom && transaction.date < this.dateInputTo)
+          let url = "/api/transactions/resume";
+          let data = {
+            accountNumber: this.accountFocusPDF,
+            dateFrom: this.dateInputFrom,
+            dateTo: this.dateInputTo
+          }
+         
+          axios.post(url,data,{ "responseType": 'blob' }
+            ).then(response=> {
+                console.log(response.data)
+                var blob = new Blob([response.data]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "report.pdf";
+                link.click();
+          })
+          .catch(error => console.log(error))
+        }
         
 
     },

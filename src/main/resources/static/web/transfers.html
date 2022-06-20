@@ -27,7 +27,7 @@
 
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top " style=" background-color: #111315;">
-                <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset="" ></div>
+                <div class="logo"><img src="./assets/LOGO/logoWhite.png" alt="" srcset=""></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -124,7 +124,7 @@
                                 </div>
                                 <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
                                 </a>
-                                <a class="dropdown-item" @click="signOut"><i
+                                <a class="dropdown-item logOut" @click="signOut"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -140,90 +140,54 @@
                 <!-- <h1 class="text-center text-white">Bankrdo<span style="color:#FC5404">X</span></h1> -->
             </section>
 
-            <!-- <section class="my-4 listadoComprasAccount col-8" >
-                <ul class="pt-2" v-dragscroll.y="true"  v-cloak>
-                    <li  class="itemCompraList" >
-                     <div class="text-white iconoCompraList">
-                        <p class="">Type</p>
-                     </div>
-                     
-                     <div class="descCompraList">
-                         <p >Description</p>
-                     </div>
-                     <div class="dateCompraList">
-                         <p >Date</p>
-                     </div>
-                     <div class="idCompraList">
-                         <p >Transaction id</p>
-                     </div>
-                     <div class="amountCompraList">
-                         <p > Amount</p>
-                     </div>
- 
-                    </li>
-                    <li v-for="compra in transactions" class="itemCompraList" :class="{}">
-                     <div class="text-white iconoCompraList">
-                         <i class='bx bxs-bank iconoCompra' v-if="compra.description === 'Transfer'"></i>
-                         <i class='bx bx-joystick iconoCompra' v-if="compra.description === 'Games'"></i>
-                         <i class='bx bx-restaurant iconoCompra'
-                             v-if="compra.description === 'Food'"></i>
-                         <i class='bx bxs-t-shirt iconoCompra'
-                             v-if="compra.description === 'Outfit'"></i>
-                         <i class='bx bxs-shopping-bag iconoCompra'
-                             v-if="compra.description === 'Others'"></i>
-                         <i class='bx bx-store iconoCompra' v-if="compra.description === 'Services'"></i>
-                     </div>
-                     
-                     <div class="descCompraList">
-                         <p >{{compra.description}}</p>
-                     </div>
-                     <div class="dateCompraList">
-                         <p >{{getDateCreate(compra.date)}}</p>
-                     </div>
-                     <div class="idCompraList">
-                         <p >{{compra.idEncrypted}}</p>
-                     </div>
-                     <div class="amountCompraList">
-                        
-                         <p v-if="compra.type == 'CREDIT'" >+ $ {{compra.amount}}</p>
-                         <p v-else>- $ {{compra.amount}} </p>
-                     </div>
- 
-                    </li>
-                </ul>
-            </section> -->
-
-          <div class="divAlert disable">
-            <div class="alertContainer ">
-                <div class="alert">
-                    <div class="alerBody">
-                        <h5 class="text-center text-white">The transaction is make <span
-                                class="naranja">succesful</span></h5>
-                                <div class="alertDetails">
+            <div class="divAlert disable">
+                <div class="alertContainer ">
+                    <div class="alert">
+                        <div class="alerBody">
+                            <h5 class="text-center text-white">The transaction is make <span
+                                    class="naranja">succesful</span></h5>
+                            <div class="alertDetails">
                                 <p>Transaction details: </p>
-                                <p>Send <span class="naranja">$MONTO</span> from <span class="naranja">NUMERO DE CUENTA</span></p>
+                                <p>Send <span class="naranja">$MONTO</span> from <span class="naranja">NUMERO DE
+                                        CUENTA</span></p>
                                 <p>Account destination: <span class="naranja">NUMERO DE CUENTA</span></p>
                                 <p>User destination: <span class="naranja">NOMBRE DEL CLIENTE</span></p>
-                                </div>
-                                <img src="./assets/pajarito.svg" alt="" srcset="">
-                        <p class="txt-pajarito">Thank you for trusting us!</p>
+                            </div>
+                            <img src="./assets/pajarito.svg" alt="" srcset="">
+                            <p class="txt-pajarito">Thank you for trusting us!</p>
+                        </div>
                     </div>
                 </div>
             </div>
-          </div>
+            <div class="confirmBody">
+                <span @click="closeConfirm">X</span>
+                <h3 class="mt-5 pt-4 text-center text-white fw-bold fs-1">TRANSAFER <span class="naranja">RESUME</span>
+                </h3>
+                <p class="text-white mx-1 fs-4">Amount: <span class="naranja">{{amount}}</span> </p>
+                <p class="text-white mx-1 fs-4">From: <span class="naranja">{{accountSelectNumber}}</span> </p>
+                <p class="text-white mx-1 fs-4">To: <span class="naranja">{{accountDestiny}}</span> </p>
+                <button class="btn btn-danger mt-1 mx-3" @click="sendTransfer">Confirm</button>
+                <img src="./assets/confirmTransaccion.svg" alt="" srcset="">
+            </div>
 
-          <div class="confirmBody">
-            <span @click="closeConfirm">X</span>
-            <h3 class="mt-5 pt-4 text-center text-white fw-bold fs-1">TRANSAFER <span class="naranja">RESUME</span></h3>
-            <p class="text-white mx-1 fs-4">Amount: <span class="naranja">{{amount}}</span> </p>
-            <p class="text-white mx-1 fs-4">From: <span class="naranja">{{accountSelectNumber}}</span> </p>
-            <p class="text-white mx-1 fs-4">To: <span class="naranja">{{accountDestiny}}</span> </p>
-            <button class="btn btn-danger mt-1 mx-3" @click="sendTransfer">Confirm</button>
-            <img src="./assets/confirmTransaccion.svg" alt="" srcset="">
-          </div>
-
+            <div class="confirmBody2">
+                <span @click="abrirPDF">X</span>
+                <h3 class="mt-5 pt-4 text-center text-white fw-bold fs-1">DOWNLOAD <span class="naranja">RESUME</span>
+                </h3>
+               <div>
+                <p class="text-white mx-1 fs-4">Account: </p>
+                <div class="d-flex gap-2 mx-3 mb-2">
+                    <div v-for="account in accounts" class="accountOption" :id="'id' + account.number" @click="changeAccount(account.number)">{{account.number}}</div>
+                    <div class="accountOption" id="idall" @click="changeAccount('all')">All</div>
+                </div>
+               </div>
+                <p class="text-white mx-1 fs-4">From: <input type="datetime-local" v-model="dateInputFrom">   </p>
+                <p class="text-white mx-1 fs-4">To:  <input type="datetime-local" v-model="dateInputTo"> </p>
+                <button class="btn mt-3 mx-3" @click="getPDF">Confirm</button>
+                <img src="./assets/confirmTransaccion.svg" alt="" srcset="">
+            </div>
+          
             <section class="centerContainer">
-
                 <div class="transferDiv">
                     <h4 class="text-white fw-bold fs-3">Make a transaction</h4>
                     <div class="paso1 active">
@@ -232,66 +196,76 @@
                     </div>
                     <div class="paso2">
                         <button class="btn btnBack" @click="activarForm(0)">Go back</button>
-
                         <form @submit.prevent="verifyTransfer()">
-                          
                             <fieldset>
-                              
                                 <div class="accountOriginContainer">
                                     <button class="btn" type="button" @click="activateDropdown">
-                                      <span class="marcador">Account Origin</span>
+                                        <span class="marcador">Account Origin</span>
                                     </button>
-                                    <ul class="accountOrigin active"  >
-                                      <li v-for="account in accounts" @click="actualizarSelect">
-                                          <input type="radio" class="select-item"  v-model="accountSelectNumber" @change="actualizarSelect"  :value=account.number :id=account.number style="display: none;"></input>
-                                          <label :for=account.number >{{account.number}} <span>({{account.accountType}})</span></label>
-                                          <p class="text-danger fw-bold " v-show="errorAccountOrigin">Account not available</p>
+                                    <ul class="accountOrigin active">
+                                        <li v-for="account in accounts" @click="actualizarSelect">
+                                            <input type="radio" class="select-item" v-model="accountSelectNumber"
+                                                @change="actualizarSelect" :value=account.number :id=account.number
+                                                style="display: none;"></input>
+                                            <label :for=account.number>{{account.number}}
+                                                <span>({{account.accountType}})</span></label>
+                                            <p class="text-danger fw-bold " v-show="errorAccountOrigin">Account not
+                                                available</p>
                                         </li>
                                     </ul>
-                                  </div>
-                    
+                                </div>
+
                             </fieldset>
-                          
+
                             <fieldset>
                                 <label for="amount" class="marcador">Amount to send</label>
                                 <input type="number" id="amount" v-model="amount">
                                 <p class="text-danger fw-bold " v-show="errorAmount">Amount not available</p>
                             </fieldset>
-                        
+
                             <fieldset>
-                              
+
                                 <div class="accountOriginContainer " v-if="typeForm == 1 && accountsSend.length > 0">
                                     <button class="btn" type="button" @click="activateDropdown2">
-                                      <span class="marcador">Account Destiny</span>
-                                      <!-- <i class="fa mx-1" :class="{'fa-caret-down': !isActiveDrop2, 'fa-caret-up': isActiveDrop2}"></i> -->
+                                        <span class="marcador">Account Destiny</span>
+                                        <!-- <i class="fa mx-1" :class="{'fa-caret-down': !isActiveDrop2, 'fa-caret-up': isActiveDrop2}"></i> -->
                                     </button>
-                                    <ul class="accountOrigin destiny" :class="{active: isActiveDrop2}" >
-                                      <li v-for="account2 in accountsSend" >
-                                          <input type="radio" class="select-item"   v-model="accountDestiny"  :value=account2.number :id="'id'+ account2.number" style="display: none;"></input>
-                                          <label :for="'id'+ account2.number" >{{account2.number}}</label>
-                                          <p class="text-danger fw-bold " v-show="errorAccountDestiny">Amount not available</p>
+                                    <ul class="accountOrigin destiny" :class="{active: isActiveDrop2}">
+                                        <li v-for="account2 in accountsSend">
+                                            <input type="radio" class="select-item" v-model="accountDestiny"
+                                                :value=account2.number :id="'id'+ account2.number"
+                                                style="display: none;"></input>
+                                            <label :for="'id'+ account2.number">{{account2.number}}</label>
+                                            <p class="text-danger fw-bold " v-show="errorAccountDestiny">Amount not
+                                                available</p>
 
                                         </li>
                                     </ul>
-                                  </div>
-                                  <p v-if="typeForm == 1 && accountsSend.length == 0">No Account available</p>
-                                  <p v-if="typeForm == 2" class="marcador">Account Destiny</p>
-                                  <textarea id="accountDestiny" v-if="typeForm == 2" :placeholder=accountDestiny v-model="accountDestiny"> </textarea>
-                                  <p class="text-danger fw-bold" v-show="errorAccountDestiny && typeForm == 2">Account not available</p>
-                            
-                                </fieldset>
-                         
+                                </div>
+                                <p v-if="typeForm == 1 && accountsSend.length == 0">No Account available</p>
+                                <p v-if="typeForm == 2" class="marcador">Account Destiny</p>
+                                <textarea id="accountDestiny" v-if="typeForm == 2" :placeholder=accountDestiny
+                                    v-model="accountDestiny"> </textarea>
+                                <p class="text-danger fw-bold" v-show="errorAccountDestiny && typeForm == 2">Account not
+                                    available</p>
+
+                            </fieldset>
+
                             <button type="submit" v-if="typeForm == 1 && accountsSend.length == 0" disabled>
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"></path>
+                                    <path
+                                        d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                        fill="currentColor"></path>
                                 </svg>
                                 <span>Send</span>
                             </button>
                             <button type="submit" v-else>
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"></path>
+                                    <path
+                                        d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                        fill="currentColor"></path>
                                 </svg>
                                 <span>Send</span>
                             </button>
@@ -324,7 +298,9 @@
                             <div class="amountCompraList">
                                 <p> Amount</p>
                             </div>
-
+                            <div class="position-relative">
+                                <i class='bx bxs-file-doc' @click="abrirPDF"></i>
+                            </div>
                         </li>
                         <li v-if="transactions.length == 0">
                             <h2 class="text-center mt-5 text-white">NO TRANSACTIONS <span class="naranja">FOUND</span>
@@ -333,6 +309,7 @@
                         </li>
                         <li v-for="compra in transactions" class="itemCompraList" :class="{}"
                             v-if="transactions.length > 0">
+                           
                             <div class="text-white iconoCompraList">
                                 <i class='bx bx-transfer-alt iconoCompra' v-if="compra.category === 'Swap'"></i>
                                 <i class='bx bxs-bank iconoCompra' v-if="compra.category === 'Transfer'"></i>
@@ -342,7 +319,6 @@
                                 <i class='bx bxs-shopping-bag iconoCompra' v-if="compra.category === 'Others'"></i>
                                 <i class='bx bx-store iconoCompra' v-if="compra.category === 'Services'"></i>
                             </div>
-
                             <div class="descCompraList">
                                 <p>{{compra.description}}</p>
                             </div>
@@ -353,13 +329,16 @@
                                 <p>{{compra.idEncrypted}}</p>
                             </div>
                             <div class="amountCompraList" v-if="compra.cryptoOrUsd == 'USD'">
-                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toLocaleString('de-DE')}}</p>
+                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $
+                                    {{compra.amount.toLocaleString('de-DE')}}</p>
                                 <p v-else class="negativo">- $ {{compra.amount.toLocaleString('de-DE')}} </p>
                             </div>
                             <div class="amountCompraList" v-else>
-                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}}</p>
+                                <p v-if="compra.type == 'CREDIT'" class="positivo">+ $
+                                    {{compra.amount.toFixed(6).toLocaleString('de-DE')}}</p>
                                 <p v-else class="negativo">- $ {{compra.amount.toFixed(6).toLocaleString('de-DE')}} </p>
                             </div>
+
 
                         </li>
                     </ul>
@@ -397,8 +376,7 @@
                                     <i class="far fa-envelope-open"></i>
                                     <div class="cta-text">
                                         <h4>Mail us</h4>
-                                        <a href="mailto:bankrdox@gmail.com"
-                                            target="_blank">bankrdox@gmail.com</a>
+                                        <a href="mailto:bankrdox@gmail.com" target="_blank">bankrdox@gmail.com</a>
                                     </div>
                                 </div>
                             </div>

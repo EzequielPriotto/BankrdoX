@@ -1,20 +1,34 @@
 package com.mindhub.homebanking.controllers;
 
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfDocument;
+import com.lowagie.text.pdf.PdfWriter;
 import com.mindhub.homebanking.dtos.CardApplicationDTO;
+import com.mindhub.homebanking.dtos.ResumeApplicationDTO;
 import com.mindhub.homebanking.dtos.TransactionDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mindhub.homebanking.Utils.Utils.MakePDF;
 import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 
@@ -195,20 +209,20 @@ public class TransactionsController {
             if (amount > accountCrypto.getBalance())
                 return new ResponseEntity<>("The crypto balance no are available", HttpStatus.FORBIDDEN);
 
-            transactionDebit = new Transaction(amount, "Swap", "Swap from" + accountCrypto.getNumber() + " to" + accountDollar.getNumber(), accountCrypto, DEBIT, accountCrypto.getBalance(), accountCrypto.getBalance() - amount, "CRYPTO");
-            accountCrypto.setBalance(accountCrypto.getBalance() - amount);
+            transactionDebit = new Transaction(amount - amount * 0.05, "Swap", "Swap from" + accountCrypto.getNumber() + " to" + accountDollar.getNumber(), accountCrypto, DEBIT, accountCrypto.getBalance(), accountCrypto.getBalance() - amount, "CRYPTO");
+            accountCrypto.setBalance(accountCrypto.getBalance() - amount - amount * 0.05);
             double amountUSD = amount * 20532;
-            transactionCredit = new Transaction(amountUSD, "Swap", "Swap from" + accountCrypto.getNumber() + " to" + accountDollar.getNumber(), accountDollar, CREDIT, accountDollar.getBalance(), accountDollar.getBalance() + amountUSD, "USD");
-            accountDollar.setBalance(accountDollar.getBalance() + amountUSD);
+            transactionCredit = new Transaction(amountUSD - amountUSD * 0.05, "Swap", "Swap from" + accountCrypto.getNumber() + " to" + accountDollar.getNumber(), accountDollar, CREDIT, accountDollar.getBalance(), accountDollar.getBalance() + amountUSD, "USD");
+            accountDollar.setBalance(accountDollar.getBalance() + amountUSD - amountUSD * 0.05);
         } else if (toFrom.equals("DOLLAR-CRYPTO")) {
             if (amount > accountDollar.getBalance())
                 return new ResponseEntity<>("The dollars balance no are available", HttpStatus.FORBIDDEN);
 
-            transactionDebit = new Transaction(amount, "Swap", "Swap from" + accountDollar.getNumber() + " to" + accountCrypto.getNumber(), accountDollar, DEBIT, accountDollar.getBalance(), accountDollar.getBalance() - amount, "USD");
-            accountDollar.setBalance(accountDollar.getBalance() - amount);
+            transactionDebit = new Transaction(amount - amount * 0.05, "Swap", "Swap from" + accountDollar.getNumber() + " to" + accountCrypto.getNumber(), accountDollar, DEBIT, accountDollar.getBalance(), accountDollar.getBalance() - amount, "USD");
+            accountDollar.setBalance(accountDollar.getBalance() - amount - amount * 0.05);
             double amountBTC = amount / 20532;
-            transactionCredit = new Transaction(amountBTC, "Swap", "Swap from" + accountDollar.getNumber() + " to" + accountCrypto.getNumber(), accountCrypto, CREDIT, accountCrypto.getBalance(), accountCrypto.getBalance() + amountBTC, "CRYPTO");
-            accountCrypto.setBalance(accountCrypto.getBalance() + amountBTC);
+            transactionCredit = new Transaction(amountBTC - amountBTC * 0.05, "Swap", "Swap from" + accountDollar.getNumber() + " to" + accountCrypto.getNumber(), accountCrypto, CREDIT, accountCrypto.getBalance(), accountCrypto.getBalance() + amountBTC, "CRYPTO");
+            accountCrypto.setBalance(accountCrypto.getBalance() + amountBTC - amountBTC * 0.05);
         }
 
         transactionService.saveTransaction(transactionDebit);
@@ -277,6 +291,61 @@ public class TransactionsController {
 
         return new ResponseEntity<>("Payment make successful", HttpStatus.CREATED);
     }
+
+    @PostMapping("/transactions/resume")
+    public ResponseEntity<Object> makeResume(@RequestBody ResumeApplicationDTO resumeApplicationDTO, Authentication authentication,
+                                             HttpServletResponse response
+                                             ) throws DocumentException, IOException {
+
+        Account account = null;
+        Client client = clientService.getClient(authentication.getName());
+
+        account = accountService.getAccountByNumber(resumeApplicationDTO.getAccountNumber());
+
+        if (client == null)
+            return new ResponseEntity<>("Client not authorized", HttpStatus.FORBIDDEN);
+
+        if (resumeApplicationDTO.getAccountNumber().isEmpty())
+           return new ResponseEntity<>("Missing Data", HttpStatus.FORBIDDEN);
+
+        if(!resumeApplicationDTO.getAccountNumber().equals("all") && account == null)
+            return new ResponseEntity<>("Account not found", HttpStatus.FORBIDDEN);
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm") ;
+        String currentDateTime = dateFormatter.format(new Date());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=BankrdoX_Resume_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        if(resumeApplicationDTO.getAccountNumber().equals("all")){
+
+            List<Transaction> transactionsResume = new ArrayList<>();
+            List<Transaction> finalTransactionsResume = transactionsResume;
+
+            client.getAccounts().forEach(account1 -> {
+                finalTransactionsResume.addAll(account1.getTransactions());
+           });
+
+           transactionsResume = finalTransactionsResume.stream().filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
+
+            MakePDF(response, transactionsResume, dateTimeFormatter.format(resumeApplicationDTO.getDateFrom()), dateTimeFormatter.format(resumeApplicationDTO.getDateTo()));
+        }
+
+
+        else{
+            List<Transaction> transactionsResume = account.getTransactions().stream().filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
+            MakePDF(response, transactionsResume, dateTimeFormatter.format(resumeApplicationDTO.getDateFrom()), dateTimeFormatter.format(resumeApplicationDTO.getDateTo()));
+        }
+
+        return new ResponseEntity<>("Payment make successful", HttpStatus.CREATED);
+    }
+
+
+
+
 
 
 }

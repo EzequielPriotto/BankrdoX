@@ -8,7 +8,9 @@
      box-shadow: none !important;
 }
 
-
+.logOut:hover{
+    cursor: pointer;
+}
 
 .dashboard-header .navbar {
     padding: 0px;

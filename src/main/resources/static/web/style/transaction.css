@@ -80,6 +80,24 @@ html.load {
     color: #bf3131 !important;
 }
 
+.bx.bxs-file-doc{
+    position: absolute;
+    color: white;
+    right: 1rem;
+    top: .8rem;
+    font-size: 1.4rem;
+    background: #d2551c;
+    padding: 0.4rem;
+    border-radius: 50%;
+    transition: .3s;
+}
+.bx.bxs-file-doc:hover{
+    color: #d2551c;
+    background-color: white;
+    cursor: pointer;
+}
+
+
 .transferDiv {
     width: 35%;
     height: 34rem;
@@ -452,26 +470,26 @@ input::-webkit-inner-spin-button {
 .transferDivMobile{
 display: none;
 }
-.confirmBody{
+.confirmBody, .confirmBody2{
     width: 50%;
     height: 100%;
     background-color: #26272e;
     position: fixed;
-    top: 0;
+    top: 12px;
     left: -60%;
     z-index: 30;
     transition: 1.8s;
 }
-.confirmBody.active{
+.confirmBody.active, .confirmBody2.active{
     left: 0%;
 }
-.confirmBody img{
+.confirmBody img, .confirmBody2 img{
     width: 24rem;
     position: absolute;
     top: 20rem;
     left: 8rem;
 }
-.confirmBody > span{
+.confirmBody > span, .confirmBody2 > span{
 position: absolute;
 z-index: 40;
 left: 94%;
@@ -479,6 +497,34 @@ top: 9%;
 color: white;
 font-size: 2rem;
 cursor: pointer;
+}
+
+
+.accountOption{
+    background-color: #afafaf;
+    width: 8rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 13px;
+    transition: .3s;
+}
+
+.accountOption:hover,.accountOption.active{
+    background-color: rgb(234, 88, 25);
+    color: white;
+    cursor: pointer;
+}
+
+.confirmBody2 button{
+    padding: 0.5rem;
+    transition: .3s;
+    background-color: #afafaf;
+}
+.confirmBody2 button:hover{
+background-color: #e06a1b;
+color: white;
 }
 @keyframes openModal {
 
