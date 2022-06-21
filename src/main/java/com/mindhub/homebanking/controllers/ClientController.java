@@ -3,8 +3,6 @@ import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Notification;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.NotificationService;
@@ -228,7 +226,7 @@ public class ClientController {
 
         client.setToken(GenerateToken(64));
 
-        String verifyURL = "http://localhost:8080/web/recoverPassword.html?token=" + client.getToken();
+        String verifyURL = "https://bankrdox.herokuapp.com/web/recoverPassword.html?token=" + client.getToken();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -304,7 +302,7 @@ public class ClientController {
 
         content = content.replace("[[name]]", client.getFullName());
 
-        String verifyURL = "http://localhost:8080/web/activateClient.html?token=" + client.getToken();
+        String verifyURL = "https://bankrdox.herokuapp.com/web/activateClient.html?token=" + client.getToken();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -334,7 +332,7 @@ public class ClientController {
 
         content = content.replace("[[name]]", client.getFullName());
 
-        String verifyURL = "http://localhost:8080/web/activateClient.html?token=" + client.getToken();
+        String verifyURL = "https://bankrdox.herokuapp.com/web/activateClient.html?token=" + client.getToken();
 
         content = content.replace("[[URL]]", verifyURL);
 
