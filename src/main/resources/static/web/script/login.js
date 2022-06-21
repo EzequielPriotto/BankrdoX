@@ -12,6 +12,7 @@ Vue.createApp({
         registerEmail:"",
         registerPassword:"",
         registerUserName:"",
+        forgotEmail:"",
       }
   },
 
@@ -69,7 +70,17 @@ Vue.createApp({
      },
      redirect(){
       window.location.href= "http://localhost:8080/web/index.html"
-     }
+     },
+     activarForgot(){
+      let container = document.querySelector(".forgotDiv")
+      container.classList.toggle("active")
+
+
+     },
+     sendForgot(){
+       axios.post("/api/clients/changePassword/sendToken",`email=${this.forgotEmail}`)
+       .then(response=>console.log(response))
+     },
   },
 }).mount('#app')
 

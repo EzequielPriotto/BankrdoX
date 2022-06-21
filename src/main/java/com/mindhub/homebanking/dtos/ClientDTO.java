@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ClientDTO {
     private long id;
-    private String firstName, lastName, token, email;
+    private String firstName, lastName, email;
     private Set<AccountDTO> accounts = new HashSet<>();
     private Set<ClientLoanDTO> loans;
     private Set<CardDTO> cards;
@@ -31,7 +31,6 @@ public class ClientDTO {
         this.notifications = client.getNotifications().stream().map(notification-> new NotificationDTO(notification)).collect(Collectors.toSet());
         this.userName = client.getUserName();
         this.avatar = client.getAvatar();
-        this.token = client.getToken();
     }
 
 

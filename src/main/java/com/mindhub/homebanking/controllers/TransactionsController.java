@@ -325,9 +325,16 @@ public class TransactionsController {
             List<Transaction> transactionsResume = new ArrayList<>();
             List<Transaction> finalTransactionsResume = transactionsResume;
 
+
+
             client.getAccounts().forEach(account1 -> {
                 finalTransactionsResume.addAll(account1.getTransactions());
            });
+
+            if(finalTransactionsResume.size() < 1)
+                return new ResponseEntity<>("The client hasn't transactions", HttpStatus.FORBIDDEN);
+
+
             Comparator<Transaction> idComparatorTransaction = Comparator.comparing(Transaction::getId);
            transactionsResume = finalTransactionsResume.stream().sorted(idComparatorTransaction).filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
 
@@ -337,6 +344,10 @@ public class TransactionsController {
 
         else{
             List<Transaction> transactionsResume = account.getTransactions().stream().filter(transaction -> transaction.getDate().isAfter(resumeApplicationDTO.getDateFrom())  && transaction.getDate().isBefore(resumeApplicationDTO.getDateTo())).collect(Collectors.toList());
+
+            if(transactionsResume.size() < 1)
+                return new ResponseEntity<>("The client hasn't transactions", HttpStatus.FORBIDDEN);
+
             MakePDF(response, transactionsResume, dateTimeFormatter.format(resumeApplicationDTO.getDateFrom()), dateTimeFormatter.format(resumeApplicationDTO.getDateTo()));
         }
 

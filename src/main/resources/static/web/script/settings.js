@@ -77,11 +77,15 @@ Vue.createApp({
         },
 
         enviarMail() {
-            // Swal.fire(
-            //     'Mail send',
-            //     `Soon you will receive more news to the ${this.mailFooterInput} address`,
-            //     'success'
-            //   ).then(result => result.isConfirmed ? location.reload() : "")
+            Swal.fire(
+                'Mail send',
+                `Soon you will receive more news to the ${this.mailFooterInput} address`,
+                'success'
+            ).then(result => result.isConfirmed ? location.reload() : "")
+        },
+        signOut() {
+            axios.post('/api/logout')
+                .then(response => window.location.href = "http://localhost:8080/web/login.html")
         },
         getDateNotification(dateTrans) {
             const date = new Date(dateTrans)

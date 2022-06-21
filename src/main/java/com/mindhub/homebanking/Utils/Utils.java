@@ -24,6 +24,7 @@ public class Utils {
     private static List<String> numbersCreated = new ArrayList<>();
     private static List<String> numbersCardsCreated = new ArrayList<>();
     private static List<String> tokensCreated = new ArrayList<>();
+    private static List<String> codesCreated = new ArrayList<>();
 
     private static List<String> numbersCVUCreated = new ArrayList<>();
 
@@ -134,6 +135,22 @@ public class Utils {
 
         return token;
     }
+
+    public static String GenerateCode(int max, int min) {
+        int number;
+        String numberFinal = "";
+
+        do {
+            for (int i = 0; i < 6; i++) {
+                number = (int) ((Math.random() * (max - min)) + min);
+                numberFinal += number;
+            }
+        }
+        while (codesCreated.contains(numberFinal));
+        codesCreated.add(numberFinal);
+        return numberFinal;
+    }
+
 
     public static void DeleteToken(String tokenD) {
         tokensCreated = tokensCreated.stream().filter(token -> token != tokenD).collect(Collectors.toList());

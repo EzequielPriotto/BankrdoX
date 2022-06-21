@@ -84,7 +84,8 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="#" class="connection-item active"><i class='bx bx-group bx-md'></i>
+                                            <a href="./accounts.html" class="connection-item "><i
+                                                    class='bx bx-group bx-md'></i>
                                                 <span>Accounts</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
@@ -111,7 +112,7 @@
                                                 <span>Swap</span></a>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4 ">
-                                            <a href="./services.html" class="connection-item"><i
+                                            <a href="#" class="connection-item active"><i
                                                     class='bx bxs-store bx-md'></i></i>
                                                 <span>Services</span></a>
                                         </div>
@@ -136,7 +137,7 @@
                                 </div>
                                 <a class="dropdown-item" href="./settings.html"><i class="fas fa-user mr-2"></i>Account
                                 </a>
-                                <a class="dropdown-item logOut" @click="signOut" ><i
+                                <a class="dropdown-item logOut" @click="signOut"><i
                                         class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -146,8 +147,26 @@
         </div>
 
 
-        <div class="contenedorS ">
-           
+        <div class="contenedorS "> </div>
+        <div class="contenedor row g-0 m-0 p-0 d-flex flex-column align-items-center ">
+            <div class="container1">
+                <div class="red3"></div>
+                <div class="red1"></div>
+                <div class="red2"></div>
+                <div class="red4"></div>
+                <div class="red5"></div>
+                <div class="red6"></div>
+                <div class="red7"></div>
+            </div>
+
+            <div class="checkoutDiv">
+                <div class="banner"></div>
+                <h2></h2>
+                <form @submit.prevent="makePayment">
+                    
+                </form>
+            </div>
+        </div>
         </div>
         <footer class="footer-section">
             <div class="container">
