@@ -30,7 +30,7 @@ public class AccountServiceImplement implements AccountService {
 
     @Override
     public AccountDTO getAccountDtoById(long id) {
-        return new AccountDTO(accountRepository.getById(id));
+        return new AccountDTO(accountRepository.findById(id).orElse(null));
     }
 
     @Override
