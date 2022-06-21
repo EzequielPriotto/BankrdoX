@@ -10,7 +10,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBase = repuesta.data
                  this.cards= this.dataBase.cards.filter(card=> card.active)
@@ -34,10 +34,10 @@ Vue.createApp({
         },
         signOut() {
             axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "/web/login.html")
         },
         redireccionar() {
-            window.location.href = "http://localhost:8080/web/create-loan.html"
+            window.location.href = "/web/create-loan.html"
         },
         getDateNotification(dateTrans) {
             const date = new Date(dateTrans)

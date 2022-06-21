@@ -69,7 +69,7 @@ Vue.createApp({
       error2.classList.remove("active")
      },
      redirect(){
-      window.location.href= "http://localhost:8080/web/index.html"
+      window.location.href= "/web/index.html"
      },
      activarForgot(){
       let container = document.querySelector(".forgotDiv")

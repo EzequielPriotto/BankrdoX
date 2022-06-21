@@ -15,14 +15,14 @@ Vue.createApp({
     }
   },
   created() {
-    axios.get('http://localhost:8080/api/clients')
+    axios.get('/api/clients')
       .then(repuesta => {
         this.dataBase = repuesta.data;
       })
       .catch(error => {
         console.log(error);
       })
-    axios.get('http://localhost:8080/api/accounts')
+    axios.get('/api/accounts')
       .then(repuesta => {
         this.dataBaseAccount = repuesta.data;
       })
@@ -42,7 +42,7 @@ Vue.createApp({
           email: this.email
         }
 
-        axios.post('http://localhost:8080/rest/clients', userAux)
+        axios.post('/rest/clients', userAux)
           .then(repuesta => location.reload())
           .catch(error => console.log(error))
       }
@@ -72,7 +72,7 @@ Vue.createApp({
           userAux.email = emailInput
 
 
-          axios.patch(`http://localhost:8080/rest/clients/${user.id}`, userAux)
+          axios.patch(`/rest/clients/${user.id}`, userAux)
             .then(repuesta => location.reload())
             .catch(error => console.log(error))
         }
@@ -94,7 +94,7 @@ Vue.createApp({
           setTimeout(borrarAccounts, 10);
           setTimeout(borrarCliente, 10);
 
-          let url = `http://localhost:8080/rest/clients/` + user.id
+          let url = `/rest/clients/` + user.id
 
           function borrarCliente() {
             axios.delete(url)

@@ -27,7 +27,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBase = repuesta.data
                 this.accounts = this.dataBase.accounts.filter(account=> account.active).sort((x, y) => x.id - y.id)
@@ -81,7 +81,7 @@ Vue.createApp({
         },
         signOut() {
             axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "/web/login.html")
         },
         verifyTransfer() {
             axios.post("/api/clients/current/transactions/verify", `amount=${this.amount}&description=Transfer&accountSNumber=${this.accountSelectNumber}&accountRNumber=${this.accountDestiny}`)

@@ -30,11 +30,11 @@ const APP = Vue.createApp({
     },
 
     created() {
-            axios.get(`http://localhost:8080/api/loans`)
+            axios.get(`/api/loans`)
             .then(repuesta => {
                 this.loans = repuesta.data
             })
-            axios.get(`http://localhost:8080/api/clients/current/`)
+            axios.get(`/api/clients/current/`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
                 this.accounts = this.dataBaseUser.accounts.filter(account => account.accountType != "CRYPTO")
@@ -67,7 +67,7 @@ const APP = Vue.createApp({
         },
         signOut(){
             axios.post('/api/logout')
-            .then(response => window.location.href = "http://localhost:8080/web/login.html")
+            .then(response => window.location.href = "/web/login.html")
         },
         confirmarFirma(){
             if(!signaturePad.isEmpty() ){
@@ -89,7 +89,7 @@ const APP = Vue.createApp({
             }
             console.log(newLoan)
             axios.post('/api/clients/current/loans/',newLoan)
-                .then(response =>window.location.href="http://localhost:8080/web/loans.html")
+                .then(response =>window.location.href="/web/loans.html")
                 .catch(error => console.log(error))
         },
         selectTypeLoan(loan){

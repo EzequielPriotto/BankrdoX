@@ -22,7 +22,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBase = repuesta.data
                 this.cards = this.dataBase.cards;
@@ -49,7 +49,7 @@ Vue.createApp({
         },
         signOut() {
             axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "/web/login.html")
         },
         selectCrypto(account) {
             this.accountCrypto = account.number
@@ -91,7 +91,7 @@ Vue.createApp({
                 amount = this.inputUsd
               }
             axios.post("/api/clients/current/swap",`accountCryptoNumber=${this.accountCrypto}&accountDollarNumber=${this.accountUsd}&amount=${amount}&toFrom=${this.origin}`)
-            .then(response=> window.location.href="http://localhost:8080/web/transfers.html")
+            .then(response=> window.location.href="/web/transfers.html")
             .catch(error => {
                 this.errorAmountOrigin = false;
                 this.errorAmountDestiny = false;

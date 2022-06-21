@@ -17,7 +17,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
                 this.cards = repuesta.data.cards.sort((x, y) => x.id - y.id)
@@ -306,7 +306,7 @@ Vue.createApp({
         
         signOut() {
             axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "/web/login.html")
         },
         getDateNotification(dateTrans){
             const date = new Date(dateTrans)

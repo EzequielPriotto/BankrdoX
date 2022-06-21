@@ -16,7 +16,7 @@ Vue.createApp({
     },
 
     created() {
-            axios.get(`http://localhost:8080/api/clients/current`)
+            axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
                 this.cards = repuesta.data.cards.sort((x,y) => x.id - y.id)
@@ -49,7 +49,7 @@ Vue.createApp({
         },
         signOut(){
             axios.post('/api/logout')
-            .then(response => window.location.href = "http://localhost:8080/web/login.html")
+            .then(response => window.location.href = "/web/login.html")
         },
         guardarFirma(){
             if(!signaturePad.isEmpty()){
@@ -65,7 +65,7 @@ Vue.createApp({
            if(!signaturePad.isEmpty()){
             axios.post('/api/clients/current/cards/',`cardColor=${this.formulario.levelCard}&cardType=${this.formulario.typeCard}`,{
                 headers:{'content-type':'application/x-www-form-urlencoded'}})
-                .then(response => window.location.href = "http://localhost:8080/web/cards.html")
+                .then(response => window.location.href = "/web/cards.html")
            }
            else{
             alert("Missing signature")

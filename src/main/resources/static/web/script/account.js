@@ -27,7 +27,7 @@ Vue.createApp({
         });
         this.idURL = params.id;
 
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`/api/clients/current`)
             .then(repuesta => {
                 this.dataBaseUser = repuesta.data
                 console.log(this.dataBaseUser)
@@ -69,7 +69,7 @@ Vue.createApp({
         },
         signOut() {
             axios.post('/api/logout')
-                .then(response => window.location.href = "http://localhost:8080/web/login.html")
+                .then(response => window.location.href = "/web/login.html")
         },
         sendTransfer() {
             axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)

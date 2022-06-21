@@ -318,7 +318,7 @@ Vue.createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.post('/api/logout')
-                        .then(response => window.location.href = "http://localhost:8080/web/index.html")
+                        .then(response => window.location.href = "/web/index.html")
                 }
             })
 
@@ -344,7 +344,7 @@ Vue.createApp({
 
             this.accountsArray.forEach(account => {
                 if (account.number === accountNumber) {
-                    window.location.href = `http://localhost:8080/web/account.html?id=${account.id}`
+                    window.location.href = `/web/account.html?id=${account.id}`
                 }
             })
             setTimeout(()=> Swal.fire(
@@ -355,7 +355,7 @@ Vue.createApp({
 
         },
         addAccount() {
-            axios.post("http://localhost:8080/api/clients/current/accounts/", `accountType=${this.accountTypeCreate}`)
+            axios.post("/api/clients/current/accounts/", `accountType=${this.accountTypeCreate}`)
                 .then(
                     window.location.reload()
                 )

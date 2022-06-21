@@ -27,7 +27,7 @@ Vue.createApp({
   
     methods: {
         login(){
-        window.location.href = "http://localhost:8080/web/login.html"
+        window.location.href = "/web/login.html"
        },
     
     },
