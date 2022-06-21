@@ -351,7 +351,7 @@ Vue.createApp({
                 'Oh wow!',
                 'You are trying to access a disabled account.!',
                 'warning'
-            ), 100)
+            ), 500)
 
         },
         addAccount() {
