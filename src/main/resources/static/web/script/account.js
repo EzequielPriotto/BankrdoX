@@ -72,7 +72,7 @@ Vue.createApp({
                 .then(response => window.location.href = "/web/login.html")
         },
         sendTransfer() {
-            axios.post("/api/clients/current/transactions", `amount=${this.amount}&description=Transfer&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
+            axios.post("/api/clients/current/transactions", `amount=${this.amount}&category=Transfer&description=Transfer from ${this.dataBase.number} to ${this.number}&accountSNumber=${this.dataBase.number}&accountRNumber=${this.number}`)
                 .then(response => console.log(response))
                 .catch(error => {
                     this.errorAmount = false;
