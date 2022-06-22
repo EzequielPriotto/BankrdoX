@@ -19,11 +19,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/clients","/api/activateAccount/**","/api/transactions/makePayment","/api/clients/changePassword/sendToken").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients","/api/activateAccount/**","/api/transactions/makePayment","/api/clients/changePassword/sendToken","api/verifyToken/**").permitAll()
+                .antMatchers(HttpMethod.PATCH,"/api/clients/changePassword").permitAll()
                 .antMatchers("/web/index.html", "/web/login.html","/web/401.html","/web/403.html", "/web/style/**",
                         "/web/script/**",  "/web/assets/**", "/web/activateClient.html","/web/recoverPassword.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/transactions/resume").hasAnyAuthority("CLIENT", "ADMIN")
-                .antMatchers(HttpMethod.GET,"/api/loans").hasAnyAuthority("CLIENT", "ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/loans").hasAnyAuthority("CLIENT")
                 .antMatchers("/api/clients/current/**").hasAnyAuthority("CLIENT", "ADMIN")
                 .antMatchers("/rest/**", "/h2-console", "/api/**").hasAuthority("ADMIN")
                 .antMatchers("/**").hasAnyAuthority("CLIENT", "ADMIN");

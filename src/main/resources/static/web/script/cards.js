@@ -346,8 +346,8 @@ Vue.createApp({
         changeCreditOrDebit(){
            
 
-
           if(this.isCredit){
+            if( this.creditArray.length >= 1){
             let firstCardF = document.querySelector("#id0").firstChild;
             let firstCardB = document.querySelector("#id0").lastChild;
 
@@ -377,10 +377,12 @@ Vue.createApp({
                 thirdCardB.style.left = "24.2%";
             }
 
+           }
             this.isCredit = !this.isCredit
           }
           else{
-            
+            if(this.debitArray.length >= 1){
+                
             let firstCardF = document.querySelector("#id010").firstChild;
             let firstCardB = document.querySelector("#id010").lastChild;
 
@@ -414,6 +416,7 @@ Vue.createApp({
                 thirdCardB.style.left = "24.2%";
             }
 
+            }
             this.isCredit = !this.isCredit
           }
 
