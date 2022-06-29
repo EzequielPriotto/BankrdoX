@@ -253,7 +253,7 @@ public class TransactionsController {
         if (card.getCvv() != cardApplicationDTO.getCvv())
             return new ResponseEntity<>("cvv no valid", HttpStatus.FORBIDDEN);
         if (card.getThruDate().getMonth().toString() + "/" + card.getThruDate().getYear() != cardApplicationDTO.getExpiry())
-            return new ResponseEntity<>("date no valid: " + card.getThruDate().getMonth().toString(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("date no valid: " + card.getThruDate().getMonth().toString() + "/" + card.getThruDate().getYear(), HttpStatus.FORBIDDEN);
 
 
         if (card.getCardType() == CardType.DEBIT) {
