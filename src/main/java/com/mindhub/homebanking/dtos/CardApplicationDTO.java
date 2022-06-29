@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class CardApplicationDTO {
-    private String number,cardHolder, category, description;
+    private String number,cardHolder, category, description,expiry;
     private int cvv;
     private double amount;
 

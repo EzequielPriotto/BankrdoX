@@ -40,22 +40,26 @@ public class HomebankingApplication {
 			Client cliente1 =  new Client("Melba", "Morel", "melba@mindhub.com",passwordEnconder.encode("bokaShoTeAmo"),"Melbita");
 			Client cliente2 = new Client("Edu", "Mendoza", "eduMendo@mindhub.com",passwordEnconder.encode("robert123"),"ElEdu");
 			Client clienteAdmin = new Client("Ezequiel", "Priotto", "Eze_admin@bank.com",passwordEnconder.encode("admin123"), "Zeke");
-
+			Client clientePsycho = new Client("Pysho", "Team", "psycho_admin@bank.com",passwordEnconder.encode("admin123"), "Psycho");
 			cliente1.setEnabled(true);
 			cliente2.setEnabled(true);
 			clienteAdmin.setEnabled(true);
+			clientePsycho.setEnabled(true);
 
 			clientRepository.save(cliente1);
 			clientRepository.save(cliente2);
 			clientRepository.save(clienteAdmin);
+			clientRepository.save(clientePsycho);
 
 			Account cuenta1 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now(),4900.00, GenerateRandomNumberCVU(), AccountType.DOLAR);
 			Account cuenta2 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(1),7390.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
 			Account cuenta3 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(5),1489.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
+			Account cuenta4 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().minusDays(5),999999 * 999999 , GenerateRandomNumberCVU(), AccountType.DOLAR );
 
 			cliente1.addAccount(cuenta1);
 			cliente1.addAccount(cuenta2);
 			cliente1.addAccount(cuenta3);
+			clientePsycho.addAccount(cuenta4);
 
 			Account cuenta5 = new Account("VIN-" + GenerateRandomNumber(9, 0), LocalDateTime.now().plusDays(2),1640.00, GenerateRandomNumberCVU(), AccountType.DOLAR );
 			cliente2.addAccount(cuenta5);
@@ -129,17 +133,21 @@ public class HomebankingApplication {
 			card3.setExpense(51000);
 			Card card4 = new Card(cliente1,CardType.CREDIT, CardColor.GOLD,  GenerateRandomNumberCard(10, 0,CardType.CREDIT),540,LocalDateTime.now(),LocalDateTime.now().plusYears(5), 100000);
 			card4.setExpense(90000);
+			Card card5 = new Card(clientePsycho,CardType.DEBIT, CardColor.SILVER, "1234123412341234" ,123,LocalDateTime.now(),LocalDateTime.now().plusYears(5), 500000);
 
 			cliente1.addCard(card1);
 			cliente1.addCard(card2);
 			cliente1.addCard(card3);
 			cliente1.addCard(card4);
+			clientePsycho.addCard(card5);
 
 			cardRepository.save(card1);
 			cardRepository.save(card2);
 			cardRepository.save(card3);
 			cardRepository.save(card4);
+			cardRepository.save(card5);
 
+			clientRepository.save(clientePsycho);
 
 			System.out.println("PROGRAMA INICIADO :D");
 		};
